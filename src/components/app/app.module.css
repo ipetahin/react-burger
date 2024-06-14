@@ -5,3 +5,11 @@
   background-color: var(--background-alt);
   color: var(--text-primary-light);
 }
+
+.main {
+  display: flex;
+  gap: 40px;
+  width: 1280px;
+  max-height: calc(100vh - 88px);
+  margin: 0 auto;
+}

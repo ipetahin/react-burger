@@ -1,0 +1,18 @@
+.ingredients {
+  overflow: hidden;
+}
+
+.groups {
+  max-height: 90%;
+  overflow-y: scroll;
+}
+.groups::-webkit-scrollbar {
+  width: 8px;
+}
+.groups::-webkit-scrollbar-track {
+  background: var(--background-element);
+  margin-bottom: 156px;
+}
+.groups::-webkit-scrollbar-thumb {
+  background-color: var(--text-inactive-color);
+}
