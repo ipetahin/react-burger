@@ -2,8 +2,9 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 
 import IngredientsGroup from './ingredients-group/ingredients-group';
+import { ingredientsPropType } from '../../utils/prop-types';
 
-const BurgerIngredients = ({ ingredients = [] }) => {
+const BurgerIngredients = ({ ingredients }) => {
   return (
     <div className={`${styles.ingredients} pt-10 mb-10`}>
       <h1 className='text text_type_main-large mb-5'>Соберите бургер</h1>
@@ -19,6 +20,10 @@ const BurgerIngredients = ({ ingredients = [] }) => {
       </div>
     </div>
   );
+};
+
+BurgerIngredients.propTypes = {
+  ingredients: ingredientsPropType,
 };
 
 export default BurgerIngredients;
