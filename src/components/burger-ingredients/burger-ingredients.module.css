@@ -2,6 +2,10 @@
   overflow: hidden;
 }
 
+.tabs {
+  display: flex;
+}
+
 .groups {
   max-height: 90%;
   overflow-y: scroll;
