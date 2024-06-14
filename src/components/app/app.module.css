@@ -9,7 +9,7 @@
 .main {
   display: flex;
   gap: 40px;
-  width: 1280px;
+  min-width: 1280px;
   max-height: calc(100vh - 88px);
   margin: 0 auto;
 }
