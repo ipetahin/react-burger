@@ -1,0 +1,32 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  height: 464px;
+  gap: 16px;
+  overflow-y: auto;
+}
+.list::-webkit-scrollbar {
+  width: 8px;
+}
+.list::-webkit-scrollbar-track {
+  background: var(--background-element);
+}
+.list::-webkit-scrollbar-thumb {
+  background-color: var(--text-inactive-color);
+}
+
+.item {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fix_item {
+  margin-left: 32px;
+}
+.fix_item:first-child {
+  margin-bottom: 16px;
+}
+.fix_item:last-child {
+  margin-top: 16px;
+}
