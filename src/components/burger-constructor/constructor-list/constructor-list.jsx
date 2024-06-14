@@ -3,7 +3,7 @@ import ConstructorItem from '../constructor-item/constructor-item';
 
 const ConstructorList = ({ ingredients }) => {
   return (
-    <section>
+    <section className='mb-10'>
       <ConstructorItem key={`${ingredients[0]._id}-1`} ingredient={ingredients[0]} type='top' extraClass={styles.fix_item} />
       <ul className={`${styles.list}`}>
         <li className={styles.item}>

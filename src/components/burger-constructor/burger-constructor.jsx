@@ -5,7 +5,7 @@ import { ingredientsPropType } from '../../utils/prop-types';
 
 const BurgerConstructor = ({ ingredients }) => {
   return (
-    <article className={`${styles.container} pt-25 mb-10 pl-4`}>
+    <article className={`pt-25 pb-10 pl-4`}>
       <ConstructorList ingredients={ingredients} />
       <div className={styles.order}>
         <span className={`${styles.total} text text_type_digits-medium`}>

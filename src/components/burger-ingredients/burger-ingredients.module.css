@@ -1,14 +1,12 @@
-.ingredients {
-  overflow: hidden;
-}
-
 .tabs {
   display: flex;
 }
 
 .groups {
-  max-height: 90%;
-  overflow-y: scroll;
+  height: calc(100vh - 324px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-inactive-color) var(--background-element);
 }
 .groups::-webkit-scrollbar {
   width: 8px;
