@@ -5,9 +5,9 @@ import NavList from './nav-list/nav-list';
 const AppHeader = () => {
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>
+      <span className={styles.logo}>
         <Logo />
-      </div>
+      </span>
       <NavList />
     </header>
   );

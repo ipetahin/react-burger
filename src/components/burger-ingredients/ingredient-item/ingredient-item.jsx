@@ -6,10 +6,10 @@ const IngredientItem = ({ name, image, price, counter = null }) => {
     <li className={styles.ingredient}>
       {counter && <Counter count={counter} size='default' extraClass={styles.counter} />}
       <img src={image} alt={name} className='ml-4 mr-4' />
-      <div className={styles.price}>
-        <span className='text text_type_digits-default'>{price}</span>
+      <span className={`${styles.price} text text_type_digits-default`}>
+        {price}
         <CurrencyIcon type='primary' />
-      </div>
+      </span>
       <span>{name}</span>
     </li>
   );
