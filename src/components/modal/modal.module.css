@@ -1,0 +1,24 @@
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 720px;
+  height: 718px;
+  border-radius: 40px;
+  background-color: var(--background);
+}
+.modal.modal_ingredient {
+  padding: 40px 40px 60px;
+}
+
+.header {
+  line-height: 64px;
+}
+
+.close {
+  position: absolute;
+  top: 60px;
+  right: 40px;
+  cursor: pointer;
+}
