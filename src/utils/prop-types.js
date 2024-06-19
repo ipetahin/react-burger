@@ -16,3 +16,37 @@ export const ingredientPropType = PropTypes.shape({
 });
 
 export const ingredientsPropType = PropTypes.arrayOf(ingredientPropType);
+
+export const modalPropType = {
+  type: PropTypes.string,
+  closeModal: PropTypes.func,
+  children: PropTypes.element,
+};
+
+export const modalOverlayPropType = {
+  onClick: PropTypes.func,
+};
+
+export const ingredientItemPropType = {
+  ingredient: ingredientPropType,
+  counter: PropTypes.number,
+};
+
+export const ingredientGroupPropType = {
+  ingredients: ingredientsPropType,
+  name: PropTypes.string,
+  type: PropTypes.string,
+};
+
+export const constructorItemPropType = {
+  ingredient: ingredientPropType,
+  type: PropTypes.string,
+  extraClass: PropTypes.string,
+};
+
+export const navItemPropType = {
+  iconType: PropTypes.string,
+  text: PropTypes.string,
+  link: PropTypes.string,
+  active: PropTypes.bool,
+};

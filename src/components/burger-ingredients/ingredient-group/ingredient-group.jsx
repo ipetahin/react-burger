@@ -1,7 +1,8 @@
 import styles from './ingredient-group.module.css';
 import IngredientItem from '../ingredient-item/ingredient-item';
+import { ingredientGroupPropType } from '../../../utils/prop-types';
 
-const IngredientGroup = ({ ingredients = [], name, type }) => {
+const IngredientGroup = ({ ingredients, name, type }) => {
   return (
     <section>
       <h2 className='text text_type_main-medium'>{name}</h2>
@@ -14,6 +15,10 @@ const IngredientGroup = ({ ingredients = [], name, type }) => {
       </ul>
     </section>
   );
+};
+
+IngredientGroup.propTypes = {
+  ...ingredientGroupPropType,
 };
 
 export default IngredientGroup;

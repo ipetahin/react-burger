@@ -1,9 +1,10 @@
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './modal.module.css';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import { useEffect } from 'react';
+import { modalPropType } from '../../utils/prop-types';
 
 const modalRoot = document.getElementById('modals');
 
@@ -14,7 +15,7 @@ const Modal = ({ type, closeModal, children }) => {
     return () => {
       document.removeEventListener('keydown', handleKeyEscCloseModal);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClickCloseModal = () => {
@@ -44,6 +45,10 @@ const Modal = ({ type, closeModal, children }) => {
     </>,
     modalRoot
   );
+};
+
+Modal.propTypes = {
+  ...modalPropType,
 };
 
 export default Modal;

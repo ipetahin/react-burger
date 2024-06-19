@@ -1,5 +1,6 @@
 import styles from './constructor-list.module.css';
 import ConstructorItem from '../constructor-item/constructor-item';
+import { ingredientsPropType } from '../../../utils/prop-types';
 
 const ConstructorList = ({ ingredients }) => {
   return (
@@ -31,6 +32,10 @@ const ConstructorList = ({ ingredients }) => {
       <ConstructorItem key={`${ingredients[0]._id}-2`} ingredient={ingredients[0]} type='bottom' extraClass={styles.fix_item} />
     </section>
   );
+};
+
+ConstructorList.propTypes = {
+  ingredients: ingredientsPropType,
 };
 
 export default ConstructorList;

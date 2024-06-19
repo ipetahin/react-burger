@@ -1,5 +1,6 @@
 import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './nav-item.module.css';
+import { navItemPropType } from '../../../utils/prop-types';
 
 const NavItem = ({ iconType, text, link = '/', active }) => {
   let icon;
@@ -26,6 +27,10 @@ const NavItem = ({ iconType, text, link = '/', active }) => {
       </a>
     </li>
   );
+};
+
+NavItem.propTypes = {
+  ...navItemPropType,
 };
 
 export default NavItem;

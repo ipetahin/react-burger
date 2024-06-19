@@ -4,6 +4,7 @@ import styles from './ingredient-item.module.css';
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
 import useShowModal from '../../../hooks/use-show-modal';
+import { ingredientItemPropType } from '../../../utils/prop-types';
 
 const IngredientItem = ({ ingredient, counter = null }) => {
   const { isShowModal, openModal, closeModal } = useShowModal(false);
@@ -28,6 +29,10 @@ const IngredientItem = ({ ingredient, counter = null }) => {
       )}
     </>
   );
+};
+
+IngredientItem.propTypes = {
+  ...ingredientItemPropType,
 };
 
 export default IngredientItem;

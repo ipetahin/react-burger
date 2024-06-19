@@ -1,6 +1,7 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './constructor-item.module.css';
+import { constructorItemPropType } from '../../../utils/prop-types';
 
 const ConstructorItem = ({ ingredient, type = undefined, extraClass }) => {
   return (
@@ -16,6 +17,10 @@ const ConstructorItem = ({ ingredient, type = undefined, extraClass }) => {
       />
     </div>
   );
+};
+
+ConstructorItem.propTypes = {
+  ...constructorItemPropType,
 };
 
 export default ConstructorItem;
