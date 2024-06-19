@@ -7,9 +7,6 @@
   border-radius: 40px;
   background-color: var(--background);
 }
-.modal.modal_ingredient {
-  padding: 40px 40px 60px;
-}
 
 .header {
   line-height: 64px;
