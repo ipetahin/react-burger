@@ -1,0 +1,18 @@
+.ingredient {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.nutrition {
+  display: flex;
+  gap: 20px;
+  margin-top: 32px;
+}
+.nutrition_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-inactive-color);
+  min-height: 56px;
+}
