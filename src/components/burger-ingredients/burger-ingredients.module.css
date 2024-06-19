@@ -1,0 +1,20 @@
+.tabs {
+  display: flex;
+}
+
+.groups {
+  height: calc(100vh - 324px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-inactive-color) var(--background-element);
+}
+.groups::-webkit-scrollbar {
+  width: 8px;
+}
+.groups::-webkit-scrollbar-track {
+  background: var(--background-element);
+  margin-bottom: 156px;
+}
+.groups::-webkit-scrollbar-thumb {
+  background-color: var(--text-inactive-color);
+}
