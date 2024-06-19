@@ -1,7 +1,7 @@
 .list {
   display: flex;
   flex-direction: column;
-  height: 464px;
+  max-height: 464px;
   gap: 16px;
   overflow-y: auto;
   scrollbar-width: thin;
