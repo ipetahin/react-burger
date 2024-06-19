@@ -3,8 +3,6 @@ import styles from './ingredient-details.module.css';
 const IngredientDetails = ({ ingredient }) => {
   const { image_large, name, calories, proteins, fat, carbohydrates } = ingredient;
 
-  console.log(ingredient);
-
   return (
     <div className={styles.ingredient}>
       <img src={image_large} alt={name} />
