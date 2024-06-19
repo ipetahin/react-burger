@@ -2,19 +2,11 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import styles from './ingredient-item.module.css';
 
 import Modal from '../../modal/modal';
-import { useState } from 'react';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
+import useShowModal from '../../../hooks/use-show-modal';
 
 const IngredientItem = ({ ingredient, counter = null }) => {
-  const [showModal, setShowModal] = useState(false);
-
-  const openModal = () => {
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  const { isShowModal, openModal, closeModal } = useShowModal(false);
 
   const { name, image, price } = ingredient;
 
@@ -29,7 +21,7 @@ const IngredientItem = ({ ingredient, counter = null }) => {
         </span>
         <span>{name}</span>
       </li>
-      {showModal && (
+      {isShowModal && (
         <Modal type='ingredient' closeModal={closeModal}>
           <IngredientDetails ingredient={ingredient} />
         </Modal>
