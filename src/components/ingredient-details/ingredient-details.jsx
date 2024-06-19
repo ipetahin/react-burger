@@ -9,20 +9,20 @@ const IngredientDetails = ({ ingredient }) => {
       <span className='text text_type_main-medium mt-4'>{name}</span>
       <div className={styles.nutrition}>
         <div className={styles.nutrition_item}>
-          <span className='text text_type_main-default'>Калории, ккал</span>
-          <span className='text text_type_digits-default'>{calories}</span>
+          <span className='text text_type_main-default text_color_inactive'>Калории, ккал</span>
+          <span className='text text_type_digits-default text_color_inactive'>{calories}</span>
         </div>
         <div className={styles.nutrition_item}>
-          <span className='text text_type_main-default'>Белки, г</span>
-          <span className='text text_type_digits-default'>{proteins}</span>
+          <span className='text text_type_main-default text_color_inactive'>Белки, г</span>
+          <span className='text text_type_digits-default text_color_inactive'>{proteins}</span>
         </div>
         <div className={styles.nutrition_item}>
-          <span className='text text_type_main-default'>Жиры, г</span>
-          <span className='text text_type_digits-default'>{fat}</span>
+          <span className='text text_type_main-default text_color_inactive'>Жиры, г</span>
+          <span className='text text_type_digits-default text_color_inactive'>{fat}</span>
         </div>
         <div className={styles.nutrition_item}>
-          <span className='text text_type_main-default'>Углеводы, г</span>
-          <span className='text text_type_digits-default'>{carbohydrates}</span>
+          <span className='text text_type_main-default text_color_inactive'>Углеводы, г</span>
+          <span className='text text_type_digits-default text_color_inactive'>{carbohydrates}</span>
         </div>
       </div>
     </div>

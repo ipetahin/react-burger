@@ -14,6 +14,5 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  color: var(--text-inactive-color);
   min-height: 56px;
 }
