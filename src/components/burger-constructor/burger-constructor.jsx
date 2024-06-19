@@ -22,7 +22,7 @@ const BurgerConstructor = ({ ingredients }) => {
         </Button>
       </div>
       {isShowModal && (
-        <Modal type='order' closeModal={closeModal}>
+        <Modal closeModal={closeModal}>
           <OrderDetails />
         </Modal>
       )}

@@ -23,7 +23,7 @@ const IngredientItem = ({ ingredient, counter = null }) => {
         <span>{name}</span>
       </li>
       {isShowModal && (
-        <Modal type='ingredient' closeModal={closeModal}>
+        <Modal text='Детали ингредиента' closeModal={closeModal}>
           <IngredientDetails ingredient={ingredient} />
         </Modal>
       )}

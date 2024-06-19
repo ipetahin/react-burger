@@ -18,7 +18,7 @@ export const ingredientPropType = PropTypes.shape({
 export const ingredientsPropType = PropTypes.arrayOf(ingredientPropType);
 
 export const modalPropType = {
-  type: PropTypes.string,
+  text: PropTypes.string,
   closeModal: PropTypes.func,
   children: PropTypes.element,
 };

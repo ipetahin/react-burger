@@ -8,7 +8,7 @@ import { modalPropType } from '../../utils/prop-types';
 
 const modalRoot = document.getElementById('modals');
 
-const Modal = ({ type, closeModal, children }) => {
+const Modal = ({ text, closeModal, children }) => {
   useEffect(() => {
     document.addEventListener('keydown', handleKeyEscCloseModal);
 
@@ -28,20 +28,16 @@ const Modal = ({ type, closeModal, children }) => {
     }
   };
 
-  const modalView = (
-    <div className={styles.modal}>
-      {type === 'ingredient' && <h2 className={`${styles.header} mt-10 ml-10 mr-10 text text_type_main-large`}>Детали ингредиента</h2>}
-      <span className={styles.close} onClick={handleClickCloseModal}>
-        <CloseIcon />
-      </span>
-      {children}
-    </div>
-  );
-
   return createPortal(
     <>
       <ModalOverlay onClick={handleClickCloseModal} />
-      {modalView}
+      <div className={styles.modal}>
+        {text && <h2 className={`${styles.header} mt-10 ml-10 mr-10 text text_type_main-large`}>{text}</h2>}
+        <span className={styles.close} onClick={handleClickCloseModal}>
+          <CloseIcon type='primary' />
+        </span>
+        {children}
+      </div>
     </>,
     modalRoot
   );
