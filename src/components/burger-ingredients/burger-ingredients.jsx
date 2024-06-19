@@ -1,7 +1,7 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 
-import IngredientsGroup from './ingredients-group/ingredients-group';
+import IngredientGroup from './ingredient-group/ingredient-group';
 import { ingredientsPropType } from '../../utils/prop-types';
 
 const BurgerIngredients = ({ ingredients }) => {
@@ -14,9 +14,9 @@ const BurgerIngredients = ({ ingredients }) => {
         <Tab key='mainTab'>Начинки</Tab>
       </div>
       <div className={`${styles.groups}`}>
-        <IngredientsGroup key='bunGroup' ingredients={ingredients} name='Булки' type='bun' />
-        <IngredientsGroup key='sauceGroup' ingredients={ingredients} name='Соусы' type='sauce' />
-        <IngredientsGroup key='mainGroup' ingredients={ingredients} name='Начинки' type='main' />
+        <IngredientGroup key='bunGroup' ingredients={ingredients} name='Булки' type='bun' />
+        <IngredientGroup key='sauceGroup' ingredients={ingredients} name='Соусы' type='sauce' />
+        <IngredientGroup key='mainGroup' ingredients={ingredients} name='Начинки' type='main' />
       </div>
     </article>
   );
