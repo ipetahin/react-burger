@@ -17,6 +17,7 @@ function App() {
         .catch(() => setIngredients({ ...ingredients, isLoading: false, isError: true }));
     };
     getIngredientData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

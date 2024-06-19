@@ -8,7 +8,7 @@ const ConstructorItem = ({ ingredient, type = undefined, extraClass }) => {
     <div className={`${styles.item} ${extraClass}`}>
       {ingredient.type !== 'bun' && <DragIcon type='primary' />}
       <ConstructorElement
-        text={`${ingredient.name}${type === 'top' ? ' (верх)' : type === 'bottom' ? ' (низ)' : ''}`} // TODO: refactor somehow text type
+        text={`${ingredient.name}${type === 'top' ? ' (верх)' : type === 'bottom' ? ' (низ)' : ''}`}
         price={ingredient.price}
         thumbnail={ingredient.image_mobile}
         type={type}
