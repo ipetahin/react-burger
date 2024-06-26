@@ -10,9 +10,9 @@ const burgerConstructorSlice = createSlice({
     add: (state, action) => {
       switch (action.payload.type) {
         case 'bun':
-          return state = { ...state, bun: action.payload.ingredient };
+          return state = { ...state, bun: action.payload };
         default:
-          return state = { ...state, ingredients: [...state.ingredients, {...action.payload.ingredient, id: nanoid()}] };
+          return state = { ...state, ingredients: [...state.ingredients, {...action.payload, id: nanoid()}] };
       }
     },
   },
