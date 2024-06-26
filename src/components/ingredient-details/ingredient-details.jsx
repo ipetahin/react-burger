@@ -3,42 +3,42 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ingredientPropType } from '../../utils/prop-types';
 import styles from './ingredient-details.module.css';
-import { set, reset } from '../../services/slices/ingredient-details-slice';
+import { reset } from '../../services/slices/ingredient-details-slice';
 
-const IngredientDetails = ({ ingredient }) => {
-  const data = useSelector((store) => store.ingredientDetails.data);
+const IngredientDetails = () => {
+  const { name, image_large, calories, proteins, fat, carbohydrates } = useSelector((store) => store.ingredientDetails.data);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(set(ingredient));
     return () => {
       dispatch(reset());
     };
-  }, [ingredient, dispatch]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={styles.ingredient}>
-      {data && (
+      {name && (
         <>
-          <img src={data.image_large} alt={data.name} />
-          <span className='text text_type_main-medium mt-4'>{data.name}</span>
+          <img src={image_large} alt={name} />
+          <span className='text text_type_main-medium mt-4'>{name}</span>
           <div className={styles.nutrition}>
             <div className={styles.nutrition_item}>
               <span className='text text_type_main-default text_color_inactive'>Калории, ккал</span>
-              <span className='text text_type_digits-default text_color_inactive'>{data.calories}</span>
+              <span className='text text_type_digits-default text_color_inactive'>{calories}</span>
             </div>
             <div className={styles.nutrition_item}>
               <span className='text text_type_main-default text_color_inactive'>Белки, г</span>
-              <span className='text text_type_digits-default text_color_inactive'>{data.proteins}</span>
+              <span className='text text_type_digits-default text_color_inactive'>{proteins}</span>
             </div>
             <div className={styles.nutrition_item}>
               <span className='text text_type_main-default text_color_inactive'>Жиры, г</span>
-              <span className='text text_type_digits-default text_color_inactive'>{data.fat}</span>
+              <span className='text text_type_digits-default text_color_inactive'>{fat}</span>
             </div>
             <div className={styles.nutrition_item}>
               <span className='text text_type_main-default text_color_inactive'>Углеводы, г</span>
-              <span className='text text_type_digits-default text_color_inactive'>{data.carbohydrates}</span>
+              <span className='text text_type_digits-default text_color_inactive'>{carbohydrates}</span>
             </div>
           </div>
         </>
