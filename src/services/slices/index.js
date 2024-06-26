@@ -1,13 +1,14 @@
 import { combineSlices, configureStore } from '@reduxjs/toolkit';
 
 import burgerIngredientsSlice from './burger-ingredients-slice';
+import burgerConstructorSlice from './burger-сonstructor-slice';
 import ingredientDetailsSlice from './ingredient-details-slice';
 
-const rootReducer = combineSlices(burgerIngredientsSlice, ingredientDetailsSlice);
+const rootReducer = combineSlices(burgerIngredientsSlice, burgerConstructorSlice, ingredientDetailsSlice);
 
 const preloadedState = {
   burgerIngredients: { data: null, isLoading: false, isError: false },
-  // burgerConstructor: { bun: null, ingredients: [] },
+  burgerConstructor: { bun: null, ingredients: [] },
   ingredientDetails: { data: null },
   // orderDetails: { data: null, isLoading: false, isError: false },
 };
