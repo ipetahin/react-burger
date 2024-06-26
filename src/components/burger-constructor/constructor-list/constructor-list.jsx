@@ -1,12 +1,10 @@
-import { useSelector } from 'react-redux';
 import styles from './constructor-list.module.css';
 import ConstructorItem from '../constructor-item/constructor-item';
 import ConstructorItemSkeleton from '../constructor-item-skeleton/constructor-item-skeleton';
 import { ingredientsPropType } from '../../../utils/prop-types';
 
 
-const ConstructorList = () => {
-  const { bun, ingredients } = useSelector((store) => store.burgerConstructor);
+const ConstructorList = ({bun, ingredients}) => {
 
   return (
     <section className='mb-10'>
