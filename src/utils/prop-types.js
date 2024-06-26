@@ -40,7 +40,13 @@ export const ingredientGroupPropType = {
 
 export const constructorItemPropType = {
   ingredient: ingredientPropType,
-  type: PropTypes.string,
+  position: PropTypes.string,
+  extraClass: PropTypes.string,
+};
+
+export const constructorItemSkeletonPropType = {
+  text: PropTypes.string.isRequired,
+  position: PropTypes.string,
   extraClass: PropTypes.string,
 };
 
