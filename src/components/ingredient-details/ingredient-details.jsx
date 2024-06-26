@@ -6,7 +6,7 @@ import styles from './ingredient-details.module.css';
 import { set, reset } from '../../services/slices/ingredient-details-slice';
 
 const IngredientDetails = ({ ingredient }) => {
-  const data = useSelector((store) => store.details.data);
+  const data = useSelector((store) => store.ingredientDetails.data);
 
   const dispatch = useDispatch();
 

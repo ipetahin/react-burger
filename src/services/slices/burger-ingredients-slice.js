@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = { data: null, isLoading: false, isError: false };
 
 const burgerIngredientsSlice = createSlice({
-  name: 'ingredients',
+  name: 'burgerIngredients',
   initialState,
   reducers: {
     request: (state) => (state = { ...state, isLoading: true, isError: false }),

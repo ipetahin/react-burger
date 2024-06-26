@@ -10,7 +10,7 @@ import IngredientGroup from './ingredient-group/ingredient-group';
 import fetchApi from '../../utils/fetch-api';
 
 const BurgerIngredients = () => {
-  const { isLoading, isError, data } = useSelector((state) => state.ingredients);
+  const { isLoading, isError, data } = useSelector((state) => state.burgerIngredients);
   const dispatch = useDispatch();
 
   useEffect(() => {
