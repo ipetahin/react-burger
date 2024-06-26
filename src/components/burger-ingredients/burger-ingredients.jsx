@@ -7,7 +7,6 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 
 import IngredientGroup from './ingredient-group/ingredient-group';
-import { ingredientsPropType } from '../../utils/prop-types';
 import fetchApi from '../../utils/fetch-api';
 
 const BurgerIngredients = () => {
@@ -22,8 +21,6 @@ const BurgerIngredients = () => {
       .catch(() => dispatch(failure()));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(data)
 
   return (
     <>
@@ -50,10 +47,6 @@ const BurgerIngredients = () => {
       )}
     </>
   );
-};
-
-BurgerIngredients.propTypes = {
-  ingredients: ingredientsPropType,
 };
 
 export default BurgerIngredients;
