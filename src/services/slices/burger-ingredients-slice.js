@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = { data: null, isLoading: false, isError: false };
 
-const ingredientsSlice = createSlice({
+const burgerIngredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {
@@ -12,6 +12,6 @@ const ingredientsSlice = createSlice({
   },
 });
 
-export const { request, success, failure } = ingredientsSlice.actions;
+export const { request, success, failure } = burgerIngredientsSlice.actions;
 
-export default ingredientsSlice;
+export default burgerIngredientsSlice;
