@@ -10,7 +10,7 @@ function App() {
         <AppHeader />
         <main className={`${styles.main} pr-5 pl-5`}>
           <BurgerIngredients />
-          {/* <BurgerConstructor /> */}
+          <BurgerConstructor />
         </main>
       </>
     </div>
