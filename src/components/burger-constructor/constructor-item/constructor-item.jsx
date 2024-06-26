@@ -3,15 +3,15 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import styles from './constructor-item.module.css';
 import { constructorItemPropType } from '../../../utils/prop-types';
 
-const ConstructorItem = ({ ingredient, type = undefined, extraClass }) => {
+const ConstructorItem = ({ ingredient, position, extraClass }) => {
   return (
     <div className={`${styles.item} ${extraClass}`}>
       {ingredient.type !== 'bun' && <DragIcon type='primary' />}
       <ConstructorElement
-        text={`${ingredient.name}${type === 'top' ? ' (верх)' : type === 'bottom' ? ' (низ)' : ''}`}
+        text={`${ingredient.name}${position === 'top' ? ' (верх)' : position === 'bottom' ? ' (низ)' : ''}`}
         price={ingredient.price}
         thumbnail={ingredient.image_mobile}
-        type={type}
+        type={position}
         isLocked={ingredient.type === 'bun'}
         extraClass={styles.element}
       />
