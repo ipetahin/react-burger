@@ -2,7 +2,7 @@ import { combineSlices, configureStore } from '@reduxjs/toolkit';
 
 import ingredientsSlice from './ingredients-slice';
 
-const reducer = combineSlices(ingredientsSlice);
+const rootReducer = combineSlices(ingredientsSlice);
 
 const preloadedState = {
   ingredients: { data: null, isLoading: false, isError: false },
@@ -12,7 +12,7 @@ const preloadedState = {
 };
 
 export default configureStore({
-  reducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: process.env.NODE_ENV !== 'production',
   preloadedState,

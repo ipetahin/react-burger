@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { loading, success, error } from '../../services/slices/ingredients-slice';
+import { request, success, failure } from '../../services/slices/ingredients-slice';
 
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -14,12 +14,12 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loading());
+    dispatch(request());
 
     fetchApi('ingredients')
       .then((data) => dispatch(success(data)))
-      .catch(() => dispatch(error()));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+      .catch(() => dispatch(failure()));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
