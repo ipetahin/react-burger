@@ -17,7 +17,7 @@ const BurgerIngredients = () => {
     dispatch(request());
 
     fetchApi('ingredients')
-      .then((data) => dispatch(success(data)))
+      .then((res) => dispatch(success(res.data)))
       .catch(() => dispatch(failure()));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
