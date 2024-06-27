@@ -3,7 +3,7 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import styles from './constructor-item.module.css';
 import { constructorItemPropType } from '../../../utils/prop-types';
 
-const ConstructorItem = ({ ingredient, position, extraClass }) => {
+const ConstructorItem = ({ ingredient, position, extraClass = '' }) => {
   return (
     <div className={`${styles.item} ${extraClass}`}>
       {ingredient.type !== 'bun' && <DragIcon type='primary' />}
