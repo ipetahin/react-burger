@@ -2,8 +2,16 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 
 import styles from './constructor-item.module.css';
 import { constructorItemPropType } from '../../../utils/prop-types';
+import { useDispatch } from 'react-redux';
+import { remove } from '../../../services/slices/burger-сonstructor-slice';
 
 const ConstructorItem = ({ ingredient, position, extraClass = '' }) => {
+  const dispatch = useDispatch();
+
+  const handleDeleteIngredient = (ingredient) => {
+    dispatch(remove(ingredient))
+  };
+
   return (
     <div className={`${styles.item} ${extraClass}`}>
       {ingredient.type !== 'bun' && <DragIcon type='primary' />}
@@ -14,6 +22,7 @@ const ConstructorItem = ({ ingredient, position, extraClass = '' }) => {
         type={position}
         isLocked={ingredient.type === 'bun'}
         extraClass={styles.element}
+        handleClose={() => handleDeleteIngredient(ingredient)}
       />
     </div>
   );
