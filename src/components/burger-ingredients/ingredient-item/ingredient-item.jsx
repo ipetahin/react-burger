@@ -8,16 +8,25 @@ import { ingredientItemPropType } from '../../../utils/prop-types';
 import { useDispatch } from 'react-redux';
 import { set } from '../../../services/slices/ingredient-details-slice';
 import { useDrag } from 'react-dnd';
+import { useState } from 'react';
 
-const IngredientItem = ({ ingredient, counter = null }) => {
+const IngredientItem = ({ ingredient }) => {
+  const [counter, setCounter] = useState(null);
+
   const { isShowModal, openModal, closeModal } = useShowModal(false);
 
   const { name, image, price } = ingredient;
 
   const [, dragRef] = useDrag({
-    type: "ingredient",
-    item: {ingredient}
-});
+    type: 'ingredient',
+    item: { ingredient },
+    collect: (monitor) => {
+      const droppedItem = monitor.getItem();
+      if (monitor.didDrop() && droppedItem.ingredient._id === ingredient._id) {
+        droppedItem.ingredient.type === 'bun' ? setCounter(2) : setCounter(counter + 1);
+      }
+    },
+  });
 
   const dispatch = useDispatch();
 

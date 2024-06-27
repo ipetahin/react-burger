@@ -11,7 +11,7 @@ const IngredientGroup = forwardRef(({ ingredients, title, type }, ref) => {
         {ingredients
           .filter((ingredient) => ingredient.type === type)
           .map((ingredient) => (
-            <IngredientItem key={ingredient._id} ingredient={ingredient} counter={1} />
+            <IngredientItem key={ingredient._id} ingredient={ingredient} />
           ))}
       </ul>
     </section>
