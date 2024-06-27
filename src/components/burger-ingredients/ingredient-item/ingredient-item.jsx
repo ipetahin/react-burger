@@ -7,11 +7,17 @@ import useShowModal from '../../../hooks/use-show-modal';
 import { ingredientItemPropType } from '../../../utils/prop-types';
 import { useDispatch } from 'react-redux';
 import { set } from '../../../services/slices/ingredient-details-slice';
+import { useDrag } from 'react-dnd';
 
 const IngredientItem = ({ ingredient, counter = null }) => {
   const { isShowModal, openModal, closeModal } = useShowModal(false);
 
   const { name, image, price } = ingredient;
+
+  const [, dragRef] = useDrag({
+    type: "ingredient",
+    item: {ingredient}
+});
 
   const dispatch = useDispatch();
 
@@ -22,7 +28,7 @@ const IngredientItem = ({ ingredient, counter = null }) => {
 
   return (
     <>
-      <li className={styles.ingredient} onClick={handleShowIngredientDetails}>
+      <li className={styles.ingredient} onClick={handleShowIngredientDetails} ref={dragRef}>
         {counter && <Counter count={counter} size='default' extraClass={styles.counter} />}
         <img src={image} alt={name} className='ml-4 mr-4' />
         <span className={`${styles.price} text text_type_digits-default`}>

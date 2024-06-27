@@ -22,56 +22,24 @@ const BurgerConstructor = () => {
     return bunPrice + ingredients.reduce((acc, ingredient) => acc + ingredient.price, 0);
   }, [bun, ingredients]);
 
-  const fl_bun = {
-    _id: '643d69a5c3f7b9001cfa093d',
-    name: 'Флюоресцентная булка R2-D3',
-    type: 'bun',
-    proteins: 44,
-    fat: 26,
-    carbohydrates: 85,
-    calories: 643,
-    price: 988,
-    image: 'https://code.s3.yandex.net/react/code/bun-01.png',
-    image_mobile: 'https://code.s3.yandex.net/react/code/bun-01-mobile.png',
-    image_large: 'https://code.s3.yandex.net/react/code/bun-01-large.png',
-    __v: 0,
-  };
-
-  const testIngredient = {
-    _id: '643d69a5c3f7b9001cfa0941',
-    name: 'Биокотлета из марсианской Магнолии',
-    type: 'main',
-    proteins: 420,
-    fat: 142,
-    carbohydrates: 242,
-    calories: 4242,
-    price: 424,
-    image: 'https://code.s3.yandex.net/react/code/meat-01.png',
-    image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
-    image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
-    __v: 0,
-  };
-
-  useEffect(() => {
-    dispatch(add(fl_bun));
-    dispatch(add(testIngredient));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const handleSubmitOrder = () => {
     if (bun && ingredients.length) {
       dispatch(request());
-
-      fetchApi('orders', { ingredients: [bun._id, testIngredient._id, bun._id] })
+      const orderIngredientIds = [bun._id, ...ingredients.map((ingredient) => ingredient._id), bun._id];
+      fetchApi('orders', { ingredients: orderIngredientIds })
         .then((data) => dispatch(success(data)))
         .then(() => openModal())
         .catch(() => dispatch(failure()));
     }
   };
 
+  const handleIngredientDrop = (item) => {
+    dispatch(add(item.ingredient));
+  };
+
   return (
     <article className={`pt-25 pb-10 pl-4`}>
-      <ConstructorList bun={bun} ingredients={ingredients} />
+      <ConstructorList bun={bun} ingredients={ingredients} onDropHandler={handleIngredientDrop} />
       <div className={styles.order}>
         <span className={`${styles.total} text text_type_digits-medium`}>
           {totalPrice}

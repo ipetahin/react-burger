@@ -2,12 +2,18 @@ import styles from './constructor-list.module.css';
 import ConstructorItem from '../constructor-item/constructor-item';
 import ConstructorItemSkeleton from '../constructor-item-skeleton/constructor-item-skeleton';
 import { ingredientsPropType } from '../../../utils/prop-types';
+import { useDrop } from 'react-dnd';
 
-
-const ConstructorList = ({bun, ingredients}) => {
+const ConstructorList = ({ bun, ingredients, onDropHandler }) => {
+  const [, dropTarget] = useDrop({
+    accept: 'ingredient',
+    drop(ingredient) {
+      onDropHandler(ingredient);
+    },
+  });
 
   return (
-    <section className='mb-10'>
+    <section className='mb-10' ref={dropTarget}>
       {/* top bun */}
       {bun ? (
         <ConstructorItem key={bun.id} ingredient={bun} position='top' extraClass={styles.fix_item} />
