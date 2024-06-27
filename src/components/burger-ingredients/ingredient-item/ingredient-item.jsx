@@ -29,7 +29,7 @@ const IngredientItem = ({ ingredient, counter = null }) => {
   return (
     <>
       <li className={styles.ingredient} onClick={handleShowIngredientDetails} ref={dragRef}>
-        {counter && <Counter count={counter} size='default' extraClass={styles.counter} />}
+        {counter && <Counter count={counter} size='default' />}
         <img src={image} alt={name} className='ml-4 mr-4' />
         <span className={`${styles.price} text text_type_digits-default`}>
           {price}
