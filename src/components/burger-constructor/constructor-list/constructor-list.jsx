@@ -12,16 +12,17 @@ const ConstructorList = ({ bun, ingredients, onDropHandler }) => {
     },
   });
 
+  const addBun = (position) =>
+    bun ? (
+      <ConstructorItem ingredient={bun} position={position} extraClass={styles.fix_item} />
+    ) : (
+      <ConstructorItemSkeleton text='Выберите булки' position={position} extraClass={styles.fix_item} />
+    );
+
   return (
     <section className='mb-10' ref={dropTarget}>
-      {/* top bun */}
-      {bun ? (
-        <ConstructorItem key={bun.id} ingredient={bun} position='top' extraClass={styles.fix_item} />
-      ) : (
-        <ConstructorItemSkeleton text='Выберите булки' position='top' extraClass={styles.fix_item} />
-      )}
+      {addBun('top')}
 
-      {/* ingredients */}
       <ul className={`${styles.list}`}>
         {ingredients.length ? (
           ingredients.map((ingredient) => (
@@ -34,12 +35,7 @@ const ConstructorList = ({ bun, ingredients, onDropHandler }) => {
         )}
       </ul>
 
-      {/* bottom bun */}
-      {bun ? (
-        <ConstructorItem key={bun.id} ingredient={bun} position='bottom' extraClass={styles.fix_item} />
-      ) : (
-        <ConstructorItemSkeleton text='Выберите булки' position='bottom' extraClass={styles.fix_item} />
-      )}
+      {addBun('bottom')}
     </section>
   );
 };

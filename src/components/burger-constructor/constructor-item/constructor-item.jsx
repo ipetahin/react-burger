@@ -9,14 +9,14 @@ const ConstructorItem = ({ ingredient, position, extraClass = '' }) => {
   const dispatch = useDispatch();
 
   const handleDeleteIngredient = (ingredient) => {
-    dispatch(remove(ingredient))
+    dispatch(remove(ingredient));
   };
 
   return (
     <div className={`${styles.item} ${extraClass}`}>
       {ingredient.type !== 'bun' && <DragIcon type='primary' />}
       <ConstructorElement
-        text={`${ingredient.name}${position === 'top' ? ' (верх)' : position === 'bottom' ? ' (низ)' : ''}`}
+        text={`${ingredient.name}${position ? (position === 'top' ? ' (верх)' : ' (низ)') : ''}`}
         price={ingredient.price}
         thumbnail={ingredient.image_mobile}
         type={position}
