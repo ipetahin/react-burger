@@ -16,7 +16,7 @@ const burgerConstructorSlice = createSlice({
       const ingredients = [...state.ingredients];
       const { fromIndex, toIndex } = action.payload;
       ingredients.splice(toIndex, 0, ingredients.splice(fromIndex, 1)[0]);
-      return { ...state, ingredients: [...ingredients] };
+      return { ...state, ingredients };
     },
   },
 });

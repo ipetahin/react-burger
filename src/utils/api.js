@@ -12,8 +12,9 @@ export const postOrder = (data) => {
   };
 
   return fetch(url, options)
-  .then((res) => (res.ok ? res.json() : Promise.reject()))
-  .then((data) => data.success && data);
+    .then((res) => (res.ok ? res.json() : Promise.reject()))
+    .then((data) => data.success && data)
+    .catch((err) => console.error(err.message));
 };
 
 export const fetchIngredients = () => {
@@ -21,6 +22,6 @@ export const fetchIngredients = () => {
 
   return fetch(url)
     .then((res) => (res.ok ? res.json() : Promise.reject()))
-    .then((data) => data.success && data.data);
+    .then((data) => data.success && data.data)
+    .catch((err) => console.log(err.message));
 };
-
