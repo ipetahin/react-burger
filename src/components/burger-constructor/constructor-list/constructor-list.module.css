@@ -17,9 +17,6 @@
   background-color: var(--text-inactive-color);
 }
 
-.item {
-  list-style: none;
-}
 .fix_item {
   margin-left: 32px;
 }
