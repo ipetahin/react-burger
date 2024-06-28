@@ -1,7 +1,8 @@
 import { forwardRef } from 'react';
-import styles from './ingredient-group.module.css';
+
 import IngredientItem from '../ingredient-item/ingredient-item';
 import { ingredientGroupPropType } from '../../../utils/prop-types';
+import styles from './ingredient-group.module.css';
 
 const IngredientGroup = forwardRef(function IngredientGroup({ ingredients, title, type }, ref) {
   return (

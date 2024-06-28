@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { ingredientPropType } from '../../utils/prop-types';
-import styles from './ingredient-details.module.css';
 import { reset } from '../../services/slices/ingredient-details-slice';
+import styles from './ingredient-details.module.css';
 
 const IngredientDetails = () => {
   const { name, image_large, calories, proteins, fat, carbohydrates } = useSelector((store) => store.ingredientDetails.data);
@@ -45,10 +44,6 @@ const IngredientDetails = () => {
       )}
     </div>
   );
-};
-
-IngredientDetails.propTypes = {
-  ingredient: ingredientPropType,
 };
 
 export default IngredientDetails;

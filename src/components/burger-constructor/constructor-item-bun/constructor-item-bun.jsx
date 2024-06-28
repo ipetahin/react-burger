@@ -1,5 +1,6 @@
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import { constructorItemBunPropType } from '../../../utils/prop-types';
 import styles from './constructor-item-bun.module.css';
 
 const ConstructorItemBun = ({ ingredient, position, extraClass = '' }) => {
@@ -15,6 +16,10 @@ const ConstructorItemBun = ({ ingredient, position, extraClass = '' }) => {
       />
     </div>
   );
+};
+
+ConstructorItemBun.propTypes = {
+  ...constructorItemBunPropType,
 };
 
 export default ConstructorItemBun;

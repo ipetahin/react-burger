@@ -6,7 +6,7 @@ import update from 'immutability-helper';
 import ConstructorItem from '../constructor-item/constructor-item';
 import ConstructorItemBun from '../constructor-item-bun/constructor-item-bun';
 import ConstructorItemSkeleton from '../constructor-item-skeleton/constructor-item-skeleton';
-import { ingredientsPropType } from '../../../utils/prop-types';
+import { constructorListPropType } from '../../../utils/prop-types';
 import styles from './constructor-list.module.css';
 
 const ConstructorList = memo(function ConstructorList({ onDropHandler }) {
@@ -65,7 +65,7 @@ const ConstructorList = memo(function ConstructorList({ onDropHandler }) {
       <ul className={`${styles.list}`}>
         {constructorIngredients.length ? (
           constructorIngredients.map((ingredient) => (
-            <ConstructorItem key={ingredient.id} id={ingredient.id} ingredient={ingredient} moveIngredient={moveIngredient} findIngredient={findIngredient} />
+            <ConstructorItem key={ingredient.id} ingredient={ingredient} moveIngredient={moveIngredient} findIngredient={findIngredient} />
           ))
         ) : (
           <ConstructorItemSkeleton text='Выберите начинку и соусы' />
@@ -78,7 +78,7 @@ const ConstructorList = memo(function ConstructorList({ onDropHandler }) {
 });
 
 ConstructorList.propTypes = {
-  ingredients: ingredientsPropType,
+  ...constructorListPropType
 };
 
 export default ConstructorList;

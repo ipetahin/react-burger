@@ -7,15 +7,15 @@ import { removeIngredient, sortIngredients } from '../../../services/slices/burg
 import { constructorItemPropType } from '../../../utils/prop-types';
 import styles from './constructor-item.module.css';
 
-const ConstructorItem = memo(function ConstructorItem({ id, ingredient, moveIngredient, findIngredient }) {
+const ConstructorItem = memo(function ConstructorItem({ ingredient, moveIngredient, findIngredient }) {
   const dispatch = useDispatch();
 
-  const originalIndex = findIngredient(id).index;
+  const originalIndex = findIngredient(ingredient.id).index;
 
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: 'constructorIngredient',
-      item: { id, originalIndex },
+      item: { id: ingredient.id, originalIndex },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
@@ -27,15 +27,15 @@ const ConstructorItem = memo(function ConstructorItem({ id, ingredient, moveIngr
         }
       },
     }),
-    [id, originalIndex, moveIngredient]
+    [originalIndex, moveIngredient]
   );
 
   const [, drop] = useDrop(
     () => ({
       accept: 'constructorIngredient',
       hover({ id: draggedId }) {
-        if (draggedId !== id) {
-          const { index: overIndex } = findIngredient(id);
+        if (draggedId !== ingredient.id) {
+          const { index: overIndex } = findIngredient(ingredient.id);
           moveIngredient(draggedId, overIndex);
         }
       },
