@@ -20,10 +20,10 @@ const IngredientItem = ({ ingredient }) => {
   const [, dragRef] = useDrag({
     type: 'ingredient',
     item: { ingredient },
-    collect: (monitor) => {
-      const droppedItem = monitor.getItem();
-      if (monitor.didDrop() && droppedItem.ingredient._id === ingredient._id) {
-        droppedItem.ingredient.type === 'bun' ? setCounter(2) : setCounter(counter + 1);
+    end: (item, monitor) => {
+      const dropResult = monitor.getDropResult();
+      if (item && dropResult) {
+        item.ingredient.type === 'bun' ? setCounter(2) : setCounter(counter + 1);
       }
     },
   });
