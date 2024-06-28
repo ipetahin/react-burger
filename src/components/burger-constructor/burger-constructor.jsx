@@ -7,9 +7,8 @@ import ConstructorList from './constructor-list/constructor-list';
 import useShowModal from '../../hooks/use-show-modal';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
-import fetchApi from '../../utils/fetch-api';
-import { request, success, failure } from '../../services/slices/order-details-slice';
-import { add } from '../../services/slices/burger-сonstructor-slice';
+import { sendOrder } from '../../services/slices/order-details-slice';
+import { addIngredient } from '../../services/slices/burger-сonstructor-slice';
 
 const BurgerConstructor = () => {
   const { isShowModal, openModal, closeModal } = useShowModal(false);
@@ -24,17 +23,14 @@ const BurgerConstructor = () => {
 
   const handleSubmitOrder = () => {
     if (bun && ingredients.length) {
-      dispatch(request());
-      const orderIngredientIds = [bun._id, ...ingredients.map((ingredient) => ingredient._id), bun._id];
-      fetchApi('orders', { ingredients: orderIngredientIds })
-        .then((data) => dispatch(success(data)))
-        .then(() => openModal())
-        .catch(() => dispatch(failure()));
+      const preparedData = { ingredients: [bun._id, ...ingredients.map((ingredient) => ingredient._id), bun._id] };
+      dispatch(sendOrder(preparedData));
+      openModal();
     }
   };
 
   const handleIngredientDrop = (item) => {
-    dispatch(add(item.ingredient));
+    dispatch(addIngredient(item.ingredient));
   };
 
   return (

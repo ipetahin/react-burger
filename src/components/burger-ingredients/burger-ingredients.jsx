@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { request, success, failure } from '../../services/slices/burger-ingredients-slice';
+import { getIngredients } from '../../services/slices/burger-ingredients-slice';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 
 import IngredientGroup from './ingredient-group/ingredient-group';
-import fetchApi from '../../utils/fetch-api';
 
 const BurgerIngredients = () => {
   const { isLoading, isError, data } = useSelector((state) => state.burgerIngredients);
@@ -19,11 +18,7 @@ const BurgerIngredients = () => {
   const [activeTab, setActiveTab] = useState('bun');
 
   useEffect(() => {
-    dispatch(request());
-
-    fetchApi('ingredients')
-      .then((res) => dispatch(success(res.data)))
-      .catch(() => dispatch(failure()));
+    dispatch(getIngredients())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

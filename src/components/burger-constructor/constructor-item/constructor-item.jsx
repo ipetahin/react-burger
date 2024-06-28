@@ -3,13 +3,13 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import styles from './constructor-item.module.css';
 import { constructorItemPropType } from '../../../utils/prop-types';
 import { useDispatch } from 'react-redux';
-import { remove } from '../../../services/slices/burger-сonstructor-slice';
+import { removeIngredient } from '../../../services/slices/burger-сonstructor-slice';
 
 const ConstructorItem = ({ ingredient, position, extraClass = '' }) => {
   const dispatch = useDispatch();
 
   const handleDeleteIngredient = (ingredient) => {
-    dispatch(remove(ingredient));
+    dispatch(removeIngredient(ingredient));
   };
 
   return (
