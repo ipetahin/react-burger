@@ -3,12 +3,15 @@ import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { removeIngredient } from '../../../services/slices/burger-сonstructor-slice';
+import { removeIngredient, sortIngredients } from '../../../services/slices/burger-сonstructor-slice';
 import { constructorItemPropType } from '../../../utils/prop-types';
 import styles from './constructor-item.module.css';
 
 const ConstructorItem = memo(({ id, ingredient, moveIngredient, findIngredient }) => {
+  const dispatch = useDispatch();
+
   const originalIndex = findIngredient(id).index;
+
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: 'constructorIngredient',
@@ -26,6 +29,7 @@ const ConstructorItem = memo(({ id, ingredient, moveIngredient, findIngredient }
     }),
     [id, originalIndex, moveIngredient]
   );
+
   const [, drop] = useDrop(
     () => ({
       accept: 'constructorIngredient',
@@ -35,12 +39,13 @@ const ConstructorItem = memo(({ id, ingredient, moveIngredient, findIngredient }
           moveIngredient(draggedId, overIndex);
         }
       },
+      drop(item) {
+        dispatch(sortIngredients({ fromIndex: item.originalIndex, toIndex: findIngredient(item.id).index }));
+      },
     }),
     [findIngredient, moveIngredient]
   );
   const opacity = isDragging ? 0 : 1;
-
-  const dispatch = useDispatch();
 
   const handleDeleteIngredient = (ingredient) => {
     dispatch(removeIngredient(ingredient));

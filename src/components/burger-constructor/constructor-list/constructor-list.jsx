@@ -20,7 +20,7 @@ const ConstructorList = memo(({ onDropHandler }) => {
 
   const findIngredient = useCallback(
     (id) => {
-      const ingredient = constructorIngredients.filter((ingredient) => `${ingredient.id}` === id)[0];
+      const ingredient = constructorIngredients.filter((ingredient) => ingredient.id === id)[0];
       return {
         ingredient,
         index: constructorIngredients.indexOf(ingredient),
@@ -41,7 +41,7 @@ const ConstructorList = memo(({ onDropHandler }) => {
         })
       );
     },
-    [findIngredient, constructorIngredients, setConstructorIngredients]
+    [findIngredient, constructorIngredients]
   );
 
   const [, dropTarget] = useDrop({
@@ -50,8 +50,6 @@ const ConstructorList = memo(({ onDropHandler }) => {
       onDropHandler(ingredient);
     },
   });
-
-  const [, drop] = useDrop(() => ({ accept: 'constructorIngredient' }));
 
   const addBun = (position) =>
     bun ? (
@@ -64,7 +62,7 @@ const ConstructorList = memo(({ onDropHandler }) => {
     <section className='mb-10' ref={dropTarget}>
       {addBun('top')}
 
-      <ul className={`${styles.list}`} ref={drop}>
+      <ul className={`${styles.list}`}>
         {constructorIngredients.length ? (
           constructorIngredients.map((ingredient) => (
             <ConstructorItem key={ingredient.id} id={ingredient.id} ingredient={ingredient} moveIngredient={moveIngredient} findIngredient={findIngredient} />

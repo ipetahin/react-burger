@@ -12,9 +12,15 @@ const burgerConstructorSlice = createSlice({
       prepare: (ingredient) => ({ payload: { ...ingredient, id: nanoid() } }),
     },
     removeIngredient: (state, action) => ({ ...state, ingredients: state.ingredients.filter((ingredient) => ingredient.id !== action.payload.id) }),
+    sortIngredients: (state, action) => {
+      const ingredients = [...state.ingredients];
+      const { fromIndex, toIndex } = action.payload;
+      ingredients.splice(toIndex, 0, ingredients.splice(fromIndex, 1)[0]);
+      return { ...state, ingredients: [...ingredients] };
+    },
   },
 });
 
-export const { addIngredient, removeIngredient } = burgerConstructorSlice.actions;
+export const { addIngredient, removeIngredient, sortIngredients } = burgerConstructorSlice.actions;
 
 export default burgerConstructorSlice;
