@@ -5,7 +5,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
-import { set } from '../../../services/slices/ingredient-details-slice';
+import { setData } from '../../../services/slices/ingredient-details-slice';
 import useShowModal from '../../../hooks/use-show-modal';
 import { ingredientItemPropType } from '../../../utils/prop-types';
 import styles from './ingredient-item.module.css';
@@ -33,7 +33,7 @@ const IngredientItem = ({ ingredient }) => {
   const dispatch = useDispatch();
 
   const handleShowIngredientDetails = () => {
-    dispatch(set(ingredient));
+    dispatch(setData(ingredient));
     openModal();
   };
 

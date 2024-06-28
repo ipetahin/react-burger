@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { reset } from '../../services/slices/ingredient-details-slice';
+import { resetData } from '../../services/slices/ingredient-details-slice';
 import styles from './ingredient-details.module.css';
 
 const IngredientDetails = () => {
@@ -11,7 +11,7 @@ const IngredientDetails = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(reset());
+      dispatch(resetData());
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

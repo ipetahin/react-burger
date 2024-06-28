@@ -6,11 +6,11 @@ const ingredientDetailsSlice = createSlice({
   name: 'ingredientDetails',
   initialState,
   reducers: {
-    set: (state, action) => ({ ...state, data: action.payload }),
-    reset: (state) => ({ ...state, data: null }),
+    setData: (state, action) => ({ ...state, data: action.payload }),
+    resetData: (state) => ({ ...state, data: null }),
   },
 });
 
-export const { set, reset } = ingredientDetailsSlice.actions;
+export const { setData, resetData } = ingredientDetailsSlice.actions;
 
 export default ingredientDetailsSlice;
