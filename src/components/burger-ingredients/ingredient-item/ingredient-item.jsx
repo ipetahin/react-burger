@@ -1,17 +1,25 @@
+import { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useDrag } from 'react-dnd';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './ingredient-item.module.css';
 
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
+import { set } from '../../../services/slices/ingredient-details-slice';
 import useShowModal from '../../../hooks/use-show-modal';
 import { ingredientItemPropType } from '../../../utils/prop-types';
-import { useDispatch } from 'react-redux';
-import { set } from '../../../services/slices/ingredient-details-slice';
-import { useDrag } from 'react-dnd';
-import { useState } from 'react';
+import styles from './ingredient-item.module.css';
 
 const IngredientItem = ({ ingredient }) => {
-  const [counter, setCounter] = useState(null);
+  const { bun, ingredients } = useSelector((store) => store.burgerConstructor);
+
+  const counter = useMemo(() => {
+    if (ingredient.type === 'bun') {
+      return bun && bun._id === ingredient._id ? 2 : null;
+    } else {
+      return ingredients.filter((item) => item._id === ingredient._id).length || null;
+    }
+  }, [bun, ingredients, ingredient.type, ingredient._id]);
 
   const { isShowModal, openModal, closeModal } = useShowModal(false);
 
@@ -20,12 +28,6 @@ const IngredientItem = ({ ingredient }) => {
   const [, dragRef] = useDrag({
     type: 'ingredient',
     item: { ingredient },
-    end: (item, monitor) => {
-      const dropResult = monitor.getDropResult();
-      if (item && dropResult) {
-        item.ingredient.type === 'bun' ? setCounter(2) : setCounter(counter + 1);
-      }
-    },
   });
 
   const dispatch = useDispatch();
