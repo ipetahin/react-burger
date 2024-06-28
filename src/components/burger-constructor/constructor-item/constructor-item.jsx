@@ -7,7 +7,7 @@ import { removeIngredient, sortIngredients } from '../../../services/slices/burg
 import { constructorItemPropType } from '../../../utils/prop-types';
 import styles from './constructor-item.module.css';
 
-const ConstructorItem = memo(({ id, ingredient, moveIngredient, findIngredient }) => {
+const ConstructorItem = memo(function ConstructorItem({ id, ingredient, moveIngredient, findIngredient }) {
   const dispatch = useDispatch();
 
   const originalIndex = findIngredient(id).index;

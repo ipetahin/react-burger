@@ -9,7 +9,7 @@ import ConstructorItemSkeleton from '../constructor-item-skeleton/constructor-it
 import { ingredientsPropType } from '../../../utils/prop-types';
 import styles from './constructor-list.module.css';
 
-const ConstructorList = memo(({ onDropHandler }) => {
+const ConstructorList = memo(function ConstructorList({ onDropHandler }) {
   const { bun, ingredients } = useSelector((store) => store.burgerConstructor);
 
   const [constructorIngredients, setConstructorIngredients] = useState(ingredients);

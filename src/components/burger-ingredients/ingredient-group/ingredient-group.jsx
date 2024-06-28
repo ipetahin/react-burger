@@ -3,7 +3,7 @@ import styles from './ingredient-group.module.css';
 import IngredientItem from '../ingredient-item/ingredient-item';
 import { ingredientGroupPropType } from '../../../utils/prop-types';
 
-const IngredientGroup = forwardRef(({ ingredients, title, type }, ref) => {
+const IngredientGroup = forwardRef(function IngredientGroup({ ingredients, title, type }, ref) {
   return (
     <section>
       <h2 className='text text_type_main-medium' ref={ref}>{title}</h2>
