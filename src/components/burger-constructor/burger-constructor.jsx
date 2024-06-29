@@ -13,6 +13,7 @@ import { addIngredient } from '../../services/slices/burger-сonstructor-slice';
 const BurgerConstructor = () => {
   const { isShowModal, openModal, closeModal } = useShowModal(false);
   const { bun, ingredients } = useSelector((store) => store.burgerConstructor);
+  const { isLoading } = useSelector((store) => store.burgerIngredients);
 
   const dispatch = useDispatch();
 
@@ -34,6 +35,7 @@ const BurgerConstructor = () => {
   };
 
   return (
+    !isLoading &&
     <article className={`pt-25 pb-10 pl-4`}>
       <ConstructorList bun={bun} ingredients={ingredients} onDropHandler={handleIngredientDrop} />
       <div className={styles.order}>

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { GridLoader } from 'react-spinners';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { getIngredients } from '../../services/slices/burger-ingredients-slice';
-
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 
 import IngredientGroup from './ingredient-group/ingredient-group';
@@ -18,7 +18,7 @@ const BurgerIngredients = () => {
   const [activeTab, setActiveTab] = useState('bun');
 
   useEffect(() => {
-    dispatch(getIngredients())
+    dispatch(getIngredients());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -65,9 +65,7 @@ const BurgerIngredients = () => {
 
   return (
     <>
-      {/* TODO: spinner */}
-      {isLoading && <>Идет загрузка ингредиентов...</>}
-      {/* TODO: show error */}
+      <GridLoader color='#fff' loading={isLoading} cssOverride={{ position: 'absolute', top: '50%', left: '50%', transform: "translate('-50%', '-50%')" }} />
       {isError && <>Ошибка при загрузке ингредиентов</>}
       {data && (
         <article className={`pt-10 pb-10`}>

@@ -1,15 +1,15 @@
-import styles from './order-details.module.css';
-import done from '../../images/done.gif';
 import { useSelector } from 'react-redux';
+import { GridLoader } from 'react-spinners';
+
+import done from '../../images/done.gif';
+import styles from './order-details.module.css';
 
 const OrderDetails = () => {
-  const {isLoading, isError, data} = useSelector((store) => store.orderDetails);
+  const { isLoading, isError, data } = useSelector((store) => store.orderDetails);
 
   return (
     <div className={styles.order}>
-      {/* TODO: spinner */}
-      {isLoading && <>Отправляем заказ...</>}
-      {/* TODO: show error */}
+      <GridLoader color='#fff' loading={isLoading} cssOverride={{ position: 'absolute', top: '50%', left: '47%', transform: "translate('-50%', '-47%')" }} />
       {isError && <>Ошибка при отпраке заказа</>}
       {data && (
         <>
