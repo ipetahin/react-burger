@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GridLoader } from 'react-spinners';
 
 import { clearOrder } from '../../services/slices/order-details-slice';
 import done from '../../images/done.gif';
 import styles from './order-details.module.css';
 
 const OrderDetails = () => {
-  const { isLoading, isError, data } = useSelector((store) => store.orderDetails);
+  const { isError, data } = useSelector((store) => store.orderDetails);
 
   const dispatch = useDispatch();
 
@@ -15,12 +14,11 @@ const OrderDetails = () => {
     return () => {
       dispatch(clearOrder());
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className={styles.order}>
-      <GridLoader color='#fff' loading={isLoading} cssOverride={{ position: 'absolute', top: '50%', left: '47%', transform: "translate('-50%', '-47%')" }} />
       {isError && <>Ошибка при отпраке заказа</>}
       {data && (
         <>
