@@ -1,8 +1,13 @@
-const URL_API = 'https://norma.nomoreparties.space/api/';
+export default function request(endpoint, options) {
+  const baseUrl = 'https://norma.nomoreparties.space/api/';
+  const checkResponse = (res) => {
+    return res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`);
+  };
+
+  return fetch(`${baseUrl}${endpoint}`, options).then(checkResponse);
+}
 
 export const postOrder = (data) => {
-  const url = `${URL_API}orders`;
-
   const options = {
     method: 'POST',
     body: JSON.stringify(data),
@@ -11,17 +16,9 @@ export const postOrder = (data) => {
     },
   };
 
-  return fetch(url, options)
-    .then((res) => (res.ok ? res.json() : Promise.reject()))
-    .then((data) => data.success && data)
-    .catch((err) => console.error(err.message));
+  return request('orders', options).then((data) => data.success && data);
 };
 
 export const fetchIngredients = () => {
-  const url = `${URL_API}ingredients`;
-
-  return fetch(url)
-    .then((res) => (res.ok ? res.json() : Promise.reject()))
-    .then((data) => data.success && data.data)
-    .catch((err) => console.log(err.message));
+  return request('ingredients').then((data) => data.success && data.data);
 };
