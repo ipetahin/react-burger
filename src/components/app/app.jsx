@@ -8,15 +8,13 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 function App() {
   return (
     <div className={styles.app}>
-      <>
-        <AppHeader />
-        <main className={`${styles.main} pr-5 pl-5`}>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        </main>
-      </>
+      <AppHeader />
+      <main className={`${styles.main} pr-5 pl-5`}>
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </DndProvider>
+      </main>
     </div>
   );
 }
