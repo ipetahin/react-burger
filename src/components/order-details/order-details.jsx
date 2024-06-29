@@ -1,11 +1,22 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { GridLoader } from 'react-spinners';
 
+import { clearOrder } from '../../services/slices/order-details-slice';
 import done from '../../images/done.gif';
 import styles from './order-details.module.css';
 
 const OrderDetails = () => {
   const { isLoading, isError, data } = useSelector((store) => store.orderDetails);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearOrder());
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={styles.order}>
