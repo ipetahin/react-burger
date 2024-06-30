@@ -3,10 +3,7 @@ import { postOrder } from '../../utils/api';
 
 const initialState = { data: null, isLoading: false, isError: false };
 
-export const sendOrder = createAsyncThunk('orderDetails/sendOrder', async (data) => {
-  const response = await postOrder(data);
-  return response;
-});
+export const sendOrder = createAsyncThunk('orderDetails/sendOrder', postOrder);
 
 const orderDetailsSlice = createSlice({
   name: 'orderDetails',
