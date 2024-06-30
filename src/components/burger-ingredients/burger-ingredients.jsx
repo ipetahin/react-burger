@@ -1,29 +1,95 @@
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { GridLoader } from 'react-spinners';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+
+import { getIngredients } from '../../services/slices/burger-ingredients-slice';
 import styles from './burger-ingredients.module.css';
 
 import IngredientGroup from './ingredient-group/ingredient-group';
-import { ingredientsPropType } from '../../utils/prop-types';
 
-const BurgerIngredients = ({ ingredients }) => {
+const BurgerIngredients = () => {
+  const { isLoading, isError, data } = useSelector((state) => state.burgerIngredients);
+  const dispatch = useDispatch();
+  const tabsRef = useRef();
+  const groupBunRef = useRef();
+  const groupSauceRef = useRef();
+  const groupMainRef = useRef();
+  const [activeTab, setActiveTab] = useState('bun');
+
+  useEffect(() => {
+    dispatch(getIngredients());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleScrollIngredientGroup = () => {
+    const tabsTopCoord = tabsRef.current.getBoundingClientRect().top;
+    const bunTopCoord = groupBunRef.current.getBoundingClientRect().top;
+    const sauceTopCoord = groupSauceRef.current.getBoundingClientRect().top;
+    const mainTopCoord = groupMainRef.current.getBoundingClientRect().top;
+    const arr = [bunTopCoord, sauceTopCoord, mainTopCoord];
+    const closestIndex = arr.findIndex((elem) => elem === arr.reduce((prev, curr) => (Math.abs(curr - tabsTopCoord) < Math.abs(prev - tabsTopCoord) ? curr : prev)));
+    switch (closestIndex) {
+      case 0:
+        if (activeTab !== 'bun') setActiveTab('bun');
+        break;
+      case 1:
+        if (activeTab !== 'sauce') setActiveTab('sauce');
+        break;
+      case 2:
+        if (activeTab !== 'main') setActiveTab('main');
+        break;
+      default:
+        setActiveTab('bun');
+        break;
+    }
+  };
+
+  const handleClickTab = (tab) => {
+    if (activeTab !== 'bun') setActiveTab('bun');
+    switch (tab) {
+      case 'bun':
+        groupBunRef.current.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'sauce':
+        groupSauceRef.current.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'main':
+        groupMainRef.current.scrollIntoView({ behavior: 'smooth' });
+        break;
+      default:
+        groupBunRef.current.scrollIntoView({ behavior: 'smooth' });
+        break;
+    }
+  };
+
   return (
-    <article className={`pt-10 pb-10`}>
-      <h1 className='text text_type_main-large mb-5'>Соберите бургер</h1>
-      <div className={`${styles.tabs} mb-10`}>
-        <Tab key='bunTab' active>Булки</Tab>
-        <Tab key='sauceTab'>Соусы</Tab>
-        <Tab key='mainTab'>Начинки</Tab>
-      </div>
-      <div className={`${styles.groups}`}>
-        <IngredientGroup key='bunGroup' ingredients={ingredients} name='Булки' type='bun' />
-        <IngredientGroup key='sauceGroup' ingredients={ingredients} name='Соусы' type='sauce' />
-        <IngredientGroup key='mainGroup' ingredients={ingredients} name='Начинки' type='main' />
-      </div>
-    </article>
+    <>
+      <GridLoader color='#fff' loading={isLoading} cssOverride={{ position: 'absolute', top: '50%', left: '50%', transform: "translate('-50%', '-50%')" }} />
+      {isError && <>Ошибка при загрузке ингредиентов</>}
+      {data && (
+        <article className={`pt-10 pb-10`}>
+          <h1 className='text text_type_main-large mb-5'>Соберите бургер</h1>
+          <div ref={tabsRef} className={`${styles.tabs} mb-10`}>
+            <Tab value='bun' active={activeTab === 'bun'} onClick={handleClickTab}>
+              Булки
+            </Tab>
+            <Tab value='sauce' active={activeTab === 'sauce'} onClick={handleClickTab}>
+              Соусы
+            </Tab>
+            <Tab value='main' active={activeTab === 'main'} onClick={handleClickTab}>
+              Начинки
+            </Tab>
+          </div>
+          <div className={`${styles.group}`} onScroll={handleScrollIngredientGroup}>
+            <IngredientGroup ingredients={data} title='Булки' type='bun' ref={groupBunRef} />
+            <IngredientGroup ingredients={data} title='Соусы' type='sauce' ref={groupSauceRef} />
+            <IngredientGroup ingredients={data} title='Начинки' type='main' ref={groupMainRef} />
+          </div>
+        </article>
+      )}
+    </>
   );
-};
-
-BurgerIngredients.propTypes = {
-  ingredients: ingredientsPropType,
 };
 
 export default BurgerIngredients;
