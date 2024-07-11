@@ -1,11 +1,17 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
-import { MainPage } from '../../pages';
+import { LoginPage, MainPage } from '../../pages';
 
 function App() {
   return (
     <>
       <AppHeader />
-      <MainPage />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<MainPage />} />
+          <Route path='/login' element={<LoginPage />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
