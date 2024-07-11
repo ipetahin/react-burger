@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
-import { ForgotPasswordPage, LoginPage, MainPage, RegisterPage, ResetPasswordPage } from '../../pages';
+import { ForgotPasswordPage, LoginPage, MainPage, NotFound404, RegisterPage, ResetPasswordPage } from '../../pages';
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/forgot-password' element={<ForgotPasswordPage />} />
           <Route path='/reset-password' element={<ResetPasswordPage />} />
+          <Route path='*' element={<NotFound404 />} />
         </Routes>
       </BrowserRouter>
     </>
