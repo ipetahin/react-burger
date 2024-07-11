@@ -1,27 +1,18 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+
+import useFormData from '../../hooks/use-form-data';
 import styles from './login.module.css';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
+  const [formData, onChangeFormData] = useFormData({ username: '', email: '', password: '' });
 
   return (
     <main className={`${styles.main}`}>
       <h1 className='text text_type_main-medium'>Вход</h1>
       <form className={`${styles.form} mt-6 mb-20`}>
-        <EmailInput onChange={onChangeEmail} value={email} name='email' isIcon={false} />
-        <PasswordInput onChange={onChangePassword} value={password} name='password' />
+        <EmailInput onChange={onChangeFormData} value={formData.email} name='email' isIcon={false} />
+        <PasswordInput onChange={onChangeFormData} value={formData.password} name='password' />
         <Button htmlType='submit' type='primary' size='medium'>
           Войти
         </Button>
