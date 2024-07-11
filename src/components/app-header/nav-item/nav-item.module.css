@@ -9,6 +9,7 @@
   align-items: center;
   gap: 8px;
   border-radius: var(--common-border-radius-s);
+  padding: 16px 20px;
 }
 
 .link.inactive {

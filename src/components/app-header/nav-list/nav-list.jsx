@@ -5,9 +5,9 @@ const NavList = () => {
   return (
     <nav className={`${styles.nav} pt-4 pb-4`}>
       <ul className={styles.list}>
-        <NavItem iconType='burger' text='Конструктор' active/>
-        <NavItem iconType='list' text='Лента заказов' />
-        <NavItem iconType='profile' text='Личный кабинет' />
+        <NavItem type='burger' text='Конструктор' link='/'/>
+        <NavItem type='list' text='Лента заказов' link='/list' />
+        <NavItem type='profile' text='Личный кабинет' link='/profile' />
       </ul>
     </nav>
   );
