@@ -7,18 +7,38 @@ export default function request(endpoint, options) {
   return fetch(`${baseUrl}${endpoint}`, options).then(checkResponse);
 }
 
-export const postOrder = (data) => {
+function requestPost(endpoint, data) {
   const options = {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
     },
   };
 
-  return request('orders', options).then((data) => data.success && data);
+  return request(endpoint, options).then((data) => data.success && data);
+}
+
+export const postOrder = (data) => {
+  return requestPost('orders', data);
 };
 
 export const fetchIngredients = () => {
   return request('ingredients').then((data) => data.success && data.data);
+};
+
+export const login = (data) => {
+  return requestPost('auth/login', data);
+};
+
+export const register = (data) => {
+  return requestPost('auth/register', data);
+};
+
+export const token = () => {
+  return requestPost('auth/token', { token: localStorage.getItem('refreshToken') });
+};
+
+export const logout = () => {
+  return requestPost('auth/logout', { token: localStorage.getItem('refreshToken') });
 };
