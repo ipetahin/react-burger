@@ -1,0 +1,33 @@
+.main {
+  display: grid;
+  grid-template-columns: 320px auto;
+  gap: 60px;
+  padding: 120px 0 0 340px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+}
+
+.link {
+  display: block;
+  text-decoration: none;
+}
+
+.link.inactive {
+  color: var(--text-inactive-color);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

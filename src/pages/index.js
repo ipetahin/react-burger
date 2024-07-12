@@ -4,5 +4,7 @@ import RegisterPage from './register';
 import ForgotPasswordPage from './forgot-password';
 import ResetPasswordPage from './reset-password';
 import NotFound404 from './not-found-404';
+import ProfilePage from './profile';
+import HistoryPage from './history';
 
-export { MainPage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, NotFound404 };
+export { MainPage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, NotFound404, ProfilePage, HistoryPage };
