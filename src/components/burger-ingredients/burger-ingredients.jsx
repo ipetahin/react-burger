@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import { GridLoader } from 'react-spinners';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { getIngredients } from '../../services/slices/burger-ingredients-slice';
+import IngredientItem from './ingredient-item/ingredient-item';
 import styles from './burger-ingredients.module.css';
-
-import IngredientGroup from './ingredient-group/ingredient-group';
 
 const BurgerIngredients = () => {
   const { isLoading, isError, data } = useSelector((state) => state.burgerIngredients);
@@ -16,6 +16,7 @@ const BurgerIngredients = () => {
   const groupSauceRef = useRef();
   const groupMainRef = useRef();
   const [activeTab, setActiveTab] = useState('bun');
+  const location = useLocation();
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -82,9 +83,48 @@ const BurgerIngredients = () => {
             </Tab>
           </div>
           <div className={`${styles.group}`} onScroll={handleScrollIngredientGroup}>
-            <IngredientGroup ingredients={data} title='Булки' type='bun' ref={groupBunRef} />
-            <IngredientGroup ingredients={data} title='Соусы' type='sauce' ref={groupSauceRef} />
-            <IngredientGroup ingredients={data} title='Начинки' type='main' ref={groupMainRef} />
+            <section>
+              <h2 className='text text_type_main-medium' ref={groupBunRef}>
+                Булки
+              </h2>
+              <ul className={`${styles.list} mt-6 mr-2 mb-10 ml-4`}>
+                {data
+                  .filter((ingredient) => ingredient.type === 'bun')
+                  .map((ingredient) => (
+                    <Link className={styles.link} key={ingredient._id} to={`/ingredients/${ingredient._id}`} state={{ backgroundLocation: location }}>
+                      <IngredientItem key={ingredient._id} ingredient={ingredient} />
+                    </Link>
+                  ))}
+              </ul>
+            </section>
+            <section>
+              <h2 className='text text_type_main-medium' ref={groupSauceRef}>
+                Соусы
+              </h2>
+              <ul className={`${styles.list} mt-6 mr-2 mb-10 ml-4`}>
+                {data
+                  .filter((ingredient) => ingredient.type === 'sauce')
+                  .map((ingredient) => (
+                    <Link className={styles.link} key={ingredient._id} to={`/ingredients/${ingredient._id}`} state={{ backgroundLocation: location }}>
+                      <IngredientItem key={ingredient._id} ingredient={ingredient} />
+                    </Link>
+                  ))}
+              </ul>
+            </section>
+            <section>
+              <h2 className='text text_type_main-medium' ref={groupMainRef}>
+                Начинки
+              </h2>
+              <ul className={`${styles.list} mt-6 mr-2 mb-10 ml-4`}>
+                {data
+                  .filter((ingredient) => ingredient.type === 'main')
+                  .map((ingredient) => (
+                    <Link className={styles.link} key={ingredient._id} to={`/ingredients/${ingredient._id}`} state={{ backgroundLocation: location }} replace={true}>
+                      <IngredientItem key={ingredient._id} ingredient={ingredient} />
+                    </Link>
+                  ))}
+              </ul>
+            </section>
           </div>
         </article>
       )}
