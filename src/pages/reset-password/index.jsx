@@ -5,14 +5,14 @@ import useFormData from '../../hooks/use-form-data';
 import styles from './reset-password.module.css';
 
 export default function ResetPasswordPage() {
-  const [formData, onChangeFormData] = useFormData({ username: '', email: '', password: '' });
+  const [formData, onChangeFormData] = useFormData({ password: '', token: '' });
 
   return (
     <main className={`${styles.main}`}>
       <h1 className='text text_type_main-medium'>Восстановление пароля</h1>
       <form className={`${styles.form} mt-6 mb-20`}>
         <PasswordInput onChange={onChangeFormData} value={formData.password} name='password' placeholder='Введите новый пароль' />
-        <Input onChange={onChangeFormData} value={formData.code} name='code' placeholder='Введите код из письма' />
+        <Input onChange={onChangeFormData} value={formData.token} name='token' placeholder='Введите код из письма' />
         <Button htmlType='submit' type='primary' size='medium'>
           Сохранить
         </Button>

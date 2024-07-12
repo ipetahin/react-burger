@@ -5,13 +5,13 @@ import useFormData from '../../hooks/use-form-data';
 import styles from './register.module.css';
 
 export default function RegisterPage() {
-  const [formData, onChangeFormData] = useFormData({ username: '', email: '', password: '' });
+  const [formData, onChangeFormData] = useFormData({ name: '', email: '', password: '' });
 
   return (
     <main className={`${styles.main}`}>
       <h1 className='text text_type_main-medium'>Регистрация</h1>
       <form className={`${styles.form} mt-6 mb-20`}>
-        <Input onChange={onChangeFormData} value={formData.username} name='username' type='text' placeholder='Имя' />
+        <Input onChange={onChangeFormData} value={formData.name} name='name' type='text' placeholder='Имя' />
         <EmailInput onChange={onChangeFormData} value={formData.email} name='email' isIcon={false} />
         <PasswordInput onChange={onChangeFormData} value={formData.password} name='password' />
         <Button htmlType='submit' type='primary' size='medium'>
