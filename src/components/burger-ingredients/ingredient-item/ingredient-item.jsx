@@ -3,10 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import Modal from '../../modal/modal';
-import IngredientDetails from '../../ingredient-details/ingredient-details';
 import { setData } from '../../../services/slices/ingredient-details-slice';
-import useShowModal from '../../../hooks/use-show-modal';
 import { ingredientItemPropType } from '../../../utils/prop-types';
 import styles from './ingredient-item.module.css';
 
@@ -21,8 +18,6 @@ const IngredientItem = ({ ingredient }) => {
     }
   }, [bun, ingredients, ingredient.type, ingredient._id]);
 
-  const { isShowModal, openModal, closeModal } = useShowModal(false);
-
   const { name, image, price } = ingredient;
 
   const [, dragRef] = useDrag({
@@ -34,7 +29,6 @@ const IngredientItem = ({ ingredient }) => {
 
   const handleShowIngredientDetails = () => {
     dispatch(setData(ingredient));
-    openModal();
   };
 
   return (
@@ -48,11 +42,6 @@ const IngredientItem = ({ ingredient }) => {
         </span>
         <span>{name}</span>
       </li>
-      {isShowModal && (
-        <Modal text='Детали ингредиента' closeModal={closeModal}>
-          <IngredientDetails />
-        </Modal>
-      )}
     </>
   );
 };

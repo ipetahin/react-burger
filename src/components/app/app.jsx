@@ -1,12 +1,17 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
-import { ForgotPasswordPage, HistoryPage, LoginPage, MainPage, NotFound404, ProfilePage, RegisterPage, ResetPasswordPage } from '../../pages';
+import { ForgotPasswordPage, HistoryPage, IngredientPage, LoginPage, MainPage, NotFound404, ProfilePage, RegisterPage, ResetPasswordPage } from '../../pages';
+import Modal from '../modal/modal';
+import OrderDetails from '../order-details/order-details';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 
 function App() {
+  const location = useLocation();
+
   return (
-    <BrowserRouter>
+    <>
       <AppHeader />
-      <Routes>
+      <Routes location={location.state?.backgroundLocation || location}>
         <Route path='/' element={<MainPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
@@ -15,9 +20,31 @@ function App() {
         <Route path='/profile' element={<ProfilePage />}>
           <Route path='history' element={<HistoryPage />} />
         </Route>
+        <Route path='/ingredients/:id' element={<IngredientPage />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
-    </BrowserRouter>
+
+      {location.state?.backgroundLocation && (
+        <Routes>
+          <Route
+            path='/ingredients/:id'
+            element={
+              <Modal>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path='/'
+            element={
+              <Modal>
+                <OrderDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+    </>
   );
 }
 
