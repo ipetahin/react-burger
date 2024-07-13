@@ -66,7 +66,7 @@ export default function ProfilePage() {
             disabled={disabled}
           />
           <EmailInput onChange={onChangeFormData} value={formData.email} name='email' isIcon={true} />
-          <PasswordInput onChange={onChangeFormData} value={formData.password} name='password' isIcon={true} icon='EditIcon' />
+          <PasswordInput onChange={onChangeFormData} value={formData.password} name='password' icon='EditIcon' />
         </form>
       ) : (
         <Outlet />
