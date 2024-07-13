@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import useFormData from '../../hooks/use-form-data';
@@ -9,12 +9,10 @@ import { loginUser } from '../../services/slices/user-slice';
 export default function LoginPage() {
   const [formData, onChangeFormData] = useFormData({ email: '', password: '' });
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser(formData));
-    navigate('/');
   };
 
   return (
