@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -11,15 +11,8 @@ export default function ProfilePage() {
   const location = useLocation();
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.user);
-
-  useEffect(() => {
-    if (!user) {
-      navigate('/login');
-    }
-  }, []);
-
   const [disabled, setDisabled] = useState(true);
-  const [formData, onChangeFormData] = useFormData(user);
+  const [formData, onChangeFormData] = useFormData({ ...user, password: '' });
   const dispatch = useDispatch();
   const inputRef = useRef(null);
 
@@ -47,12 +40,12 @@ export default function ProfilePage() {
           </NavLink>
         </li>
         <li className={`${styles.item} text text_type_main-medium`}>
-          <NavLink to='history' className={({ isActive }) => (isActive ? styles.link : `${styles.link} ${styles.inactive}`)} end>
+          <NavLink to='orders' className={({ isActive }) => (isActive ? styles.link : `${styles.link} ${styles.inactive}`)} end>
             История заказов
           </NavLink>
         </li>
         <li className={`${styles.item} text text_type_main-medium`}>
-          <NavLink to='logout' className={({ isActive }) => (isActive ? styles.link : `${styles.link} ${styles.inactive}`)} onClick={handleLogout}>
+          <NavLink to='logout' className={({ isActive }) => (isActive ? styles.link : `${styles.link} ${styles.inactive}`)} onClick={handleLogout} end>
             Выход
           </NavLink>
         </li>
