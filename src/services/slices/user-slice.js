@@ -1,17 +1,28 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { login, logout } from '../../utils/api';
+import { login, logout, requestUser } from '../../utils/api';
 
-export const loginUser = createAsyncThunk('userSlice/login', async (data) => {
+export const loginUser = createAsyncThunk('user/login', async (data) => {
   const res = await login(data);
   localStorage.setItem('accessToken', res.accessToken);
   localStorage.setItem('refreshToken', res.refreshToken);
   return res.user;
 });
 
-export const logoutUser = createAsyncThunk('userSlice/logout', async () => {
+export const logoutUser = createAsyncThunk('user/logout', async () => {
   await logout();
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
+});
+
+export const getUser = createAsyncThunk('user/getUser', requestUser);
+
+export const checkUserAuth = createAsyncThunk('user/checkUserAuth', async (_, thunkAPI) => {
+  if (localStorage.getItem('accessToken')) {
+    await thunkAPI.dispatch(getUser()).catch(() => {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+    });
+  }
 });
 
 const initialState = { user: null, isAuthChecked: false };
@@ -19,14 +30,7 @@ const initialState = { user: null, isAuthChecked: false };
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    setAuthChecked: (state, action) => {
-      state.isAuthChecked = action.payload;
-    },
-    setUser: (state, action) => {
-      state.user = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.fulfilled, (state, action) => {
@@ -35,10 +39,17 @@ const userSlice = createSlice({
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+      })
+      .addCase(checkUserAuth.fulfilled, (state) => {
+        state.isAuthChecked = true;
+      })
+      .addCase(checkUserAuth.rejected, (state) => {
+        state.isAuthChecked = true;
       });
   },
 });
-
-export const { setAuthChecked, setUser } = userSlice.actions;
 
 export default userSlice;

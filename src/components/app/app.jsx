@@ -4,10 +4,18 @@ import { ForgotPasswordPage, IngredientPage, LoginPage, MainPage, NotFound404, O
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import { checkUserAuth } from '../../services/slices/user-slice';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import ProtectedRouteElement from '../protected-route-element/protected-route-element';
 
 function App() {
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkUserAuth());
+  }, [dispatch]);
 
   return (
     <>
