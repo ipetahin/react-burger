@@ -7,12 +7,19 @@ import { useDispatch } from 'react-redux';
 import { loginUser } from '../../services/slices/user-slice';
 
 export default function LoginPage() {
-  const [formData, onChangeFormData] = useFormData({ email: '', password: '' });
+  const [formData, onChangeFormData, checkFormData] = useFormData({ email: '', password: '' });
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser(formData));
+    const isError = e.target.querySelector('.input__error');
+    if (isError) return;
+
+    if (checkFormData.status) {
+      dispatch(loginUser(formData));
+    } else {
+      e.target.querySelector(`[name=${checkFormData.field}]`).closest('.input').classList.add('input_status_error');
+    }
   };
 
   return (
