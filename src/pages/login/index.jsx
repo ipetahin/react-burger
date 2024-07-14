@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import useFormData from '../../hooks/use-form-data';
@@ -9,6 +9,7 @@ import { loginUser } from '../../services/slices/user-slice';
 export default function LoginPage() {
   const { formData, onChangeFormData, checkFormData } = useFormData({ email: '', password: '' });
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +17,14 @@ export default function LoginPage() {
     if (isError) return;
 
     if (checkFormData.status) {
-      dispatch(loginUser(formData));
+      dispatch(loginUser(formData)).unwrap().catch((err) => {
+        const error = Object.assign(document.createElement('p'), { className: 'input__error text_type_main-default', textContent: err.message });
+        const input = e.target.querySelector('[name="password"]').closest('.input');
+        input.closest('.input__container').append(error);
+        setTimeout(() => {
+          error.remove();
+        }, 2000);
+      });;
     } else {
       e.target.querySelector(`[name=${checkFormData.field}]`).closest('.input').classList.add('input_status_error');
     }
@@ -33,7 +41,7 @@ export default function LoginPage() {
         </Button>
       </form>
       <span className='text text_type_main-default text_color_inactive'>
-        Вы — новый пользователь? <Link to='/register'>Зарегистрироваться</Link>
+        Вы — новый пользователь? <Link to='/register' state={{ from: location.state?.from }}>Зарегистрироваться</Link>
       </span>
       <span className='text text_type_main-default text_color_inactive mt-4'>
         Забыли пароль? <Link to='/forgot-password'>Восстановить пароль</Link>
