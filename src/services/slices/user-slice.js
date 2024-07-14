@@ -1,8 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { login, logout, requestUpdateUser, requestUser } from '../../utils/api';
+import { login, logout, register, requestUpdateUser, requestUser } from '../../utils/api';
 
 export const loginUser = createAsyncThunk('user/login', async (data) => {
   const res = await login(data);
+  localStorage.setItem('accessToken', res.accessToken);
+  localStorage.setItem('refreshToken', res.refreshToken);
+  return res.user;
+});
+
+export const registerUser = createAsyncThunk('user/register', async (data) => {
+  const res = await register(data);
   localStorage.setItem('accessToken', res.accessToken);
   localStorage.setItem('refreshToken', res.refreshToken);
   return res.user;
@@ -36,6 +43,10 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isAuthChecked = true;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isAuthChecked = true;
       })

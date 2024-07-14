@@ -1,13 +1,16 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import useFormData from '../../hooks/use-form-data';
 import styles from './register.module.css';
-import { register } from '../../utils/api';
+import { registerUser } from '../../services/slices/user-slice';
 
 export default function RegisterPage() {
   const { formData, onChangeFormData, checkFormData } = useFormData({ name: '', email: '', password: '' });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,8 +18,9 @@ export default function RegisterPage() {
     if (isError) return;
 
     if (checkFormData.status) {
-      register(formData)
-        .then(() => navigate('/login', { replace: true }))
+      dispatch(registerUser(formData))
+        .unwrap()
+        .then(() => navigate(location.state?.from ?? '/', { replace: true }))
         .catch((err) => {
           const error = Object.assign(document.createElement('p'), { className: 'input__error text_type_main-default', textContent: err.message });
           const input = e.target.querySelector('[name="password"]').closest('.input');
