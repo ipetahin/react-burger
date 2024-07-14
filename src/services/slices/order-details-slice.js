@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { postOrder } from '../../utils/api';
+import { requestSendOrder } from '../../utils/api';
 
 const initialState = { data: null, isLoading: false, isError: false };
 
-export const sendOrder = createAsyncThunk('orderDetails/sendOrder', postOrder);
+export const sendOrder = createAsyncThunk('orderDetails/sendOrder', requestSendOrder);
 
 const orderDetailsSlice = createSlice({
   name: 'orderDetails',

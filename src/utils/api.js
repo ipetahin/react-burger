@@ -7,20 +7,36 @@ export default function request(endpoint, options) {
   return fetch(`${baseUrl}${endpoint}`, options).then(checkResponse);
 }
 
-function requestPost(endpoint, data) {
-  const options = {
+const requestPost = (endpoint, data) => {
+  return request(endpoint, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
+  }).then((data) => (data.success ? data : Promise.reject(data)));
+};
+
+const requestWithRefresh = async (endpoint, options) => {
+  const refreshToken = () => {
+    return requestPost('auth/token', { token: localStorage.getItem('refreshToken') }).then((refreshData) => {
+      localStorage.setItem('refreshToken', refreshData.refreshToken);
+      localStorage.setItem('accessToken', refreshData.accessToken);
+      return refreshData;
+    });
   };
 
-  return request(endpoint, options).then((data) => data.success && data);
-}
-
-export const postOrder = (data) => {
-  return requestPost('orders', data);
+  try {
+    return await request(endpoint, options);
+  } catch (err) {
+    if (err.message === 'jwt expired') {
+      const refreshData = await refreshToken();
+      options.headers.authorization = refreshData.accessToken;
+      return await request(endpoint, options);
+    } else {
+      return Promise.reject(err);
+    }
+  }
 };
 
 export const fetchIngredients = () => {
@@ -35,49 +51,8 @@ export const register = (data) => {
   return requestPost('auth/register', data);
 };
 
-const refreshToken = () => {
-  return requestPost('auth/token', { token: localStorage.getItem('refreshToken') }).then((refreshData) => {
-    if (!refreshData.success) {
-      return Promise.reject(refreshData);
-    }
-    localStorage.setItem('refreshToken', refreshData.refreshToken);
-    localStorage.setItem('accessToken', refreshData.accessToken);
-    return refreshData;
-  });
-};
-
 export const logout = () => {
   return requestPost('auth/logout', { token: localStorage.getItem('refreshToken') });
-};
-
-const requestWithRefresh = async (endpoint, options) => {
-  try {
-    return await request(endpoint, options);
-  } catch (err) {
-    if (err.message === 'jwt expired') {
-      const refreshData = await refreshToken();
-      options.headers.authorization = refreshData.accessToken;
-      return await request(endpoint, options);
-    } else {
-      return Promise.reject(err);
-    }
-  }
-};
-
-export const requestUser = () => {
-  return requestWithRefresh('auth/user', { headers: { authorization: localStorage.getItem('accessToken') } });
-};
-
-export const requestUpdateUser = (data) => {
-  const options = {
-    method: 'PATCH',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      authorization: localStorage.getItem('accessToken'),
-    },
-  };
-  return requestWithRefresh('auth/user', options);
 };
 
 export const passwordResetRequest = (data) => {
@@ -86,4 +61,30 @@ export const passwordResetRequest = (data) => {
 
 export const passwordReset = (data) => {
   return requestPost('password-reset/reset', data);
+};
+
+export const requestUser = () => {
+  return requestWithRefresh('auth/user', { headers: { authorization: localStorage.getItem('accessToken') } });
+};
+
+export const requestSendOrder = (data) => {
+  return requestWithRefresh('orders', {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      authorization: localStorage.getItem('accessToken'),
+    },
+  });
+};
+
+export const requestUpdateUser = (data) => {
+  return requestWithRefresh('auth/user', {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      authorization: localStorage.getItem('accessToken'),
+    },
+  });
 };
