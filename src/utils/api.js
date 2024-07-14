@@ -68,7 +68,7 @@ export const requestUser = () => {
   return requestWithRefresh('auth/user', { headers: { authorization: localStorage.getItem('accessToken') } });
 };
 
-export const requestUpdateUserData = (data) => {
+export const requestUpdateUser = (data) => {
   const options = {
     method: 'PATCH',
     body: JSON.stringify(data),

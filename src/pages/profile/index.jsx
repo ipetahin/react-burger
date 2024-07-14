@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { logoutUser } from '../../services/slices/user-slice';
+import { logoutUser, updateUser } from '../../services/slices/user-slice';
 import useFormData from '../../hooks/use-form-data';
 import styles from './profile.module.css';
 
@@ -30,6 +30,14 @@ export default function ProfilePage() {
 
   const handleBlur = () => {
     setDisabled(true);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateUser(formData)).then(() => {
+      setFormData({ ...formData, password: '' });
+      setShowButtons(false);
+    });
   };
 
   const handleCancelClick = (e) => {
@@ -68,7 +76,7 @@ export default function ProfilePage() {
         <span className='text text_type_main-default text_color_inactive mt-20'>В этом разделе вы можете изменить свои персональные данные</span>
       </menu>
       {location.pathname === '/profile' ? (
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <Input
             onChange={(e) => onChangeFormData(e, handleChange)}
             value={formData.name}
