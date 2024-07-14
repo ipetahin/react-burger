@@ -2,6 +2,8 @@ import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { GridLoader } from 'react-spinners';
 
+import { protectedRouteElementPropType } from '../../utils/prop-types';
+
 export default function ProtectedRouteElement({ component, onlyAuth = true }) {
   const { user, isAuthChecked } = useSelector((store) => store.user);
   const location = useLocation();
@@ -21,3 +23,7 @@ export default function ProtectedRouteElement({ component, onlyAuth = true }) {
 
   return component;
 }
+
+ProtectedRouteElement.propTypes = {
+  ...protectedRouteElementPropType,
+};
