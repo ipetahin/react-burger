@@ -19,8 +19,7 @@ export default function ProfilePage() {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    dispatch(logoutUser());
-    navigate('/');
+    dispatch(logoutUser()).then(() => navigate('/login'));
   };
 
   const handleIconClick = () => {
