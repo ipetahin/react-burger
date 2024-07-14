@@ -6,7 +6,7 @@ import styles from './forgot-password.module.css';
 import { passwordResetRequest } from '../../utils/api';
 
 export default function ForgotPasswordPage() {
-  const [formData, onChangeFormData, checkFormData] = useFormData({ email: '' });
+  const { formData, onChangeFormData, checkFormData } = useFormData({ email: '' });
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {

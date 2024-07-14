@@ -7,7 +7,7 @@ import styles from './reset-password.module.css';
 import { passwordReset } from '../../utils/api';
 
 export default function ResetPasswordPage() {
-  const [formData, onChangeFormData, checkFormData] = useFormData({ password: '', token: '' });
+  const { formData, onChangeFormData, checkFormData } = useFormData({ password: '', token: '' });
   const location = useLocation();
   const navigate = useNavigate();
 

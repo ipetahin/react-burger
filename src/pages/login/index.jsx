@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { loginUser } from '../../services/slices/user-slice';
 
 export default function LoginPage() {
-  const [formData, onChangeFormData, checkFormData] = useFormData({ email: '', password: '' });
+  const { formData, onChangeFormData, checkFormData } = useFormData({ email: '', password: '' });
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {

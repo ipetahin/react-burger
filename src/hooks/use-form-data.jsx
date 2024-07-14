@@ -13,12 +13,13 @@ const useFormData = (initialValue) => {
     setCheckFormData({ status: true, field: null });
   }, [formData]);
 
-  const onChangeFormData = (e) => {
+  const onChangeFormData = (e, cb) => {
     const target = e.target;
     setFormData({ ...formData, [target.name]: target.value });
+    if (cb) return cb(e);
   };
 
-  return [formData, onChangeFormData, checkFormData];
+  return { formData, onChangeFormData, checkFormData, setFormData };
 };
 
 export default useFormData;

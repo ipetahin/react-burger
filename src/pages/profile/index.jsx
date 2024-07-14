@@ -12,7 +12,7 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.user);
   const [disabled, setDisabled] = useState(true);
-  const [formData, onChangeFormData] = useFormData({ ...user, password: '' });
+  const { formData, onChangeFormData, setFormData } = useFormData({ ...user, password: '' });
   const dispatch = useDispatch();
   const inputRef = useRef(null);
 

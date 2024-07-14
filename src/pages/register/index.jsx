@@ -6,7 +6,7 @@ import styles from './register.module.css';
 import { register } from '../../utils/api';
 
 export default function RegisterPage() {
-  const [formData, onChangeFormData, checkFormData] = useFormData({ name: '', email: '', password: '' });
+  const { formData, onChangeFormData, checkFormData } = useFormData({ name: '', email: '', password: '' });
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
