@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { logoutUser } from '../../services/slices/user-slice';
 import useFormData from '../../hooks/use-form-data';
@@ -15,6 +15,7 @@ export default function ProfilePage() {
   const { formData, onChangeFormData, setFormData } = useFormData({ ...user, password: '' });
   const dispatch = useDispatch();
   const inputRef = useRef(null);
+  const [isShowButtons, setShowButtons] = useState(false);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -27,8 +28,23 @@ export default function ProfilePage() {
     setTimeout(() => inputRef.current.focus(), 0);
   };
 
-  const handleInputNameDisabled = () => {
+  const handleBlur = () => {
     setDisabled(true);
+  };
+
+  const handleCancelClick = (e) => {
+    e.preventDefault();
+    setFormData({ ...user, password: '' });
+    setShowButtons(false);
+  };
+
+  const handleChange = (e) => {
+    const target = e.target;
+    if (target.value !== user[target.name]) {
+      setShowButtons(true);
+    } else {
+      setShowButtons(false);
+    }
   };
 
   return (
@@ -51,10 +67,10 @@ export default function ProfilePage() {
         </li>
         <span className='text text_type_main-default text_color_inactive mt-20'>В этом разделе вы можете изменить свои персональные данные</span>
       </menu>
-      {user && location.pathname === '/profile' ? (
+      {location.pathname === '/profile' ? (
         <form className={styles.form}>
           <Input
-            onChange={onChangeFormData}
+            onChange={(e) => onChangeFormData(e, handleChange)}
             value={formData.name}
             type='text'
             name='name'
@@ -62,11 +78,21 @@ export default function ProfilePage() {
             icon='EditIcon'
             ref={inputRef}
             onIconClick={handleIconClick}
-            onBlur={handleInputNameDisabled}
+            onBlur={handleBlur}
             disabled={disabled}
           />
-          <EmailInput onChange={onChangeFormData} value={formData.email} name='email' isIcon={true} />
-          <PasswordInput onChange={onChangeFormData} value={formData.password} name='password' icon='EditIcon' />
+          <EmailInput onChange={(e) => onChangeFormData(e, handleChange)} value={formData.email} name='email' isIcon={true} />
+          <PasswordInput onChange={(e) => onChangeFormData(e, handleChange)} value={formData.password} name='password' icon='EditIcon' />
+          {isShowButtons && (
+            <div className={styles.buttons}>
+              <Link className={`${styles.cancel} ${styles.link} ${styles.inactive} mr-4`} onClick={handleCancelClick}>
+                Отменить
+              </Link>
+              <Button extraClass={styles.save} htmlType='submit'>
+                Сохранить
+              </Button>
+            </div>
+          )}
         </form>
       ) : (
         <Outlet />

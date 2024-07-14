@@ -18,7 +18,6 @@
 }
 
 .link {
-  display: block;
   text-decoration: none;
 }
 
@@ -30,4 +29,9 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  max-width: 480px;
+}
+
+.buttons {
+  align-self: flex-end;
 }
