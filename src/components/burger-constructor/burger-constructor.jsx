@@ -11,6 +11,7 @@ import { addIngredient } from '../../services/slices/burger-сonstructor-slice';
 const BurgerConstructor = () => {
   const { bun, ingredients } = useSelector((store) => store.burgerConstructor);
   const { isLoading } = useSelector((store) => store.burgerIngredients);
+  const { user } = useSelector((store) => store.user);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -22,6 +23,10 @@ const BurgerConstructor = () => {
   }, [bun, ingredients]);
 
   const handleSubmitOrder = () => {
+    if (!user) {
+      return navigate('/login', { state: { from: location } });
+    }
+
     if (bun && ingredients.length) {
       const preparedData = { ingredients: [bun._id, ...ingredients.map((ingredient) => ingredient._id), bun._id] };
       dispatch(sendOrder(preparedData));
