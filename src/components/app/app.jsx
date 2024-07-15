@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import { ForgotPasswordPage, IngredientPage, LoginPage, MainPage, NotFound404, OrdersPage, ProfilePage, RegisterPage, ResetPasswordPage } from '../../pages';
 import Modal from '../modal/modal';
@@ -11,6 +11,7 @@ import { RouteOnlyAuth, RouteOnlyUnAuth } from '../protected-route-element/prote
 
 function App() {
   const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,7 +39,7 @@ function App() {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal>
+              <Modal onClose={() => navigate('/', { replace: true })}>
                 <IngredientDetails />
               </Modal>
             }
@@ -46,7 +47,7 @@ function App() {
           <Route
             path='/'
             element={
-              <Modal>
+              <Modal onClose={() => navigate('/', { replace: true })}>
                 <OrderDetails />
               </Modal>
             }

@@ -41,11 +41,12 @@ export const constructorListPropType = {
 };
 
 export const ingredientItemPropType = {
-  ingredient: ingredientPropType,
+  ingredient: ingredientPropType.isRequired,
 };
 
 export const modalPropType = {
-  children: PropTypes.element,
+  children: PropTypes.element.isRequired,
+  onClose: PropTypes.func,
 };
 
 export const modalOverlayPropType = {

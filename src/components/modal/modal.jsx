@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { createPortal } from 'react-dom';
-import { useNavigate } from 'react-router-dom';
 import { GridLoader } from 'react-spinners';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -12,10 +11,9 @@ import useShowModal from '../../hooks/use-show-modal';
 
 const modalRoot = document.getElementById('modals');
 
-const Modal = ({ children }) => {
+const Modal = ({ children, onClose }) => {
   const { isLoading } = useSelector((store) => store.orderDetails);
   const { isShowModal, closeModal } = useShowModal(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyEscCloseModal);
@@ -26,15 +24,14 @@ const Modal = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleClickCloseModal = () => {
+  const handleCloseModal = () => {
     closeModal();
-    navigate(-1, { replace: true });
+    if (onClose) onClose();
   };
 
   const handleKeyEscCloseModal = (e) => {
     if (e.code === 'Escape') {
-      closeModal();
-      navigate(-1, { replace: true });
+      handleCloseModal();
     }
   };
 
@@ -48,9 +45,9 @@ const Modal = ({ children }) => {
           </>
         ) : (
           <>
-            <ModalOverlay onClick={handleClickCloseModal} />
+            <ModalOverlay onClick={handleCloseModal} />
             <div className={styles.modal}>
-              <span className={styles.close} onClick={handleClickCloseModal}>
+              <span className={styles.close} onClick={handleCloseModal}>
                 <CloseIcon type='primary' />
               </span>
               {children}
