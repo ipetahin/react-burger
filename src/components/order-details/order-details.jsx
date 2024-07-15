@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 import { clearOrder } from '../../services/slices/order-details-slice';
 import done from '../../images/done.gif';
@@ -29,11 +30,7 @@ const OrderDetails = () => {
           <span className='text text_type_main-default text_color_inactive mt-2'>Дождитесь готовности на орбитальной станции</span>
         </>
       ) : (
-        <>
-          <img src={done} alt='done' className='mt-15' />
-          <span className='text text_type_main-default mt-15'>Ваш заказ начали готовить</span>
-          <span className='text text_type_main-default text_color_inactive mt-2'>Дождитесь готовности на орбитальной станции</span>
-        </>
+        <Navigate to='/' replace={true} />
       )}
     </div>
   );
