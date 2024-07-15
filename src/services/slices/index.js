@@ -13,6 +13,7 @@ const preloadedState = {
   burgerConstructor: { bun: null, ingredients: [] },
   ingredientDetails: { data: null },
   orderDetails: { data: null, isLoading: false, isError: false },
+  user: { user: null, isAuthChecked: false },
 };
 
 export default configureStore({
