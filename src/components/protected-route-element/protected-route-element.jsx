@@ -4,7 +4,7 @@ import { GridLoader } from 'react-spinners';
 
 import { protectedRouteElementPropType } from '../../utils/prop-types';
 
-export default function ProtectedRouteElement({ component, onlyAuth = true }) {
+const ProtectedRouteElement = ({ component, onlyAuth = true }) => {
   const { user, isAuthChecked } = useSelector((store) => store.user);
   const location = useLocation();
 
@@ -22,7 +22,10 @@ export default function ProtectedRouteElement({ component, onlyAuth = true }) {
   }
 
   return component;
-}
+};
+
+export const RouteOnlyAuth = ProtectedRouteElement;
+export const RouteOnlyUnAuth = ({ component }) => <ProtectedRouteElement component={component} onlyAuth={false} />;
 
 ProtectedRouteElement.propTypes = {
   ...protectedRouteElementPropType,

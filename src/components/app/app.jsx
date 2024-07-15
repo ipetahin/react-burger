@@ -7,7 +7,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { checkUserAuth } from '../../services/slices/user-slice';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import ProtectedRouteElement from '../protected-route-element/protected-route-element';
+import { RouteOnlyAuth, RouteOnlyUnAuth } from '../protected-route-element/protected-route-element';
 
 function App() {
   const location = useLocation();
@@ -22,12 +22,12 @@ function App() {
       <AppHeader />
       <Routes location={location.state?.backgroundLocation || location}>
         <Route path='/' element={<MainPage />} />
-        <Route path='/login' element={<ProtectedRouteElement component={<LoginPage />} onlyAuth={false} />} />
-        <Route path='/register' element={<ProtectedRouteElement component={<RegisterPage />} onlyAuth={false} />} />
-        <Route path='/forgot-password' element={<ProtectedRouteElement component={<ForgotPasswordPage />} onlyAuth={false} />} />
-        <Route path='/reset-password' element={<ProtectedRouteElement component={<ResetPasswordPage />} onlyAuth={false} />} />
-        <Route path='/profile' element={<ProtectedRouteElement component={<ProfilePage />} />}>
-          <Route path='orders' element={<ProtectedRouteElement component={<OrdersPage />} />} />
+        <Route path='/login' element={<RouteOnlyUnAuth component={<LoginPage />} />} />
+        <Route path='/register' element={<RouteOnlyUnAuth component={<RegisterPage />} />} />
+        <Route path='/forgot-password' element={<RouteOnlyUnAuth component={<ForgotPasswordPage />} />} />
+        <Route path='/reset-password' element={<RouteOnlyUnAuth component={<ResetPasswordPage />} />} />
+        <Route path='/profile' element={<RouteOnlyAuth component={<ProfilePage />} />}>
+          <Route path='orders' element={<RouteOnlyAuth component={<OrdersPage />} />} />
         </Route>
         <Route path='/ingredients/:id' element={<IngredientPage />} />
         <Route path='*' element={<NotFound404 />} />
