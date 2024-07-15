@@ -68,9 +68,9 @@ export default function ProfilePage() {
           </NavLink>
         </li>
         <li className={`${styles.item} text text_type_main-medium`}>
-          <NavLink to='logout' className={({ isActive }) => (isActive ? styles.link : `${styles.link} ${styles.inactive}`)} onClick={handleLogout} end>
+          <span className={`${styles.link} ${styles.inactive}`} onClick={handleLogout} >
             Выход
-          </NavLink>
+          </span>
         </li>
         <span className='text text_type_main-default text_color_inactive mt-20'>В этом разделе вы можете изменить свои персональные данные</span>
       </menu>

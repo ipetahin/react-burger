@@ -19,6 +19,7 @@
 
 .link {
   text-decoration: none;
+  cursor: pointer;
 }
 
 .link.inactive {
