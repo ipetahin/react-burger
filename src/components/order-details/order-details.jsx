@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 import { clearOrder } from '../../services/slices/order-details-slice';
 import done from '../../images/done.gif';
@@ -20,7 +21,7 @@ const OrderDetails = () => {
   return (
     <div className={styles.order}>
       {isError && <>Ошибка при отпраке заказа</>}
-      {data && (
+      {data ? (
         <>
           <span className={`${styles.order_number} text text_type_digits-large`}>{data.order.number}</span>
           <span className='text text_type_main-medium mt-8'>идентификатор заказа</span>
@@ -28,6 +29,8 @@ const OrderDetails = () => {
           <span className='text text_type_main-default mt-15'>Ваш заказ начали готовить</span>
           <span className='text text_type_main-default text_color_inactive mt-2'>Дождитесь готовности на орбитальной станции</span>
         </>
+      ) : (
+        <Navigate to='/' replace={true} />
       )}
     </div>
   );

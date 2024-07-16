@@ -40,29 +40,20 @@ export const constructorListPropType = {
   onDropHandler: PropTypes.func.isRequired,
 };
 
-export const ingredientGroupPropType = {
-  ingredients: ingredientsPropType,
-  title: PropTypes.string,
-  type: PropTypes.string,
-};
-
 export const ingredientItemPropType = {
-  ingredient: ingredientPropType,
+  ingredient: ingredientPropType.isRequired,
 };
 
 export const modalPropType = {
-  text: PropTypes.string,
-  closeModal: PropTypes.func,
-  children: PropTypes.element,
+  children: PropTypes.element.isRequired,
+  onClose: PropTypes.func,
 };
 
 export const modalOverlayPropType = {
   onClick: PropTypes.func,
 };
 
-export const navItemPropType = {
-  iconType: PropTypes.string,
-  text: PropTypes.string,
-  link: PropTypes.string,
-  active: PropTypes.bool,
+export const protectedRouteElementPropType = {
+  component: PropTypes.element.isRequired,
+  onlyAuth: PropTypes.bool,
 };

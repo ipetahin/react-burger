@@ -9,10 +9,6 @@
   background-color: var(--background);
 }
 
-.header {
-  line-height: 64px;
-}
-
 .close {
   position: absolute;
   top: 60px;

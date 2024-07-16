@@ -4,6 +4,7 @@
   align-items: center;
   margin: 0 40px 60px;
 }
+
 .nutrition {
   display: flex;
   gap: 20px;
@@ -15,4 +16,9 @@
   align-items: center;
   justify-content: space-between;
   min-height: 56px;
+}
+
+.header {
+  line-height: 64px;
+  align-self: start;
 }

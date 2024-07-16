@@ -1,7 +1,0 @@
-.group {
-  display: grid;
-  grid-template-columns: 272px 272px;
-  grid-auto-rows: 208px;
-  column-gap: 24px;
-  row-gap: 32px;
-}

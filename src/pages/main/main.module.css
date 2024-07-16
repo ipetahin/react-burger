@@ -1,11 +1,3 @@
-.app {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: var(--background-alt);
-  color: var(--text-primary-light);
-}
-
 .main {
   display: grid;
   grid-template-columns: repeat(2, 600px);
