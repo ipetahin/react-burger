@@ -1,25 +1,28 @@
+import { FC } from 'react';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { constructorItemBunPropType } from '../../../utils/prop-types';
 import styles from './constructor-item-bun.module.css';
+import { Ingredient, ConstructorItemType } from '../../../types';
 
-const ConstructorItemBun = ({ ingredient, position, extraClass = '' }) => {
+interface ConstructorItemBunProps {
+  ingredient: Ingredient;
+  type: ConstructorItemType;
+  extraClass?: string;
+}
+
+const ConstructorItemBun: FC<ConstructorItemBunProps> = ({ ingredient, type, extraClass = '' }) => {
   return (
     <div className={`${styles.item} ${extraClass}`}>
       <ConstructorElement
-        text={`${ingredient.name}${position === 'top' ? ' (верх)' : ' (низ)'}`}
+        text={`${ingredient.name}${type === 'top' ? ' (верх)' : ' (низ)'}`}
         price={ingredient.price}
         thumbnail={ingredient.image_mobile}
-        type={position}
+        type={type}
         isLocked={true}
         extraClass={styles.element}
       />
     </div>
   );
-};
-
-ConstructorItemBun.propTypes = {
-  ...constructorItemBunPropType,
 };
 
 export default ConstructorItemBun;
