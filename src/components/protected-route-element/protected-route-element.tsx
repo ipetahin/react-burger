@@ -1,11 +1,19 @@
+import { FC, ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { GridLoader } from 'react-spinners';
 
-import { protectedRouteElementPropType } from '../../utils/prop-types';
+interface ProtectedRouteElementProps {
+  component: ReactElement;
+  onlyAuth: boolean;
+}
 
-const ProtectedRouteElement = ({ component, onlyAuth = true }) => {
-  const { user, isAuthChecked } = useSelector((store) => store.user);
+interface Component {
+  component: ReactElement;
+}
+
+const ProtectedRouteElement: FC<ProtectedRouteElementProps> = ({ component, onlyAuth }) => {
+  const { user, isAuthChecked } = useSelector((store: any) => store.user);
   const location = useLocation();
 
   if (!isAuthChecked) {
@@ -24,9 +32,5 @@ const ProtectedRouteElement = ({ component, onlyAuth = true }) => {
   return component;
 };
 
-export const RouteOnlyAuth = ProtectedRouteElement;
-export const RouteOnlyUnAuth = ({ component }) => <ProtectedRouteElement component={component} onlyAuth={false} />;
-
-ProtectedRouteElement.propTypes = {
-  ...protectedRouteElementPropType,
-};
+export const RouteOnlyAuth = ({ component }: Component) => <ProtectedRouteElement component={component} onlyAuth={true} />;
+export const RouteOnlyUnAuth = ({ component }: Component) => <ProtectedRouteElement component={component} onlyAuth={false} />;
