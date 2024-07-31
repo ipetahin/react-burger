@@ -7,7 +7,7 @@ import done from '../../images/done.gif';
 import styles from './order-details.module.css';
 
 const OrderDetails = () => {
-  const { isError, data } = useSelector((store) => store.orderDetails);
+  const { isError, data } = useSelector((store: any) => store.orderDetails);
 
   const dispatch = useDispatch();
 
