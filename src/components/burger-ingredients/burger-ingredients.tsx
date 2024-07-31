@@ -7,14 +7,15 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getIngredients } from '../../services/slices/burger-ingredients-slice';
 import IngredientItem from './ingredient-item/ingredient-item';
 import styles from './burger-ingredients.module.css';
+import { Ingredient } from '../../types';
 
 const BurgerIngredients = () => {
-  const { isLoading, isError, data } = useSelector((state) => state.burgerIngredients);
-  const dispatch = useDispatch();
-  const tabsRef = useRef();
-  const groupBunRef = useRef();
-  const groupSauceRef = useRef();
-  const groupMainRef = useRef();
+  const { isLoading, isError, data } = useSelector((state: any) => state.burgerIngredients);
+  const dispatch: any = useDispatch();
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const groupBunRef = useRef<HTMLHeadingElement>(null);
+  const groupSauceRef = useRef<HTMLHeadingElement>(null);
+  const groupMainRef = useRef<HTMLHeadingElement>(null);
   const [activeTab, setActiveTab] = useState('bun');
   const location = useLocation();
 
@@ -24,42 +25,44 @@ const BurgerIngredients = () => {
   }, []);
 
   const handleScrollIngredientGroup = () => {
-    const tabsTopCoord = tabsRef.current.getBoundingClientRect().top;
-    const bunTopCoord = groupBunRef.current.getBoundingClientRect().top;
-    const sauceTopCoord = groupSauceRef.current.getBoundingClientRect().top;
-    const mainTopCoord = groupMainRef.current.getBoundingClientRect().top;
-    const arr = [bunTopCoord, sauceTopCoord, mainTopCoord];
-    const closestIndex = arr.findIndex((elem) => elem === arr.reduce((prev, curr) => (Math.abs(curr - tabsTopCoord) < Math.abs(prev - tabsTopCoord) ? curr : prev)));
-    switch (closestIndex) {
-      case 0:
-        if (activeTab !== 'bun') setActiveTab('bun');
-        break;
-      case 1:
-        if (activeTab !== 'sauce') setActiveTab('sauce');
-        break;
-      case 2:
-        if (activeTab !== 'main') setActiveTab('main');
-        break;
-      default:
-        setActiveTab('bun');
-        break;
+    const tabsTopCoord = tabsRef.current?.getBoundingClientRect().top;
+    const bunTopCoord = groupBunRef.current?.getBoundingClientRect().top;
+    const sauceTopCoord = groupSauceRef.current?.getBoundingClientRect().top;
+    const mainTopCoord = groupMainRef.current?.getBoundingClientRect().top;
+    if (tabsTopCoord && bunTopCoord && sauceTopCoord && mainTopCoord) {
+      const arr: number[] = [bunTopCoord, sauceTopCoord, mainTopCoord];
+      const closestIndex = arr.findIndex((elem: number) => elem === arr.reduce((prev: number, curr: number) => (Math.abs(curr - tabsTopCoord) < Math.abs(prev - tabsTopCoord) ? curr : prev)));
+      switch (closestIndex) {
+        case 0:
+          if (activeTab !== 'bun') setActiveTab('bun');
+          break;
+        case 1:
+          if (activeTab !== 'sauce') setActiveTab('sauce');
+          break;
+        case 2:
+          if (activeTab !== 'main') setActiveTab('main');
+          break;
+        default:
+          setActiveTab('bun');
+          break;
+      }
     }
   };
 
-  const handleClickTab = (tab) => {
+  const handleClickTab = (tab: string) => {
     if (activeTab !== 'bun') setActiveTab('bun');
     switch (tab) {
       case 'bun':
-        groupBunRef.current.scrollIntoView({ behavior: 'smooth' });
+        groupBunRef.current?.scrollIntoView({ behavior: 'smooth' });
         break;
       case 'sauce':
-        groupSauceRef.current.scrollIntoView({ behavior: 'smooth' });
+        groupSauceRef.current?.scrollIntoView({ behavior: 'smooth' });
         break;
       case 'main':
-        groupMainRef.current.scrollIntoView({ behavior: 'smooth' });
+        groupMainRef.current?.scrollIntoView({ behavior: 'smooth' });
         break;
       default:
-        groupBunRef.current.scrollIntoView({ behavior: 'smooth' });
+        groupBunRef.current?.scrollIntoView({ behavior: 'smooth' });
         break;
     }
   };
@@ -89,8 +92,8 @@ const BurgerIngredients = () => {
               </h2>
               <ul className={`${styles.list} mt-6 mr-2 mb-10 ml-4`}>
                 {data
-                  .filter((ingredient) => ingredient.type === 'bun')
-                  .map((ingredient) => (
+                  .filter((ingredient: Ingredient) => ingredient.type === 'bun')
+                  .map((ingredient: Ingredient) => (
                     <Link className={styles.link} key={ingredient._id} to={`/ingredients/${ingredient._id}`} state={{ backgroundLocation: location }}>
                       <IngredientItem key={ingredient._id} ingredient={ingredient} />
                     </Link>
@@ -103,8 +106,8 @@ const BurgerIngredients = () => {
               </h2>
               <ul className={`${styles.list} mt-6 mr-2 mb-10 ml-4`}>
                 {data
-                  .filter((ingredient) => ingredient.type === 'sauce')
-                  .map((ingredient) => (
+                  .filter((ingredient: Ingredient) => ingredient.type === 'sauce')
+                  .map((ingredient: Ingredient) => (
                     <Link className={styles.link} key={ingredient._id} to={`/ingredients/${ingredient._id}`} state={{ backgroundLocation: location }}>
                       <IngredientItem key={ingredient._id} ingredient={ingredient} />
                     </Link>
@@ -117,8 +120,8 @@ const BurgerIngredients = () => {
               </h2>
               <ul className={`${styles.list} mt-6 mr-2 mb-10 ml-4`}>
                 {data
-                  .filter((ingredient) => ingredient.type === 'main')
-                  .map((ingredient) => (
+                  .filter((ingredient: Ingredient) => ingredient.type === 'main')
+                  .map((ingredient: Ingredient) => (
                     <Link className={styles.link} key={ingredient._id} to={`/ingredients/${ingredient._id}`} state={{ backgroundLocation: location }} replace={true}>
                       <IngredientItem key={ingredient._id} ingredient={ingredient} />
                     </Link>
