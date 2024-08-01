@@ -15,3 +15,26 @@ export interface Ingredient {
 }
 
 export type ConstructorItemType = 'top' | 'bottom';
+
+export interface FormData {
+  [name: string]: string;
+}
+
+export interface ArrayData {
+  [name: string]: Array<string>;
+}
+
+export type HTTPMethods = 'GET' | 'POST' | 'PATCH';
+
+export interface Options {
+  method?: HTTPMethods;
+  body?: string;
+  headers: {
+    'Content-Type'?: string;
+    authorization?: string;
+  };
+}
+
+export interface ResponseError {
+  message: string;
+}
