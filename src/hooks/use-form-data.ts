@@ -1,8 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-
-export interface FormData {
-  [name: string]: string;
-}
+import { FormData } from '../types';
 
 const useFormData = (initialValue: FormData) => {
   const [formData, setFormData] = useState(initialValue);
