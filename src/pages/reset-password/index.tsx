@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FormEvent, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -18,9 +18,9 @@ export default function ResetPasswordPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const isError = e.target.querySelector('.input__error');
+    const isError = document.querySelector('.input__error');
     if (isError) return;
 
     if (checkFormData.status) {
@@ -28,16 +28,16 @@ export default function ResetPasswordPage() {
         .then((data) => data.success && navigate('/login', { replace: true }))
         .catch((err) => {
           const error = Object.assign(document.createElement('p'), { className: 'input__error text_type_main-default', textContent: err.message });
-          const input = e.target.querySelector('[name="token"]').closest('.input');
-          input.classList.add('input_status_error');
-          input.closest('.input__container').append(error);
+          const input = document.querySelector('[name="token"]')?.closest('.input');
+          input?.classList.add('input_status_error');
+          input?.closest('.input__container')?.append(error);
           setTimeout(() => {
-            input.classList.remove('input_status_error');
+            input?.classList.remove('input_status_error');
             error.remove();
           }, 2000);
         });
     } else {
-      e.target.querySelector(`[name=${checkFormData.field}]`).closest('.input').classList.add('input_status_error');
+      document.querySelector(`[name=${checkFormData.field}]`)?.closest('.input')?.classList.add('input_status_error');
     }
   };
 

@@ -4,17 +4,18 @@ import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-comp
 import useFormData from '../../hooks/use-form-data';
 import styles from './forgot-password.module.css';
 import { passwordResetRequest } from '../../utils/api';
+import { FormEvent } from 'react';
 
 export default function ForgotPasswordPage() {
   const { formData, onChangeFormData, checkFormData } = useFormData({ email: '' });
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (checkFormData.status) {
       passwordResetRequest(formData).then((data) => navigate('/reset-password', { state: { message: data.message } }));
     } else {
-      e.target.querySelector(`[name=${checkFormData.field}]`).closest('.input').classList.add('input_status_error');
+      document.querySelector(`[name=${checkFormData.field}]`)?.closest('.input')?.classList.add('input_status_error');
     }
   };
 
