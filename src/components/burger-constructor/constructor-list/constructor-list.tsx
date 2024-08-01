@@ -8,16 +8,16 @@ import ConstructorItemBun from '../constructor-item-bun/constructor-item-bun';
 import ConstructorItemSkeleton from '../constructor-item-skeleton/constructor-item-skeleton';
 
 import styles from './constructor-list.module.css';
-import { Ingredient, ConstructorItemType } from '../../../types';
+import { BurgerConstructorStore, ConstructorItemType, ConstructorIngredient, ConstructorIngredients, Ingredient } from '../../../types';
 
 interface ConstructorListProps {
   onDropHandler: (ingredient: Ingredient) => void;
 }
 
 const ConstructorList: FC<ConstructorListProps> = memo(function ConstructorList({ onDropHandler }) {
-  const { bun, ingredients } = useSelector((store: any) => store.burgerConstructor);
+  const { bun, ingredients }: BurgerConstructorStore = useSelector((store: any) => store.burgerConstructor);
 
-  const [constructorIngredients, setConstructorIngredients] = useState(ingredients);
+  const [constructorIngredients, setConstructorIngredients] = useState<ConstructorIngredients>(ingredients);
 
   useEffect(() => {
     setConstructorIngredients(ingredients);
@@ -25,7 +25,7 @@ const ConstructorList: FC<ConstructorListProps> = memo(function ConstructorList(
 
   const findIngredient = useCallback(
     (id: string) => {
-      const ingredient = constructorIngredients.filter((ingredient: Ingredient) => ingredient.id === id)[0];
+      const ingredient = constructorIngredients.filter((ingredient) => ingredient.id === id)[0];
       return {
         ingredient,
         index: constructorIngredients.indexOf(ingredient),
@@ -51,7 +51,7 @@ const ConstructorList: FC<ConstructorListProps> = memo(function ConstructorList(
 
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
-    drop(item: { ingredient: Ingredient }) {
+    drop(item: { ingredient: ConstructorIngredient }) {
       onDropHandler(item.ingredient);
     },
   });
@@ -69,7 +69,7 @@ const ConstructorList: FC<ConstructorListProps> = memo(function ConstructorList(
 
       <ul className={`${styles.list}`}>
         {constructorIngredients.length ? (
-          constructorIngredients.map((ingredient: Ingredient) => (
+          constructorIngredients.map((ingredient) => (
             <ConstructorItem key={ingredient.id} ingredient={ingredient} moveIngredient={moveIngredient} findIngredient={findIngredient} />
           ))
         ) : (

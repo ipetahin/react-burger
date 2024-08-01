@@ -7,11 +7,11 @@ import styles from './burger-constructor.module.css';
 import ConstructorList from './constructor-list/constructor-list';
 import { sendOrder } from '../../services/slices/order-details-slice';
 import { addIngredient } from '../../services/slices/burger-сonstructor-slice';
-import { ArrayData, Ingredient } from '../../types';
+import { ArrayData, BurgerConstructorStore, Ingredient, UserStore } from '../../types';
 
 const BurgerConstructor = () => {
-  const { bun, ingredients } = useSelector((store: any) => store.burgerConstructor);
-  const { user } = useSelector((store: any) => store.user);
+  const { bun, ingredients }: BurgerConstructorStore = useSelector((store: any) => store.burgerConstructor);
+  const { user }: UserStore = useSelector((store: any) => store.user);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,7 +28,7 @@ const BurgerConstructor = () => {
     }
 
     if (bun && ingredients.length) {
-      const preparedData: ArrayData = { ingredients: [bun._id, ...ingredients.map((ingredient: Ingredient) => ingredient._id), bun._id] };
+      const preparedData: ArrayData = { ingredients: [bun._id, ...ingredients.map((ingredient) => ingredient._id), bun._id] };
       dispatch(sendOrder(preparedData));
       navigate('/', { state: { backgroundLocation: location } });
     }

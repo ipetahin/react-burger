@@ -5,10 +5,10 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 
 import { removeIngredient, sortIngredients } from '../../../services/slices/burger-сonstructor-slice';
 import styles from './constructor-item.module.css';
-import { Ingredient } from '../../../types';
+import { ConstructorIngredient } from '../../../types';
 
 interface ConstructorItemProps {
-  ingredient: Ingredient;
+  ingredient: ConstructorIngredient;
   moveIngredient: (id: string, atIndex: number) => void;
   findIngredient: (id: string) => { index: number };
 }
@@ -58,7 +58,7 @@ const ConstructorItem: FC<ConstructorItemProps> = memo(function ConstructorItem(
   );
   const opacity = isDragging ? 0 : 1;
 
-  const handleDeleteIngredient = (ingredient: Ingredient) => {
+  const handleDeleteIngredient = (ingredient: ConstructorIngredient) => {
     dispatch(removeIngredient(ingredient));
   };
 

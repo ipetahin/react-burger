@@ -5,20 +5,20 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 
 import { setData } from '../../../services/slices/ingredient-details-slice';
 import styles from './ingredient-item.module.css';
-import { Ingredient } from '../../../types';
+import { BurgerConstructorStore, ConstructorIngredient, Ingredient } from '../../../types';
 
 interface IngredientItemProps {
   ingredient: Ingredient;
 }
 
 const IngredientItem: FC<IngredientItemProps> = ({ ingredient }) => {
-  const { bun, ingredients } = useSelector((store: any) => store.burgerConstructor);
+  const { bun, ingredients }: BurgerConstructorStore = useSelector((store: any) => store.burgerConstructor);
 
   const counter = useMemo(() => {
     if (ingredient.type === 'bun') {
       return bun && bun._id === ingredient._id ? 2 : null;
     } else {
-      return ingredients.filter((item: Ingredient) => item._id === ingredient._id).length || null;
+      return ingredients.filter((item: ConstructorIngredient) => item._id === ingredient._id).length || null;
     }
   }, [bun, ingredients, ingredient.type, ingredient._id]);
 

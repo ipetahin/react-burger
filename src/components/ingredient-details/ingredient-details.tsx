@@ -5,13 +5,13 @@ import { GridLoader } from 'react-spinners';
 
 import { resetData, setData } from '../../services/slices/ingredient-details-slice';
 import styles from './ingredient-details.module.css';
-import { Ingredient } from '../../types';
+import { BurgerIngredientStore, IngredientDetailsStore } from '../../types';
 
 const IngredientDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const ingredient = useSelector((store: any) => store.ingredientDetails.data);
-  const { isLoading, data } = useSelector((store: any) => store.burgerIngredients);
+  const ingredient: IngredientDetailsStore = useSelector((store: any) => store.ingredientDetails.data);
+  const { isLoading, data }: BurgerIngredientStore = useSelector((store: any) => store.burgerIngredients);
 
   useEffect(() => {
     return () => {
@@ -21,7 +21,7 @@ const IngredientDetails = () => {
 
   useEffect(() => {
     if (!ingredient && data) {
-      dispatch(setData(data.find((ingredient: Ingredient) => ingredient._id === id)));
+      dispatch(setData(data.find((ingredient) => ingredient._id === id)));
     }
   }, [data, id, dispatch, ingredient]);
 

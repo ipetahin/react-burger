@@ -5,9 +5,10 @@ import { Navigate } from 'react-router-dom';
 import { clearOrder } from '../../services/slices/order-details-slice';
 import done from '../../images/done.gif';
 import styles from './order-details.module.css';
+import { OrderDetailsStore } from '../../types';
 
 const OrderDetails = () => {
-  const { isError, data } = useSelector((store: any) => store.orderDetails);
+  const { isError, data }: OrderDetailsStore = useSelector((store: any) => store.orderDetails);
 
   const dispatch = useDispatch();
 

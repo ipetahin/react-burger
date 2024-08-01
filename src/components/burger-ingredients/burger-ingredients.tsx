@@ -7,16 +7,16 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getIngredients } from '../../services/slices/burger-ingredients-slice';
 import IngredientItem from './ingredient-item/ingredient-item';
 import styles from './burger-ingredients.module.css';
-import { Ingredient } from '../../types';
+import { BurgerIngredientStore, IngredientType } from '../../types';
 
 const BurgerIngredients = () => {
-  const { isLoading, isError, data } = useSelector((state: any) => state.burgerIngredients);
+  const { isLoading, isError, data }: BurgerIngredientStore = useSelector((state: any) => state.burgerIngredients);
   const dispatch: any = useDispatch();
   const tabsRef = useRef<HTMLDivElement>(null);
   const groupBunRef = useRef<HTMLHeadingElement>(null);
   const groupSauceRef = useRef<HTMLHeadingElement>(null);
   const groupMainRef = useRef<HTMLHeadingElement>(null);
-  const [activeTab, setActiveTab] = useState('bun');
+  const [activeTab, setActiveTab] = useState<IngredientType>('bun');
   const location = useLocation();
 
   useEffect(() => {
@@ -31,7 +31,9 @@ const BurgerIngredients = () => {
     const mainTopCoord = groupMainRef.current?.getBoundingClientRect().top;
     if (tabsTopCoord && bunTopCoord && sauceTopCoord && mainTopCoord) {
       const arr: number[] = [bunTopCoord, sauceTopCoord, mainTopCoord];
-      const closestIndex = arr.findIndex((elem: number) => elem === arr.reduce((prev: number, curr: number) => (Math.abs(curr - tabsTopCoord) < Math.abs(prev - tabsTopCoord) ? curr : prev)));
+      const closestIndex = arr.findIndex(
+        (elem: number) => elem === arr.reduce((prev: number, curr: number) => (Math.abs(curr - tabsTopCoord) < Math.abs(prev - tabsTopCoord) ? curr : prev))
+      );
       switch (closestIndex) {
         case 0:
           if (activeTab !== 'bun') setActiveTab('bun');
@@ -92,8 +94,8 @@ const BurgerIngredients = () => {
               </h2>
               <ul className={`${styles.list} mt-6 mr-2 mb-10 ml-4`}>
                 {data
-                  .filter((ingredient: Ingredient) => ingredient.type === 'bun')
-                  .map((ingredient: Ingredient) => (
+                  .filter((ingredient) => ingredient.type === 'bun')
+                  .map((ingredient) => (
                     <Link className={styles.link} key={ingredient._id} to={`/ingredients/${ingredient._id}`} state={{ backgroundLocation: location }}>
                       <IngredientItem key={ingredient._id} ingredient={ingredient} />
                     </Link>
@@ -106,8 +108,8 @@ const BurgerIngredients = () => {
               </h2>
               <ul className={`${styles.list} mt-6 mr-2 mb-10 ml-4`}>
                 {data
-                  .filter((ingredient: Ingredient) => ingredient.type === 'sauce')
-                  .map((ingredient: Ingredient) => (
+                  .filter((ingredient) => ingredient.type === 'sauce')
+                  .map((ingredient) => (
                     <Link className={styles.link} key={ingredient._id} to={`/ingredients/${ingredient._id}`} state={{ backgroundLocation: location }}>
                       <IngredientItem key={ingredient._id} ingredient={ingredient} />
                     </Link>
@@ -120,8 +122,8 @@ const BurgerIngredients = () => {
               </h2>
               <ul className={`${styles.list} mt-6 mr-2 mb-10 ml-4`}>
                 {data
-                  .filter((ingredient: Ingredient) => ingredient.type === 'main')
-                  .map((ingredient: Ingredient) => (
+                  .filter((ingredient) => ingredient.type === 'main')
+                  .map((ingredient) => (
                     <Link className={styles.link} key={ingredient._id} to={`/ingredients/${ingredient._id}`} state={{ backgroundLocation: location }} replace={true}>
                       <IngredientItem key={ingredient._id} ingredient={ingredient} />
                     </Link>

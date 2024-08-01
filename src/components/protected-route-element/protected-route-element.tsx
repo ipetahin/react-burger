@@ -2,6 +2,7 @@ import { FC, ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { GridLoader } from 'react-spinners';
+import { UserStore } from '../../types';
 
 interface ProtectedRouteElementProps {
   component: ReactElement;
@@ -13,7 +14,7 @@ interface Component {
 }
 
 const ProtectedRouteElement: FC<ProtectedRouteElementProps> = ({ component, onlyAuth }) => {
-  const { user, isAuthChecked } = useSelector((store: any) => store.user);
+  const { user, isAuthChecked }: UserStore = useSelector((store: any) => store.user);
   const location = useLocation();
 
   if (!isAuthChecked) {

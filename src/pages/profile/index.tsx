@@ -6,11 +6,12 @@ import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-de
 import { logoutUser, updateUser } from '../../services/slices/user-slice';
 import useFormData from '../../hooks/use-form-data';
 import styles from './profile.module.css';
+import { UserStore } from '../../types';
 
 export default function ProfilePage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user } = useSelector((store: any) => store.user);
+  const { user }: UserStore = useSelector((store: any) => store.user);
   const [disabled, setDisabled] = useState(true);
   const { formData, onChangeFormData, setFormData } = useFormData({ ...user, password: '' });
   const dispatch: any = useDispatch();
@@ -47,7 +48,7 @@ export default function ProfilePage() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
-    if (target.value !== user[target.name]) {
+    if (user && target.value !== user[target.name]) {
       setShowButtons(true);
     } else {
       setShowButtons(false);
