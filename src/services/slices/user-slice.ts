@@ -1,14 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { login, logout, register, requestUpdateUser, requestUser } from '../../utils/api';
+import { FormData } from '../../types';
 
-export const loginUser = createAsyncThunk('user/login', async (data) => {
+export const loginUser = createAsyncThunk('user/login', async (data: FormData) => {
   const res = await login(data);
   localStorage.setItem('accessToken', res.accessToken);
   localStorage.setItem('refreshToken', res.refreshToken);
   return res.user;
 });
 
-export const registerUser = createAsyncThunk('user/register', async (data) => {
+export const registerUser = createAsyncThunk('user/register', async (data: FormData) => {
   const res = await register(data);
   localStorage.setItem('accessToken', res.accessToken);
   localStorage.setItem('refreshToken', res.refreshToken);
@@ -25,10 +26,13 @@ export const getUser = createAsyncThunk('user/getUser', requestUser);
 
 export const checkUserAuth = createAsyncThunk('user/checkUserAuth', async (_, thunkAPI) => {
   if (localStorage.getItem('accessToken')) {
-    await thunkAPI.dispatch(getUser()).unwrap().catch(() => {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-    });
+    await thunkAPI
+      .dispatch(getUser())
+      .unwrap()
+      .catch(() => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+      });
   }
 });
 
