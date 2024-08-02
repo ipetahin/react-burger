@@ -48,7 +48,6 @@ export interface Order {
 export interface User {
   email: string;
   name: string;
-  [key: string]: string;
 }
 
 export interface Owner extends User {

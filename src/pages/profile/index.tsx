@@ -6,7 +6,7 @@ import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-de
 import { logoutUser, updateUser } from '../../services/slices/user-slice';
 import useFormData from '../../hooks/use-form-data';
 import styles from './profile.module.css';
-import { UserStore } from '../../types';
+import { User, UserStore } from '../../types';
 
 export default function ProfilePage() {
   const location = useLocation();
@@ -48,7 +48,8 @@ export default function ProfilePage() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
-    if (user && target.value !== user[target.name]) {
+    
+    if (user && target.value !== (user[target.name as keyof User] || '')) {
       setShowButtons(true);
     } else {
       setShowButtons(false);
