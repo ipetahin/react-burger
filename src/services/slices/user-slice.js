@@ -1,15 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { login, logout, register, requestUpdateUser, requestUser } from '../../utils/api';
-import { FormData } from '../../types';
 
-export const loginUser = createAsyncThunk('user/login', async (data: FormData) => {
+export const loginUser = createAsyncThunk('user/login', async (data) => {
   const res = await login(data);
   localStorage.setItem('accessToken', res.accessToken);
   localStorage.setItem('refreshToken', res.refreshToken);
   return res.user;
 });
 
-export const registerUser = createAsyncThunk('user/register', async (data: FormData) => {
+export const registerUser = createAsyncThunk('user/register', async (data) => {
   const res = await register(data);
   localStorage.setItem('accessToken', res.accessToken);
   localStorage.setItem('refreshToken', res.refreshToken);

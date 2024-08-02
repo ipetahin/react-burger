@@ -18,6 +18,7 @@ export default function LoginPage() {
     if (isError) return;
 
     if (checkFormData.status) {
+      // @ts-expect-error Expected 0 arguments, but got 1.ts(2554)
       dispatch(loginUser(formData))
         .unwrap()
         .catch((err: Error) => {
