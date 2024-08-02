@@ -45,7 +45,8 @@ export default function ResetPasswordPage() {
     <main className={`${styles.main}`}>
       <h1 className='text text_type_main-medium'>Восстановление пароля</h1>
       <form className={`${styles.form} mt-6 mb-20`} onSubmit={handleSubmit}>
-        <PasswordInput onChange={onChangeFormData} value={formData.password} name='password' placeholder='Введите новый пароль' />
+        <input hidden autoComplete='username' name='username' />
+        <PasswordInput onChange={onChangeFormData} value={formData.password} autoComplete='new-password' name='password' placeholder='Введите новый пароль' />
         <Input onChange={onChangeFormData} value={formData.token} name='token' placeholder='Введите код из письма' />
         <Button htmlType='submit' type='primary' size='medium'>
           Сохранить
