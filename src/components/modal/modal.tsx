@@ -1,4 +1,4 @@
-import { FC, ReactElement, useEffect } from 'react';
+import { FC, ReactElement, ReactPortal, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { createPortal } from 'react-dom';
 import { GridLoader } from 'react-spinners';
@@ -9,14 +9,14 @@ import styles from './modal.module.css';
 import useShowModal from '../../hooks/use-show-modal';
 import { OrderDetailsStore } from '../../types';
 
-const modalRoot = document.getElementById('modals') as Element;
+const modalRoot = document.getElementById('modals') as HTMLElement;
 
 interface ModalProps {
   children: ReactElement;
   onClose?: () => void;
 }
 
-const Modal: FC<ModalProps> = ({ children, onClose }) => {
+const Modal: FC<ModalProps> = ({ children, onClose }): ReactPortal => {
   const { isLoading }: OrderDetailsStore = useSelector((store: any) => store.orderDetails);
   const { isShowModal, closeModal } = useShowModal(true);
 
