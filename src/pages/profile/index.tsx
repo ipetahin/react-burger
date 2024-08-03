@@ -6,12 +6,12 @@ import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-de
 import { logoutUser, updateUser } from '../../services/slices/user-slice';
 import useFormData from '../../hooks/use-form-data';
 import styles from './profile.module.css';
-import { User, UserStore } from '../../types';
+import { User, Store } from '../../types';
 
 export default function ProfilePage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user }: UserStore = useSelector((store: any) => store.user);
+  const { user } = useSelector((store: Store) => store.user);
   const [disabled, setDisabled] = useState(true);
   const { formData, onChangeFormData, setFormData } = useFormData({ ...user, password: '' });
   const dispatch: any = useDispatch();

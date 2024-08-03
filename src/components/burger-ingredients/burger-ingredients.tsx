@@ -7,10 +7,10 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getIngredients } from '../../services/slices/burger-ingredients-slice';
 import IngredientItem from './ingredient-item/ingredient-item';
 import styles from './burger-ingredients.module.css';
-import { BurgerIngredientStore, IngredientType } from '../../types';
+import { IngredientType, Store } from '../../types';
 
 const BurgerIngredients = () => {
-  const { isLoading, isError, data }: BurgerIngredientStore = useSelector((state: any) => state.burgerIngredients);
+  const { isLoading, isError, data } = useSelector((store: Store) => store.burgerIngredients);
   const dispatch: any = useDispatch();
   const tabsRef = useRef<HTMLDivElement>(null);
   const groupBunRef = useRef<HTMLHeadingElement>(null);

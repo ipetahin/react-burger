@@ -8,14 +8,14 @@ import ConstructorItemBun from '../constructor-item-bun/constructor-item-bun';
 import ConstructorItemSkeleton from '../constructor-item-skeleton/constructor-item-skeleton';
 
 import styles from './constructor-list.module.css';
-import { BurgerConstructorStore, ConstructorItemType, ConstructorIngredient, ConstructorIngredients, Ingredient } from '../../../types';
+import { ConstructorItemType, ConstructorIngredient, ConstructorIngredients, Ingredient, Store } from '../../../types';
 
 interface ConstructorListProps {
   onDropHandler: (ingredient: Ingredient) => void;
 }
 
 const ConstructorList: FC<ConstructorListProps> = memo(function ConstructorList({ onDropHandler }) {
-  const { bun, ingredients }: BurgerConstructorStore = useSelector((store: any) => store.burgerConstructor);
+  const { bun, ingredients } = useSelector((store: Store) => store.burgerConstructor);
 
   const [constructorIngredients, setConstructorIngredients] = useState<ConstructorIngredients>(ingredients);
 

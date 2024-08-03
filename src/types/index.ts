@@ -1,5 +1,5 @@
 import { Ingredient, Ingredients, ConstructorIngredient, ConstructorIngredients, ConstructorItemType, IngredientType, FormData, ArrayData, User } from './common';
-import { BurgerConstructorStore, BurgerIngredientStore, IngredientDetailsStore, OrderDetailsStore, UserStore } from './store';
+import { Store } from './store';
 
 export type {
   Ingredient,
@@ -10,10 +10,6 @@ export type {
   IngredientType,
   FormData,
   ArrayData,
-  BurgerConstructorStore,
-  BurgerIngredientStore,
-  IngredientDetailsStore,
-  OrderDetailsStore,
   User,
-  UserStore,
+  Store,
 };

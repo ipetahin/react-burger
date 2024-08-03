@@ -7,11 +7,11 @@ import styles from './burger-constructor.module.css';
 import ConstructorList from './constructor-list/constructor-list';
 import { sendOrder } from '../../services/slices/order-details-slice';
 import { addIngredient } from '../../services/slices/burger-сonstructor-slice';
-import { ArrayData, BurgerConstructorStore, Ingredient, UserStore } from '../../types';
+import { ArrayData, Ingredient, Store } from '../../types';
 
 const BurgerConstructor = () => {
-  const { bun, ingredients }: BurgerConstructorStore = useSelector((store: any) => store.burgerConstructor);
-  const { user }: UserStore = useSelector((store: any) => store.user);
+  const { bun, ingredients } = useSelector((store: Store) => store.burgerConstructor);
+  const { user } = useSelector((store: Store) => store.user);
   const navigate = useNavigate();
   const location = useLocation();
 

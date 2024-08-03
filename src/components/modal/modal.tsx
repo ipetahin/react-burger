@@ -7,7 +7,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import styles from './modal.module.css';
 import useShowModal from '../../hooks/use-show-modal';
-import { OrderDetailsStore } from '../../types';
+import { Store } from '../../types';
 
 const modalRoot = document.getElementById('modals') as HTMLElement;
 
@@ -16,7 +16,7 @@ interface ModalProps {
 }
 
 const Modal = ({ children, onClose }: PropsWithChildren<ModalProps>): ReactPortal => {
-  const { isLoading }: OrderDetailsStore = useSelector((store: any) => store.orderDetails);
+  const { isLoading } = useSelector((store: Store) => store.orderDetails);
   const { isShowModal, closeModal } = useShowModal(true);
 
   useEffect(() => {
