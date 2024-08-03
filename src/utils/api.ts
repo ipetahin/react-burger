@@ -77,17 +77,33 @@ export const fetchIngredients = () => {
   return request<ServerIngredientsResponse>('ingredients').then((data) => data.success && data.data);
 };
 
-export const login = (data: FormData) => requestPost<ServerUserResponse>('auth/login', data);
-export const register = (data: FormData) => requestPost<ServerUserResponse>('auth/register', data);
+export const login = (data: FormData) =>
+  requestPost<ServerUserResponse>('auth/login', data).then((res) => {
+    localStorage.setItem('accessToken', res.accessToken);
+    localStorage.setItem('refreshToken', res.refreshToken);
+    return res.user;
+  });
+
+export const register = (data: FormData) =>
+  requestPost<ServerUserResponse>('auth/register', data).then((res) => {
+    localStorage.setItem('accessToken', res.accessToken);
+    localStorage.setItem('refreshToken', res.refreshToken);
+    return res.user;
+  });
+
 export const requestUser = () => requestWithAccessToken<ServerUserResponse>('auth/user');
 export const requestUpdateUser = (data: FormData) => requestWithAccessToken<ServerUserResponse>('auth/user', 'PATCH', data);
 
 export const passwordReset = (data: FormData) => requestPost<ServerMessageResponse>('password-reset/reset', data);
 export const passwordResetRequest = (data: FormData) => requestPost<ServerMessageResponse>('password-reset', data);
+
 export const logout = () => {
   const token = localStorage.getItem('refreshToken');
   if (token) {
-    return requestPost<ServerMessageResponse>('auth/logout', { token });
+    return requestPost<ServerMessageResponse>('auth/logout', { token }).then(() => {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+    });
   } else {
     Promise.reject();
   }

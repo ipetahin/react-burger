@@ -19,7 +19,6 @@ export default function RegisterPage() {
     if (isError) return;
 
     if (checkFormData.status) {
-      // @ts-expect-error Expected 0 arguments, but got 1.ts(2554)
       dispatch(registerUser(formData))
         .unwrap()
         .then(() => navigate(location.state?.from ?? '/', { replace: true }))
