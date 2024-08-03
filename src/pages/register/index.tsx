@@ -13,7 +13,7 @@ export default function RegisterPage() {
   const dispatch: any = useDispatch();
   const location = useLocation();
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const isError = document.querySelector('.input__error');
     if (isError) return;

@@ -18,7 +18,7 @@ export default function ProfilePage() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isShowButtons, setShowButtons] = useState(false);
 
-  const handleLogout = (e: MouseEvent) => {
+  const handleLogout = (e: MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
     dispatch(logoutUser()).then(() => navigate('/login'));
   };
@@ -32,7 +32,7 @@ export default function ProfilePage() {
     setDisabled(true);
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(updateUser(formData)).then(() => {
       setFormData({ ...formData, password: '' });
@@ -40,7 +40,7 @@ export default function ProfilePage() {
     });
   };
 
-  const handleCancelClick = (e: MouseEvent) => {
+  const handleCancelClick = (e: MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
     setFormData({ ...user, password: '' });
     setShowButtons(false);

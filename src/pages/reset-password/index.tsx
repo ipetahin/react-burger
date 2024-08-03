@@ -18,7 +18,7 @@ export default function ResetPasswordPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const isError = document.querySelector('.input__error');
     if (isError) return;
