@@ -1,18 +1,22 @@
-import { useEffect } from 'react';
+import { PropsWithChildren, ReactPortal, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { createPortal } from 'react-dom';
 import { GridLoader } from 'react-spinners';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import { modalPropType } from '../../utils/prop-types';
 import styles from './modal.module.css';
 import useShowModal from '../../hooks/use-show-modal';
+import { Store } from '../../types';
 
-const modalRoot = document.getElementById('modals');
+const modalRoot = document.getElementById('modals') as HTMLElement;
 
-const Modal = ({ children, onClose }) => {
-  const { isLoading } = useSelector((store) => store.orderDetails);
+interface ModalProps {
+  onClose?: () => void;
+}
+
+const Modal = ({ children, onClose }: PropsWithChildren<ModalProps>): ReactPortal => {
+  const { isLoading } = useSelector((store: Store) => store.orderDetails);
   const { isShowModal, closeModal } = useShowModal(true);
 
   useEffect(() => {
@@ -29,7 +33,7 @@ const Modal = ({ children, onClose }) => {
     if (onClose) onClose();
   };
 
-  const handleKeyEscCloseModal = (e) => {
+  const handleKeyEscCloseModal = (e: KeyboardEvent) => {
     if (e.code === 'Escape') {
       handleCloseModal();
     }
@@ -40,7 +44,7 @@ const Modal = ({ children, onClose }) => {
       <>
         {isLoading ? (
           <>
-            <ModalOverlay onClick={null} />
+            <ModalOverlay />
             <GridLoader color='#fff' loading={isLoading} cssOverride={{ position: 'absolute', top: '50%', left: '50%', transform: "translate('-50%', '-50%')" }} />
           </>
         ) : (
@@ -58,10 +62,6 @@ const Modal = ({ children, onClose }) => {
     ),
     modalRoot
   );
-};
-
-Modal.propTypes = {
-  ...modalPropType,
 };
 
 export default Modal;

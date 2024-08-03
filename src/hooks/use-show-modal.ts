@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useShowModal = (initialValue) => {
+const useShowModal = (initialValue: boolean) => {
   const [isShowModal, setShowModal] = useState(initialValue);
 
   const openModal = () => {

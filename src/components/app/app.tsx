@@ -12,7 +12,7 @@ import { RouteOnlyAuth, RouteOnlyUnAuth } from '../protected-route-element/prote
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
 
   useEffect(() => {
     dispatch(checkUserAuth());

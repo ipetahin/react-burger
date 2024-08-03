@@ -1,37 +1,38 @@
-import { useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, MouseEvent, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { logoutUser, updateUser } from '../../services/slices/user-slice';
 import useFormData from '../../hooks/use-form-data';
 import styles from './profile.module.css';
+import { User, Store } from '../../types';
 
 export default function ProfilePage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user } = useSelector((store) => store.user);
+  const { user } = useSelector((store: Store) => store.user);
   const [disabled, setDisabled] = useState(true);
   const { formData, onChangeFormData, setFormData } = useFormData({ ...user, password: '' });
-  const dispatch = useDispatch();
-  const inputRef = useRef(null);
+  const dispatch: any = useDispatch();
+  const inputRef = useRef<HTMLInputElement>(null);
   const [isShowButtons, setShowButtons] = useState(false);
 
-  const handleLogout = (e) => {
+  const handleLogout = (e: MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
     dispatch(logoutUser()).then(() => navigate('/login'));
   };
 
   const handleIconClick = () => {
     setDisabled(false);
-    setTimeout(() => inputRef.current.focus(), 0);
+    setTimeout(() => inputRef?.current?.focus(), 0);
   };
 
   const handleBlur = () => {
     setDisabled(true);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(updateUser(formData)).then(() => {
       setFormData({ ...formData, password: '' });
@@ -39,15 +40,16 @@ export default function ProfilePage() {
     });
   };
 
-  const handleCancelClick = (e) => {
+  const handleCancelClick = (e: MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
     setFormData({ ...user, password: '' });
     setShowButtons(false);
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
-    if (target.value !== user[target.name]) {
+    
+    if (user && target.value !== (user[target.name as keyof User] || '')) {
       setShowButtons(true);
     } else {
       setShowButtons(false);
@@ -88,13 +90,13 @@ export default function ProfilePage() {
             onBlur={handleBlur}
             disabled={disabled}
           />
-          <EmailInput onChange={(e) => onChangeFormData(e, handleChange)} value={formData.email} name='email' isIcon={true} />
-          <PasswordInput onChange={(e) => onChangeFormData(e, handleChange)} value={formData.password} name='password' icon='EditIcon' />
+          <EmailInput onChange={(e) => onChangeFormData(e, handleChange)} value={formData.email} autoComplete='username' name='email' isIcon={true} />
+          <PasswordInput onChange={(e) => onChangeFormData(e, handleChange)} value={formData.password} autoComplete='new-password' name='password' icon='EditIcon' />
           {isShowButtons && (
             <div className={styles.buttons}>
-              <Link className={`${styles.cancel} ${styles.link} ${styles.inactive} mr-4`} onClick={handleCancelClick}>
+              <span className={`${styles.cancel} ${styles.link} ${styles.inactive} mr-4`} onClick={handleCancelClick}>
                 Отменить
-              </Link>
+              </span>
               <Button extraClass={styles.save} htmlType='submit'>
                 Сохранить
               </Button>

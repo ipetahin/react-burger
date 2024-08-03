@@ -7,15 +7,16 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getIngredients } from '../../services/slices/burger-ingredients-slice';
 import IngredientItem from './ingredient-item/ingredient-item';
 import styles from './burger-ingredients.module.css';
+import { IngredientType, Store } from '../../types';
 
 const BurgerIngredients = () => {
-  const { isLoading, isError, data } = useSelector((state) => state.burgerIngredients);
-  const dispatch = useDispatch();
-  const tabsRef = useRef();
-  const groupBunRef = useRef();
-  const groupSauceRef = useRef();
-  const groupMainRef = useRef();
-  const [activeTab, setActiveTab] = useState('bun');
+  const { isLoading, isError, data } = useSelector((store: Store) => store.burgerIngredients);
+  const dispatch: any = useDispatch();
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const groupBunRef = useRef<HTMLHeadingElement>(null);
+  const groupSauceRef = useRef<HTMLHeadingElement>(null);
+  const groupMainRef = useRef<HTMLHeadingElement>(null);
+  const [activeTab, setActiveTab] = useState<IngredientType>('bun');
   const location = useLocation();
 
   useEffect(() => {
@@ -24,42 +25,46 @@ const BurgerIngredients = () => {
   }, []);
 
   const handleScrollIngredientGroup = () => {
-    const tabsTopCoord = tabsRef.current.getBoundingClientRect().top;
-    const bunTopCoord = groupBunRef.current.getBoundingClientRect().top;
-    const sauceTopCoord = groupSauceRef.current.getBoundingClientRect().top;
-    const mainTopCoord = groupMainRef.current.getBoundingClientRect().top;
-    const arr = [bunTopCoord, sauceTopCoord, mainTopCoord];
-    const closestIndex = arr.findIndex((elem) => elem === arr.reduce((prev, curr) => (Math.abs(curr - tabsTopCoord) < Math.abs(prev - tabsTopCoord) ? curr : prev)));
-    switch (closestIndex) {
-      case 0:
-        if (activeTab !== 'bun') setActiveTab('bun');
-        break;
-      case 1:
-        if (activeTab !== 'sauce') setActiveTab('sauce');
-        break;
-      case 2:
-        if (activeTab !== 'main') setActiveTab('main');
-        break;
-      default:
-        setActiveTab('bun');
-        break;
+    const tabsTopCoord = tabsRef.current?.getBoundingClientRect().top;
+    const bunTopCoord = groupBunRef.current?.getBoundingClientRect().top;
+    const sauceTopCoord = groupSauceRef.current?.getBoundingClientRect().top;
+    const mainTopCoord = groupMainRef.current?.getBoundingClientRect().top;
+    if (tabsTopCoord && bunTopCoord && sauceTopCoord && mainTopCoord) {
+      const arr: number[] = [bunTopCoord, sauceTopCoord, mainTopCoord];
+      const closestIndex = arr.findIndex(
+        (elem: number) => elem === arr.reduce((prev: number, curr: number) => (Math.abs(curr - tabsTopCoord) < Math.abs(prev - tabsTopCoord) ? curr : prev))
+      );
+      switch (closestIndex) {
+        case 0:
+          if (activeTab !== 'bun') setActiveTab('bun');
+          break;
+        case 1:
+          if (activeTab !== 'sauce') setActiveTab('sauce');
+          break;
+        case 2:
+          if (activeTab !== 'main') setActiveTab('main');
+          break;
+        default:
+          setActiveTab('bun');
+          break;
+      }
     }
   };
 
-  const handleClickTab = (tab) => {
+  const handleClickTab = (tab: string) => {
     if (activeTab !== 'bun') setActiveTab('bun');
     switch (tab) {
       case 'bun':
-        groupBunRef.current.scrollIntoView({ behavior: 'smooth' });
+        groupBunRef.current?.scrollIntoView({ behavior: 'smooth' });
         break;
       case 'sauce':
-        groupSauceRef.current.scrollIntoView({ behavior: 'smooth' });
+        groupSauceRef.current?.scrollIntoView({ behavior: 'smooth' });
         break;
       case 'main':
-        groupMainRef.current.scrollIntoView({ behavior: 'smooth' });
+        groupMainRef.current?.scrollIntoView({ behavior: 'smooth' });
         break;
       default:
-        groupBunRef.current.scrollIntoView({ behavior: 'smooth' });
+        groupBunRef.current?.scrollIntoView({ behavior: 'smooth' });
         break;
     }
   };

@@ -1,38 +1,23 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { login, logout, register, requestUpdateUser, requestUser } from '../../utils/api';
 
-export const loginUser = createAsyncThunk('user/login', async (data) => {
-  const res = await login(data);
-  localStorage.setItem('accessToken', res.accessToken);
-  localStorage.setItem('refreshToken', res.refreshToken);
-  return res.user;
-});
-
-export const registerUser = createAsyncThunk('user/register', async (data) => {
-  const res = await register(data);
-  localStorage.setItem('accessToken', res.accessToken);
-  localStorage.setItem('refreshToken', res.refreshToken);
-  return res.user;
-});
-
-export const logoutUser = createAsyncThunk('user/logout', async () => {
-  await logout();
-  localStorage.removeItem('accessToken');
-  localStorage.removeItem('refreshToken');
-});
-
+export const loginUser = createAsyncThunk('user/login', login);
+export const registerUser = createAsyncThunk('user/register', register);
+export const logoutUser = createAsyncThunk('user/logout', logout);
 export const getUser = createAsyncThunk('user/getUser', requestUser);
+export const updateUser = createAsyncThunk('user/updateUser', requestUpdateUser);
 
 export const checkUserAuth = createAsyncThunk('user/checkUserAuth', async (_, thunkAPI) => {
   if (localStorage.getItem('accessToken')) {
-    await thunkAPI.dispatch(getUser()).unwrap().catch(() => {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-    });
+    await thunkAPI
+      .dispatch(getUser())
+      .unwrap()
+      .catch(() => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+      });
   }
 });
-
-export const updateUser = createAsyncThunk('user/updateUser', requestUpdateUser);
 
 const initialState = { user: null, isAuthChecked: false };
 

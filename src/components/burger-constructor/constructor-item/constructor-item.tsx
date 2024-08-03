@@ -1,13 +1,24 @@
-import { memo } from 'react';
+import { memo, FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { removeIngredient, sortIngredients } from '../../../services/slices/burger-сonstructor-slice';
-import { constructorItemPropType } from '../../../utils/prop-types';
 import styles from './constructor-item.module.css';
+import { ConstructorIngredient } from '../../../types';
 
-const ConstructorItem = memo(function ConstructorItem({ ingredient, moveIngredient, findIngredient }) {
+interface ConstructorItemProps {
+  ingredient: ConstructorIngredient;
+  moveIngredient: (id: string, atIndex: number) => void;
+  findIngredient: (id: string) => { index: number };
+}
+
+interface Item {
+  id: string;
+  originalIndex: number;
+}
+
+const ConstructorItem: FC<ConstructorItemProps> = memo(function ConstructorItem({ ingredient, moveIngredient, findIngredient }) {
   const dispatch = useDispatch();
 
   const originalIndex = findIngredient(ingredient.id).index;
@@ -33,7 +44,7 @@ const ConstructorItem = memo(function ConstructorItem({ ingredient, moveIngredie
   const [, drop] = useDrop(
     () => ({
       accept: 'constructorIngredient',
-      hover({ id: draggedId }) {
+      hover({ id: draggedId }: Item) {
         if (draggedId !== ingredient.id) {
           const { index: overIndex } = findIngredient(ingredient.id);
           moveIngredient(draggedId, overIndex);
@@ -47,7 +58,7 @@ const ConstructorItem = memo(function ConstructorItem({ ingredient, moveIngredie
   );
   const opacity = isDragging ? 0 : 1;
 
-  const handleDeleteIngredient = (ingredient) => {
+  const handleDeleteIngredient = (ingredient: ConstructorIngredient) => {
     dispatch(removeIngredient(ingredient));
   };
 
@@ -64,9 +75,5 @@ const ConstructorItem = memo(function ConstructorItem({ ingredient, moveIngredie
     </li>
   );
 });
-
-ConstructorItem.propTypes = {
-  ...constructorItemPropType,
-};
 
 export default ConstructorItem;

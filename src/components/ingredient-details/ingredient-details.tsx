@@ -5,12 +5,13 @@ import { GridLoader } from 'react-spinners';
 
 import { resetData, setData } from '../../services/slices/ingredient-details-slice';
 import styles from './ingredient-details.module.css';
+import { Store } from '../../types';
 
 const IngredientDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const ingredient = useSelector((store) => store.ingredientDetails.data);
-  const { isLoading, data } = useSelector((state) => state.burgerIngredients);
+  const { data: ingredient } = useSelector((store: Store) => store.ingredientDetails);
+  const { isLoading, data: ingredients } = useSelector((store: Store) => store.burgerIngredients);
 
   useEffect(() => {
     return () => {
@@ -19,10 +20,10 @@ const IngredientDetails = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!ingredient && data) {
-      dispatch(setData(data.find((ingredient) => ingredient._id === id)));
+    if (!ingredient && ingredients) {
+      dispatch(setData(ingredients.find((ingredient) => ingredient._id === id)));
     }
-  }, [data, id, dispatch, ingredient]);
+  }, [ingredients, id, dispatch, ingredient]);
 
   return (
     <div className={styles.ingredient}>

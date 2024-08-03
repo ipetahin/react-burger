@@ -6,7 +6,7 @@ import IngredientDetails from '../../components/ingredient-details/ingredient-de
 import styles from './ingredient.module.css';
 
 export default function IngredientPage() {
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
 
   useEffect(() => {
     dispatch(getIngredients());
