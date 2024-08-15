@@ -25,7 +25,7 @@ const AppHeader = () => {
             </NavLink>
           </li>
           <li className={`${styles.item}`}>
-            <NavLink to='/list' className={({ isActive }) => (isActive ? `${styles.link}` : `${styles.link} ${styles.inactive}`)}>
+            <NavLink to='/feed' className={({ isActive }) => (isActive ? `${styles.link}` : `${styles.link} ${styles.inactive}`)}>
               {({ isActive }) => (
                 <>
                   <ListIcon type={isActive ? 'primary' : 'secondary'} />

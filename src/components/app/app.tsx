@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
-import { ForgotPasswordPage, IngredientPage, LoginPage, MainPage, NotFound404, OrdersPage, ProfilePage, RegisterPage, ResetPasswordPage } from '../../pages';
+import { FeedPage, ForgotPasswordPage, IngredientPage, LoginPage, MainPage, NotFound404, OrdersPage, ProfilePage, RegisterPage, ResetPasswordPage } from '../../pages';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
@@ -30,6 +30,7 @@ function App() {
         <Route path='/profile' element={<RouteOnlyAuth component={<ProfilePage />} />}>
           <Route path='orders' element={<RouteOnlyAuth component={<OrdersPage />} />} />
         </Route>
+        <Route path='/feed' element={<FeedPage />} />
         <Route path='/ingredients/:id' element={<IngredientPage />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
