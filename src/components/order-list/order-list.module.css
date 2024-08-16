@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  height: calc(100vh - 188px);
+  height: 100%;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--text-inactive-color) var(--background-element);
@@ -16,12 +16,22 @@
   padding: 24px;
   background-color: var(--background);
   border-radius: 40px;
-  max-width: 584px;
+  margin-right: 8px;
 }
 
 .id {
   display: flex;
   justify-content: space-between;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.done {
+  color: var(--colors-interface-success);
 }
 
 .components {
