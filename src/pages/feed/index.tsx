@@ -18,7 +18,7 @@ export default function FeedPage() {
     <main className={`${styles.main} pr-5 pl-5`}>
       <h1 className='text text_type_main-large mt-10'>Лента заказов</h1>
       <div className={`${styles.container} mt-5`}>
-        <OrderList />
+        <OrderList isShowStatus={false} />
         <Stats />
       </div>
     </main>

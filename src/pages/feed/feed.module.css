@@ -9,6 +9,7 @@
   display: grid;
   grid-template-columns: 608px 580px;
   gap: 60px;
+  height: calc(100vh - 188px);
 }
 
 
