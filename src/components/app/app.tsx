@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
-import { FeedPage, ForgotPasswordPage, IngredientPage, LoginPage, MainPage, NotFound404, OrdersPage, ProfilePage, RegisterPage, ResetPasswordPage } from '../../pages';
+import { FeedPage, ForgotPasswordPage, IngredientPage, LoginPage, MainPage, NotFound404, OrderPage, OrdersPage, ProfilePage, RegisterPage, ResetPasswordPage } from '../../pages';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
@@ -32,6 +32,7 @@ function App() {
         </Route>
         <Route path='/feed' element={<FeedPage />} />
         <Route path='/ingredients/:id' element={<IngredientPage />} />
+        <Route path='/feed/:id' element={<OrderPage />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
 
