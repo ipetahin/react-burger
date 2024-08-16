@@ -9,6 +9,17 @@
   position: relative;
 }
 
+.list::-webkit-scrollbar {
+  width: 8px;
+}
+.list::-webkit-scrollbar-track {
+  background: var(--background-element);
+  margin-bottom: 60px;
+}
+.list::-webkit-scrollbar-thumb {
+  background-color: var(--text-inactive-color);
+}
+
 .card {
   display: flex;
   flex-direction: column;
