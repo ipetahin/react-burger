@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom';
 import styles from './order-info.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { GridLoader } from 'react-spinners';
-import { useSelector } from 'react-redux';
-import { Ingredient, Ingredients, Store } from '../../types';
+import { Ingredient, Ingredients } from '../../types';
 import { ordersResponse } from '../../types/orders';
 import { Statuses } from '../order-list';
+import { useSelector } from '../../services/hooks';
 
 interface IngredientInfo extends Ingredient {
   amount: number;
@@ -22,7 +22,7 @@ export const getIngredientsInfo = (ingredientsId: Array<string>, data: Ingredien
 
 const OrderInfo = () => {
   const { number } = useParams();
-  const { isLoading, isError, data } = useSelector((store: Store) => store.burgerIngredients);
+  const { isLoading, isError, data } = useSelector((store) => store.burgerIngredients);
 
   const order = ordersResponse.orders.filter(order => order.number.toString() === number)[0];
 

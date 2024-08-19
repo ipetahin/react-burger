@@ -4,12 +4,12 @@ import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer
 
 import useFormData from '../../hooks/use-form-data';
 import styles from './login.module.css';
-import { useDispatch } from 'react-redux';
 import { loginUser } from '../../services/slices/user-slice';
+import { useDispatch } from '../../services/hooks';
 
 export default function LoginPage() {
   const { formData, onChangeFormData, checkFormData } = useFormData({ email: '', password: '' });
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
   const location = useLocation();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

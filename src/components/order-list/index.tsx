@@ -1,12 +1,11 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { GridLoader } from 'react-spinners';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './order-list.module.css';
-import { Store } from '../../types';
 import { ordersResponse } from '../../types/orders';
+import { useSelector } from '../../services/hooks';
 
 export enum Statuses {
   done = 'Выполнен',
@@ -20,7 +19,7 @@ interface OrderListProps {
 }
 
 const OrderList: FC<OrderListProps> = ({ isShowStatus, endpoint }) => {
-  const { isLoading, isError, data } = useSelector((store: Store) => store.burgerIngredients);
+  const { isLoading, isError, data } = useSelector((store) => store.burgerIngredients);
   const location = useLocation();
 
   return (

@@ -5,15 +5,15 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { checkUserAuth } from '../../services/slices/user-slice';
-import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { RouteOnlyAuth, RouteOnlyUnAuth } from '../protected-route-element/protected-route-element';
 import OrderInfo from '../order-info/order-info';
+import { useDispatch } from '../../services/hooks';
 
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkUserAuth());

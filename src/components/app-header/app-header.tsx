@@ -1,11 +1,10 @@
-import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './app-header.module.css';
-import { Store } from '../../types';
+import { useSelector } from '../../services/hooks';
 
 const AppHeader = () => {
-  const { user } = useSelector((store: Store) => store.user);
+  const { user } = useSelector((store) => store.user);
 
   return (
     <header className={styles.header}>

@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 import OrderList from '../../components/order-list';
 import { getIngredients } from '../../services/slices/burger-ingredients-slice';
 import styles from './orders.module.css';
+import { useDispatch } from '../../services/hooks';
 
 export default function OrdersPage() {
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getIngredients());

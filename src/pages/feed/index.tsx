@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 import OrderList from '../../components/order-list';
 import Stats from '../../components/stats';
 import styles from './feed.module.css';
 import { getIngredients } from '../../services/slices/burger-ingredients-slice';
+import { useDispatch } from '../../services/hooks';
 
 export default function FeedPage() {
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getIngredients());

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { GridLoader } from 'react-spinners';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -7,11 +6,12 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getIngredients } from '../../services/slices/burger-ingredients-slice';
 import IngredientItem from './ingredient-item/ingredient-item';
 import styles from './burger-ingredients.module.css';
-import { IngredientType, Store } from '../../types';
+import { IngredientType } from '../../types';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 const BurgerIngredients = () => {
-  const { isLoading, isError, data } = useSelector((store: Store) => store.burgerIngredients);
-  const dispatch: any = useDispatch();
+  const { isLoading, isError, data } = useSelector((store) => store.burgerIngredients);
+  const dispatch = useDispatch();
   const tabsRef = useRef<HTMLDivElement>(null);
   const groupBunRef = useRef<HTMLHeadingElement>(null);
   const groupSauceRef = useRef<HTMLHeadingElement>(null);

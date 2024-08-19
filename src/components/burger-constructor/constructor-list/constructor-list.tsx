@@ -1,5 +1,4 @@
 import { FC, memo, useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import update from 'immutability-helper';
 
@@ -8,14 +7,15 @@ import ConstructorItemBun from '../constructor-item-bun/constructor-item-bun';
 import ConstructorItemSkeleton from '../constructor-item-skeleton/constructor-item-skeleton';
 
 import styles from './constructor-list.module.css';
-import { ConstructorItemType, ConstructorIngredient, ConstructorIngredients, Ingredient, Store } from '../../../types';
+import { ConstructorItemType, ConstructorIngredient, ConstructorIngredients, Ingredient } from '../../../types';
+import { useSelector } from '../../../services/hooks';
 
 interface ConstructorListProps {
   onDropHandler: (ingredient: Ingredient) => void;
 }
 
 const ConstructorList: FC<ConstructorListProps> = memo(function ConstructorList({ onDropHandler }) {
-  const { bun, ingredients } = useSelector((store: Store) => store.burgerConstructor);
+  const { bun, ingredients } = useSelector((store) => store.burgerConstructor);
 
   const [constructorIngredients, setConstructorIngredients] = useState<ConstructorIngredients>(ingredients);
 

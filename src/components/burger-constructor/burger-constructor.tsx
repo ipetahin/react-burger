@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -7,15 +6,16 @@ import styles from './burger-constructor.module.css';
 import ConstructorList from './constructor-list/constructor-list';
 import { sendOrder } from '../../services/slices/order-details-slice';
 import { addIngredient } from '../../services/slices/burger-сonstructor-slice';
-import { ArrayData, Ingredient, Store } from '../../types';
+import { ArrayData, Ingredient } from '../../types';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 const BurgerConstructor = () => {
-  const { bun, ingredients } = useSelector((store: Store) => store.burgerConstructor);
-  const { user } = useSelector((store: Store) => store.user);
+  const { bun, ingredients } = useSelector((store) => store.burgerConstructor);
+  const { user } = useSelector((store) => store.user);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
 
   const totalPrice: number = useMemo(() => {
     const bunPrice = bun ? bun.price * 2 : 0;

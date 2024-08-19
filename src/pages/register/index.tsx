@@ -1,16 +1,16 @@
 import { FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import useFormData from '../../hooks/use-form-data';
 import styles from './register.module.css';
 import { registerUser } from '../../services/slices/user-slice';
+import { useDispatch } from '../../services/hooks';
 
 export default function RegisterPage() {
   const { formData, onChangeFormData, checkFormData } = useFormData({ name: '', email: '', password: '' });
   const navigate = useNavigate();
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
   const location = useLocation();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
