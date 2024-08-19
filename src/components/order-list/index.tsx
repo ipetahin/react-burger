@@ -16,9 +16,10 @@ export enum Statuses {
 
 interface OrderListProps {
   isShowStatus: boolean;
+  endpoint: string;
 }
 
-const OrderList: FC<OrderListProps> = ({ isShowStatus }) => {
+const OrderList: FC<OrderListProps> = ({ isShowStatus, endpoint }) => {
   const { isLoading, isError, data } = useSelector((store: Store) => store.burgerIngredients);
   const location = useLocation();
 
@@ -30,7 +31,7 @@ const OrderList: FC<OrderListProps> = ({ isShowStatus }) => {
         ordersResponse.orders.map((order) => {
           const ingredients = order.ingredients.map((ingredientId) => data?.find((ingredient) => ingredient._id === ingredientId));
           return (
-            <Link className={styles.link} key={order._id} to={`/feed/${order._id}`} state={{ backgroundLocation: location }}>
+            <Link className={styles.link} key={order._id} to={`${endpoint}/${order._id}`} state={{ backgroundLocation: location }}>
               <li className={styles.card}>
                 <div className={styles.id}>
                   <span className='text text_type_digits-default'>{`#0${order.number}`}</span>

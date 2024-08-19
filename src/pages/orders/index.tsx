@@ -15,7 +15,7 @@ export default function OrdersPage() {
   
   return (
     <div className={styles.orders}>
-      <OrderList isShowStatus={true} />
+      <OrderList isShowStatus={true} endpoint='/profile/orders' />
     </div>
   );
 }
