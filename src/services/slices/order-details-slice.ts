@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { requestSendOrder } from '../../utils/api';
+import { OrderDetailsStore } from '../../types/store';
 
-const initialState = { data: null, isLoading: false, isError: false };
+const initialState = { data: null, isLoading: false, isError: false } satisfies OrderDetailsStore as OrderDetailsStore;
 
 export const sendOrder = createAsyncThunk('orderDetails/sendOrder', requestSendOrder);
 
@@ -19,5 +20,8 @@ const orderDetailsSlice = createSlice({
 });
 
 export const { clearOrder } = orderDetailsSlice.actions;
+
+type orderDetailsActionCreators = typeof orderDetailsSlice.actions;
+export type orderDetailsActions = ReturnType<orderDetailsActionCreators[keyof orderDetailsActionCreators]>;
 
 export default orderDetailsSlice;

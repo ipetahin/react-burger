@@ -1,36 +1,27 @@
-import { ServerOrderResponse } from './api';
-import { ConstructorIngredient, ConstructorIngredients, Ingredient, Ingredients, User } from './common';
+import { ConstructorIngredient, ConstructorIngredients, Ingredient, Ingredients, Order, User } from './common';
 
-interface BurgerConstructorStore {
+export interface BurgerConstructorStore {
   bun: ConstructorIngredient | null;
   ingredients: ConstructorIngredients;
 }
 
-interface UserStore {
+export interface UserStore {
   user: User | null;
   isAuthChecked: boolean;
 }
 
-interface BurgerIngredientStore {
+export interface BurgerIngredientStore {
   data: Ingredients | null;
   isLoading: boolean;
   isError: boolean;
 }
 
-interface IngredientDetailsStore {
+export interface IngredientDetailsStore {
   data: Ingredient | null;
 }
 
-interface OrderDetailsStore {
-  data: ServerOrderResponse | null;
+export interface OrderDetailsStore {
+  data: Order | null;
   isLoading: boolean;
   isError: boolean;
-}
-
-export interface Store {
-  user: UserStore;
-  burgerConstructor: BurgerConstructorStore;
-  burgerIngredients: BurgerIngredientStore;
-  ingredientDetails: IngredientDetailsStore;
-  orderDetails: OrderDetailsStore;
 }
