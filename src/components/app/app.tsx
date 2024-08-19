@@ -33,8 +33,8 @@ function App() {
         </Route>
         <Route path='/feed' element={<FeedPage />} />
         <Route path='/ingredients/:id' element={<IngredientPage />} />
-        <Route path='/feed/:id' element={<OrderPage />} />
-        <Route path='/profile/orders/:id' element={<RouteOnlyAuth component={<OrderPage />} />} />
+        <Route path='/feed/:number' element={<OrderPage />} />
+        <Route path='/profile/orders/:number' element={<RouteOnlyAuth component={<OrderPage />} />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
 
@@ -57,7 +57,7 @@ function App() {
             }
           />
           <Route
-            path='/feed/:id'
+            path='/feed/:number'
             element={
               <Modal onClose={() => navigate(-1)}>
                 <OrderInfo />
@@ -65,7 +65,7 @@ function App() {
             }
           />
           <Route
-            path='/profile/orders/:id'
+            path='/profile/orders/:number'
             element={
               <Modal onClose={() => navigate(-1)}>
                 <OrderInfo />

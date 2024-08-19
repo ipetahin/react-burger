@@ -21,10 +21,10 @@ export const getIngredientsInfo = (ingredientsId: Array<string>, data: Ingredien
 };
 
 const OrderInfo = () => {
-  const { id } = useParams();
+  const { number } = useParams();
   const { isLoading, isError, data } = useSelector((store: Store) => store.burgerIngredients);
 
-  const order = ordersResponse.orders.filter(order => order.number.toString() === id)[0];
+  const order = ordersResponse.orders.filter(order => order.number.toString() === number)[0];
 
   const ingredientsInfo = getIngredientsInfo(order.ingredients, data);
 
@@ -34,7 +34,7 @@ const OrderInfo = () => {
       {isError && <>Ошибка при загрузке ингредиентов</>}
       {data && (
         <>
-          <span className={`${styles.id} text text_type_digits-default`}>{`#0${id}`}</span>
+          <span className={`${styles.number} text text_type_digits-default`}>{`#0${number}`}</span>
           <span className='text text_type_main-medium mt-10'>Black Hole Singularity острый бургер</span>
           <span className={`${styles.status} text text_type_main-default mt-3 ${order.status === 'done' ? styles.done : ''}`}>{Statuses[order.status]}</span>
           <span className='text text_type_main-medium mt-15'>Состав:</span>
