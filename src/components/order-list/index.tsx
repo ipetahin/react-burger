@@ -11,7 +11,7 @@ import { ordersResponse } from '../../types/orders';
 export enum Statuses {
   done = 'Выполнен',
   created = 'Создан',
-  'in-work' = 'Готовится',
+  pending = 'Готовится',
 }
 
 interface OrderListProps {

@@ -7,7 +7,7 @@ export interface IOrderList {
 export interface Order {
   ingredients: string[];
   _id: string;
-  status: 'done' | 'in-work' | 'created';
+  status: 'done' | 'pending' | 'created';
   number: number;
   createdAt: string;
   updatedAt: string;
@@ -41,7 +41,7 @@ export const ordersResponse: IOrderList = {
         '643d69a5c3f7b9001cfa0941',
       ],
       _id: '34534',
-      status: 'in-work',
+      status: 'pending',
       number: 34534,
       createdAt: '2023-06-23T14:43:22.587Z',
       updatedAt: '2023-06-23T14:43:22.587Z',
