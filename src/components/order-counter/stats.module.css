@@ -7,16 +7,21 @@
 .board {
   display: grid;
   grid-template-columns: calc(50% - 18px) calc(50% - 18px);
-  grid-template-rows: 206px;
   gap: 36px;
 }
 
 .list {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 100%;
   gap: 8px;
   list-style: none;
   margin-top: 24px;
+}
+
+.status {
+  max-height: 320px;
 }
 
 .done {

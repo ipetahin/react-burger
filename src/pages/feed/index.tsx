@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import OrderList from '../../components/order-list';
-import Stats from '../../components/stats';
+import OrderCounter from '../../components/order-counter';
 import styles from './feed.module.css';
 import { getIngredients } from '../../services/slices/burger-ingredients-slice';
 import { useDispatch } from '../../services/hooks';
@@ -19,7 +19,7 @@ export default function FeedPage() {
       <h1 className='text text_type_main-large mt-10'>Лента заказов</h1>
       <div className={`${styles.container} mt-5`}>
         <OrderList isShowStatus={false} endpoint='/feed' />
-        <Stats />
+        <OrderCounter />
       </div>
     </main>
   );
