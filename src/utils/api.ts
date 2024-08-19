@@ -74,7 +74,7 @@ const requestWithAccessToken = <T>(endpoint: string, method: HTTPMethods = 'GET'
 };
 
 export const fetchIngredients = () => {
-  return request<ServerIngredientsResponse>('ingredients').then((data) => data.success && data.data);
+  return request<ServerIngredientsResponse>('ingredients').then((res) => (res.success ? res.data : Promise.reject(res)));
 };
 
 export const login = (data: FormData) =>
@@ -91,8 +91,8 @@ export const register = (data: FormData) =>
     return res.user;
   });
 
-export const requestUser = () => requestWithAccessToken<ServerUserResponse>('auth/user');
-export const requestUpdateUser = (data: FormData) => requestWithAccessToken<ServerUserResponse>('auth/user', 'PATCH', data);
+export const requestUser = () => requestWithAccessToken<ServerUserResponse>('auth/user').then(res => res.success ? res.user : Promise.reject(res));
+export const requestUpdateUser = (data: FormData) => requestWithAccessToken<ServerUserResponse>('auth/user', 'PATCH', data).then(res => res.success ? res.user : Promise.reject(res));
 
 export const passwordReset = (data: FormData) => requestPost<ServerMessageResponse>('password-reset/reset', data);
 export const passwordResetRequest = (data: FormData) => requestPost<ServerMessageResponse>('password-reset', data);
@@ -109,4 +109,4 @@ export const logout = () => {
   }
 };
 
-export const requestSendOrder = (data: ArrayData) => requestWithAccessToken<ServerOrderResponse>('orders', 'POST', data);
+export const requestSendOrder = (data: ArrayData) => requestWithAccessToken<ServerOrderResponse>('orders', 'POST', data).then(res => res.success ? res.order : Promise.reject(res));
