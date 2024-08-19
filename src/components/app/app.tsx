@@ -8,6 +8,7 @@ import { checkUserAuth } from '../../services/slices/user-slice';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { RouteOnlyAuth, RouteOnlyUnAuth } from '../protected-route-element/protected-route-element';
+import OrderInfo from '../order-info/order-info';
 
 function App() {
   const location = useLocation();
@@ -33,6 +34,7 @@ function App() {
         <Route path='/feed' element={<FeedPage />} />
         <Route path='/ingredients/:id' element={<IngredientPage />} />
         <Route path='/feed/:id' element={<OrderPage />} />
+        <Route path='/profile/orders/:id' element={<RouteOnlyAuth component={<OrderPage />} />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
 
@@ -51,6 +53,22 @@ function App() {
             element={
               <Modal onClose={() => navigate('/', { replace: true })}>
                 <OrderDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path='/feed/:id'
+            element={
+              <Modal onClose={() => navigate(-1)}>
+                <OrderInfo />
+              </Modal>
+            }
+          />
+          <Route
+            path='/profile/orders/:id'
+            element={
+              <Modal onClose={() => navigate(-1)}>
+                <OrderInfo />
               </Modal>
             }
           />
