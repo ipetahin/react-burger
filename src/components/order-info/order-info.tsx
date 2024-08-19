@@ -34,7 +34,7 @@ const OrderInfo = () => {
       {isError && <>Ошибка при загрузке ингредиентов</>}
       {data && (
         <>
-          <span className={`${styles.number} text text_type_digits-default`}>{`#0${number}`}</span>
+          <h2 className={'text text_type_digits-default'}>{`#0${number}`}</h2>
           <span className='text text_type_main-medium mt-10'>Black Hole Singularity острый бургер</span>
           <span className={`${styles.status} text text_type_main-default mt-3 ${order.status === 'done' ? styles.done : ''}`}>{Statuses[order.status]}</span>
           <span className='text text_type_main-medium mt-15'>Состав:</span>
