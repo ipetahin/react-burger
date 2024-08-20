@@ -1,5 +1,5 @@
 import { ordersResponse } from '../../types/orders';
-import styles from './stats.module.css';
+import styles from './order-counter.module.css';
 
 const OrderCounter = () => {
   return (
