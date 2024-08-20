@@ -44,11 +44,11 @@ const OrderList: FC<OrderListProps> = ({ isShowStatus, endpoint }) => {
                   <ul className={styles.ingredients}>
                     {ingredients.map((ingredient, i) => {
                       return i < 5 ? (
-                        <li className={styles.ingredient} style={{ transform: `translate(${-16 * i}px`, zIndex: `${6 - i}` }}>
+                        <li key={i} className={styles.ingredient} style={{ transform: `translate(${-16 * i}px`, zIndex: `${6 - i}` }}>
                           <img src={ingredient?.image_mobile} alt={ingredient?.name} className={styles.preview} />
                         </li>
                       ) : i === 5 ? (
-                        <li className={styles.ingredient} style={{ transform: `translate(${-16 * i}px`, zIndex: 1 }}>
+                        <li key={i} className={styles.ingredient} style={{ transform: `translate(${-16 * i}px`, zIndex: 1 }}>
                           <img src={ingredient?.image_mobile} alt={ingredient?.name} className={`${styles.preview} ${styles['preview-overlay']}`} />
                           <span className={`${styles['preview-amount']} text`}>{`+${ingredients.length - 5}`}</span>
                         </li>

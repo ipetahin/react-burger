@@ -11,17 +11,17 @@ const OrderCounter = () => {
             {ordersResponse.orders
               .filter((order) => order.status === 'done')
               .map((order) => (
-                <li className={`${styles.done} text text_type_digits-default`}>{`0${order.number}`}</li>
+                <li key={order._id} className={`${styles.done} text text_type_digits-default`}>{`0${order.number}`}</li>
               ))}
           </ul>
         </div>
         <div className={styles.status}>
-          <span className='text text_type_main-medium mb-6'>В работе:</span>
+          <span className='text text_type_main-medium'>В работе:</span>
           <ul className={styles.list}>
             {ordersResponse.orders
               .filter((order) => order.status === 'pending')
               .map((order) => (
-                <li className='text text_type_digits-default'>{`0${order.number}`}</li>
+                <li key={order._id} className='text text_type_digits-default'>{`0${order.number}`}</li>
               ))}
           </ul>
         </div>
