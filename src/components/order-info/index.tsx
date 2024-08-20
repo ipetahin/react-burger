@@ -24,7 +24,6 @@ const OrderInfo = () => {
   const { isLoading, isError, data } = useSelector((store) => store.burgerIngredients);
   const { orders } = useSelector((store) => store.webSocket);
 
-
   const order = orders.filter((order) => order.number.toString() === number)[0];
 
   const ingredientsInfo = getIngredientsInfo(order.ingredients, data);
@@ -35,8 +34,8 @@ const OrderInfo = () => {
       {isError && <>Ошибка при загрузке ингредиентов</>}
       {data && (
         <>
-          <h2 className={'text text_type_digits-default'}>{`#0${number}`}</h2>
-          <span className='text text_type_main-medium mt-10'>Black Hole Singularity острый бургер</span>
+          <h2 className={'text text_type_digits-default'}>{`#0${order.number}`}</h2>
+          <span className='text text_type_main-medium mt-10'>{order.name}</span>
           <span className={`${styles.status} text text_type_main-default mt-3 ${order.status === 'done' ? styles.done : ''}`}>{Statuses[order.status]}</span>
           <span className='text text_type_main-medium mt-15'>Состав:</span>
           <ul className={`${styles.ingredients} mt-6`}>

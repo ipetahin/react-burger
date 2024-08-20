@@ -16,6 +16,7 @@ export interface WSOrder {
   number: number;
   createdAt: string;
   updatedAt: string;
+  name: string;
 }
 
 export enum WebsocketStatus {

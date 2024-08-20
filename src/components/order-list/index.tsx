@@ -47,7 +47,7 @@ const OrderList: FC<OrderListProps> = ({ isShowStatus, endpoint }) => {
                   <FormattedDate className='text text_type_main-default text_color_inactive' date={new Date(order.createdAt)} />
                 </div>
                 <div className={styles.info}>
-                  <span className='text text_type_main-medium'>Death Star Starship Main бургер</span>
+                  <span className='text text_type_main-medium'>{order.name}</span>
                   {isShowStatus && (order.status === 'done' ? <span className={styles.done}>{Statuses['done']}</span> : <span>{Statuses[order.status]}</span>)}
                 </div>
                 <div className={styles.components}>
