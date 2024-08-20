@@ -1,4 +1,5 @@
 import { ConstructorIngredient, ConstructorIngredients, Ingredient, Ingredients, Order, User } from './common';
+import { WSOrders, WebsocketStatus } from './websocket';
 
 export interface BurgerConstructorStore {
   bun: ConstructorIngredient | null;
@@ -24,4 +25,12 @@ export interface OrderDetailsStore {
   data: Order | null;
   isLoading: boolean;
   isError: boolean;
+}
+
+export interface WebSocketStore {
+  status: WebsocketStatus;
+  orders: WSOrders;
+  total: number;
+  totalToday: number;
+  error: string;
 }
