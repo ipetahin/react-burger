@@ -7,7 +7,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { checkUserAuth } from '../../services/slices/user-slice';
 import { useEffect } from 'react';
 import { RouteOnlyAuth, RouteOnlyUnAuth } from '../protected-route-element/protected-route-element';
-import OrderInfo from '../order-info/order-info';
+import OrderInfo from '../order-info';
 import { useDispatch } from '../../services/hooks';
 
 function App() {

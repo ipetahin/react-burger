@@ -4,7 +4,6 @@ import styles from './order-info.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { GridLoader } from 'react-spinners';
 import { Ingredient, Ingredients } from '../../types';
-import { ordersResponse } from '../../types/orders';
 import { Statuses } from '../order-list';
 import { useSelector } from '../../services/hooks';
 
@@ -23,8 +22,10 @@ export const getIngredientsInfo = (ingredientsId: Array<string>, data: Ingredien
 const OrderInfo = () => {
   const { number } = useParams();
   const { isLoading, isError, data } = useSelector((store) => store.burgerIngredients);
+  const { orders } = useSelector((store) => store.webSocket);
 
-  const order = ordersResponse.orders.filter(order => order.number.toString() === number)[0];
+
+  const order = orders.filter((order) => order.number.toString() === number)[0];
 
   const ingredientsInfo = getIngredientsInfo(order.ingredients, data);
 
