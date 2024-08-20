@@ -6,8 +6,8 @@
 
 .board {
   display: grid;
-  grid-template-columns: calc(50% - 18px) calc(50% - 18px);
-  gap: 36px;
+  grid-template-columns: calc(50% - 14px) calc(50% - 14px);
+  gap: 28px;
 }
 
 .list {
@@ -18,10 +18,24 @@
   gap: 8px;
   list-style: none;
   margin-top: 24px;
+  overflow-y: hidden;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-inactive-color) var(--background-element);
+}
+
+.list::-webkit-scrollbar {
+  width: 8px;
+}
+.list::-webkit-scrollbar-track {
+  background: var(--background-element);
+}
+.list::-webkit-scrollbar-thumb {
+  background-color: var(--text-inactive-color);
 }
 
 .status {
-  max-height: 320px;
+  max-height: 340px;
 }
 
 .done {
