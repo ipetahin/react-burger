@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { GridLoader } from 'react-spinners';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './order-list.module.css';
-import { ordersResponse } from '../../types/orders';
-import { useSelector } from '../../services/hooks';
+import { useDispatch, useSelector } from '../../services/hooks';
+import { connect, disconnect } from '../../services/slices/websocket-slice';
 
 export enum Statuses {
   done = 'Выполнен',
@@ -20,17 +20,27 @@ interface OrderListProps {
 
 const OrderList: FC<OrderListProps> = ({ isShowStatus, endpoint }) => {
   const { isLoading, isError, data } = useSelector((store) => store.burgerIngredients);
+  const { orders } = useSelector((store) => store.webSocket);
+
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(connect('wss://norma.nomoreparties.space/orders/all'));
+    return () => {
+      dispatch(disconnect());
+    };
+  }, [dispatch]);
 
   return (
     <ul className={styles.list}>
       <GridLoader color='#fff' loading={isLoading} cssOverride={{ position: 'absolute', top: '50%', left: '50%', transform: "translate('-50%', '-50%')" }} />
       {isError && <>Ошибка при загрузке ингредиентов</>}
       {data &&
-        ordersResponse.orders.map((order) => {
+        orders.map((order) => {
           const ingredients = order.ingredients.map((ingredientId) => data?.find((ingredient) => ingredient._id === ingredientId));
           return (
-            <Link className={styles.link} key={order._id} to={`${endpoint}/${order._id}`} state={{ backgroundLocation: location }}>
+            <Link className={styles.link} key={order._id} to={`${endpoint}/${order.number}`} state={{ backgroundLocation: location }}>
               <li className={styles.card}>
                 <div className={styles.id}>
                   <span className='text text_type_digits-default'>{`#0${order.number}`}</span>
