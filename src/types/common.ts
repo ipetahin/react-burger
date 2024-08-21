@@ -54,3 +54,10 @@ export interface Owner extends User {
   createdAt: string;
   updatedAt: string;
 }
+
+export enum Statuses {
+  done = 'Выполнен',
+  created = 'Создан',
+  pending = 'Готовится',
+  canceled = 'Отменен',
+}

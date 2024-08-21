@@ -4,7 +4,7 @@ import styles from './order-info.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { GridLoader } from 'react-spinners';
 import { Ingredient, Ingredients } from '../../types';
-import { Statuses } from '../order-list';
+import { Statuses } from '../../types/common';
 import { useSelector } from '../../services/hooks';
 
 interface IngredientInfo extends Ingredient {

@@ -6,12 +6,7 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import styles from './order-list.module.css';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { connect, disconnect } from '../../services/slices/websocket-slice';
-
-export enum Statuses {
-  done = 'Выполнен',
-  created = 'Создан',
-  pending = 'Готовится',
-}
+import { Statuses } from '../../types/common';
 
 interface OrderListProps {
   isShowStatus: boolean;
