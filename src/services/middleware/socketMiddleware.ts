@@ -1,5 +1,7 @@
 import { Middleware, MiddlewareAPI } from 'redux';
 import { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from '@reduxjs/toolkit';
+import { RootState } from '../store';
+import { refreshToken } from '../../utils/api';
 
 export type wsActionTypes = {
   wsConnect: ActionCreatorWithPayload<string>;
@@ -11,17 +13,19 @@ export type wsActionTypes = {
   onMessage: ActionCreatorWithPayload<any>;
 };
 
-export const socketMiddleware = (wsActions: wsActionTypes): Middleware => {
-  return ((store: MiddlewareAPI) => {
+export const socketMiddleware = (wsActions: wsActionTypes): Middleware<{}, RootState> => {
+  return (store: MiddlewareAPI) => {
     let socket: WebSocket | null = null;
+    let url: string | null = null;
+    let closing: boolean = false;
 
     return (next) => (action) => {
       const { wsConnect, wsDisconnect, onOpen, onClose, onError, onMessage } = wsActions;
       const { dispatch } = store;
-    
+
       if (wsConnect.match(action)) {
-        const wsUrl = action.payload;
-        socket = new WebSocket(wsUrl);
+        url = action.payload;
+        socket = new WebSocket(url);
       }
 
       if (socket) {
@@ -36,18 +40,32 @@ export const socketMiddleware = (wsActions: wsActionTypes): Middleware => {
         socket.onmessage = (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
-          dispatch(onMessage(parsedData));
+
+          if (parsedData.message === 'Invalid or missing token') {
+            refreshToken().then((refreshData) => {
+              const wssUrl = new URL(url!);
+              wssUrl.searchParams.set('token', refreshData.accessToken.replace('Bearer ', ''));
+              dispatch(wsConnect(wssUrl.toString()));
+            });
+          } else {
+            dispatch(onMessage(parsedData));
+          }
         };
 
         socket.onclose = () => {
-          dispatch(onClose());
+          if (closing) {
+            dispatch(onClose());
+          } else {
+            dispatch(wsConnect(url!));
+          }
         };
 
         if (wsDisconnect.match(action)) {
+          closing = true;
           socket.close();
         }
       }
       next(action);
     };
-  }) as Middleware;
+  };
 };
