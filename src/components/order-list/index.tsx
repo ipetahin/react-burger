@@ -1,49 +1,35 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { GridLoader } from 'react-spinners';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './order-list.module.css';
-import { useDispatch, useSelector } from '../../services/hooks';
-import { connect, disconnect } from '../../services/slices/websocket-slice';
+import { useSelector } from '../../services/hooks';
 import { Statuses } from '../../types/common';
 
 interface OrderListProps {
   isShowStatus: boolean;
-  endpoint: string;
-  withToken?: boolean;
+  linkEndpoint: string;
+  isOrdersReverse?: boolean;
 }
 
-const OrderList: FC<OrderListProps> = ({ isShowStatus, endpoint, withToken = false }) => {
+const OrderList: FC<OrderListProps> = ({ isShowStatus, linkEndpoint, isOrdersReverse = false }) => {
   const { isLoading, isError, data } = useSelector((store) => store.burgerIngredients);
   const { orders } = useSelector((store) => store.webSocket);
 
   const location = useLocation();
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (withToken) {
-      const accessToken = localStorage.getItem('accessToken');
-      if (accessToken) dispatch(connect(`wss://norma.nomoreparties.space/orders?token=${accessToken.substring(7)}`));
-    } else {
-      dispatch(connect('wss://norma.nomoreparties.space/orders/all'));
-    }
-    return () => {
-      dispatch(disconnect());
-    };
-  }, [dispatch, withToken]);
-
-  const checkOrders = withToken ? [...orders].reverse() : orders;
+  const checkedOrders = isOrdersReverse ? [...orders].reverse() : orders;
 
   return (
     <ul className={styles.list}>
       <GridLoader color='#fff' loading={isLoading} cssOverride={{ position: 'absolute', top: '50%', left: '50%', transform: "translate('-50%', '-50%')" }} />
       {isError && <>Ошибка при загрузке ингредиентов</>}
       {data &&
-        checkOrders.map((order) => {
+        checkedOrders.map((order) => {
           const ingredients = order.ingredients.map((ingredientId) => data?.find((ingredient) => ingredient._id === ingredientId));
           return (
-            <Link className={styles.link} key={order._id} to={`${endpoint}/${order.number}`} state={{ backgroundLocation: location }}>
+            <Link className={styles.link} key={order._id} to={`${linkEndpoint}/${order.number}`} state={{ backgroundLocation: location }}>
               <li className={styles.card}>
                 <div className={styles.id}>
                   <span className='text text_type_digits-default'>{`#0${order.number}`}</span>
