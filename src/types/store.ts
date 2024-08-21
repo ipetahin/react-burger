@@ -1,5 +1,5 @@
-import { ConstructorIngredient, ConstructorIngredients, Ingredient, Ingredients, Order, User } from './common';
-import { WSOrders, WebsocketStatus } from './websocket';
+import { ConstructorIngredient, ConstructorIngredients, Ingredient, Ingredients, Order, Orders, User } from './common';
+import { WebsocketStatus } from './websocket';
 
 export interface BurgerConstructorStore {
   bun: ConstructorIngredient | null;
@@ -29,7 +29,7 @@ export interface OrderDetailsStore {
 
 export interface WebSocketStore {
   status: WebsocketStatus;
-  orders: WSOrders;
+  orders: Orders;
   total: number;
   totalToday: number;
   error: string;
