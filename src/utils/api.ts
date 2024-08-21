@@ -9,6 +9,7 @@ import {
   ServerMessageResponse,
   ServerResponse,
   ServerOrderResponse,
+  ServerOrdersResponse,
 } from '../types/api';
 
 export default function request<T>(endpoint: string, options?: Options): Promise<T> {
@@ -110,3 +111,4 @@ export const logout = () => {
 };
 
 export const requestSendOrder = (data: ArrayData) => requestWithAccessToken<ServerOrderResponse>('orders', 'POST', data).then(res => res.success ? res.order : Promise.reject(res));
+export const requestGetOrder = (orderNumber: string) => request<ServerOrdersResponse>(`orders/${orderNumber}`).then(res => res.success ? res.orders[0] : Promise.reject(res));
