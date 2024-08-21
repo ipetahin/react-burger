@@ -34,16 +34,18 @@ export interface ArrayData {
 }
 
 export interface Order {
-  ingredients: Ingredients;
+  ingredients: string[];
   _id: string;
-  owner: Owner;
-  status: string;
+  status: 'done' | 'pending' | 'created';
   name: string;
   createdAt: string;
   updatedAt: string;
   number: number;
-  price: number;
+  owner?: Owner;
+  price?: number;
 }
+
+export type Orders = Array<Order>;
 
 export interface User {
   email: string;
@@ -53,4 +55,11 @@ export interface User {
 export interface Owner extends User {
   createdAt: string;
   updatedAt: string;
+}
+
+export enum Statuses {
+  done = 'Выполнен',
+  created = 'Создан',
+  pending = 'Готовится',
+  canceled = 'Отменен',
 }

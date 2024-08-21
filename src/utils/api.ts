@@ -9,6 +9,7 @@ import {
   ServerMessageResponse,
   ServerResponse,
   ServerOrderResponse,
+  ServerOrdersResponse,
 } from '../types/api';
 
 export default function request<T>(endpoint: string, options?: Options): Promise<T> {
@@ -30,20 +31,20 @@ const requestPost = <T>(endpoint: string, data: FormData): Promise<T> => {
   }).then((data) => ((data as ServerResponse).success ? data : Promise.reject(data)));
 };
 
-const requestWithRefresh = async <T>(endpoint: string, options: Options): Promise<T> => {
-  const refreshToken = () => {
-    const token = localStorage.getItem('refreshToken');
-    if (token) {
-      return requestPost<ServerRefreshResponse>('auth/token', { token }).then((refreshData) => {
-        localStorage.setItem('refreshToken', refreshData.refreshToken);
-        localStorage.setItem('accessToken', refreshData.accessToken);
-        return refreshData;
-      });
-    } else {
-      return Promise.reject();
-    }
-  };
+export const refreshToken = () => {
+  const token = localStorage.getItem('refreshToken');
+  if (token) {
+    return requestPost<ServerRefreshResponse>('auth/token', { token }).then((refreshData) => {
+      localStorage.setItem('refreshToken', refreshData.refreshToken);
+      localStorage.setItem('accessToken', refreshData.accessToken);
+      return refreshData;
+    });
+  } else {
+    return Promise.reject();
+  }
+};
 
+const requestWithRefresh = async <T>(endpoint: string, options: Options): Promise<T> => {
   try {
     return await request<T>(endpoint, options);
   } catch (err) {
@@ -110,3 +111,4 @@ export const logout = () => {
 };
 
 export const requestSendOrder = (data: ArrayData) => requestWithAccessToken<ServerOrderResponse>('orders', 'POST', data).then(res => res.success ? res.order : Promise.reject(res));
+export const requestGetOrder = (orderNumber: string) => request<ServerOrdersResponse>(`orders/${orderNumber}`).then(res => res.success ? res.orders[0] : Promise.reject(res));

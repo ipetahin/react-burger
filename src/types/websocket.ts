@@ -1,22 +1,11 @@
 import { wsClose, wsError, wsMessage, wsOpen } from '../services/slices/websocket-slice';
+import { Orders } from './common';
 
 export interface WSOrderResponse {
   success: boolean;
-  orders: WSOrders;
+  orders: Orders;
   total: number;
   totalToday: number;
-}
-
-export type WSOrders = WSOrder[];
-
-export interface WSOrder {
-  ingredients: string[];
-  _id: string;
-  status: 'done' | 'pending' | 'created';
-  number: number;
-  createdAt: string;
-  updatedAt: string;
-  name: string;
 }
 
 export enum WebsocketStatus {
