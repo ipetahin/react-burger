@@ -12,10 +12,10 @@ export default function OrdersPage() {
     dispatch(getIngredients());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
   return (
     <div className={styles.orders}>
-      <OrderList isShowStatus={true} endpoint='/profile/orders' />
+      <OrderList isShowStatus={true} endpoint='/profile/orders' withToken={true} />
     </div>
   );
 }

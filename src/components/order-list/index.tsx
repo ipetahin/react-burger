@@ -11,9 +11,10 @@ import { Statuses } from '../../types/common';
 interface OrderListProps {
   isShowStatus: boolean;
   endpoint: string;
+  withToken?: boolean;
 }
 
-const OrderList: FC<OrderListProps> = ({ isShowStatus, endpoint }) => {
+const OrderList: FC<OrderListProps> = ({ isShowStatus, endpoint, withToken = false }) => {
   const { isLoading, isError, data } = useSelector((store) => store.burgerIngredients);
   const { orders } = useSelector((store) => store.webSocket);
 
@@ -21,18 +22,25 @@ const OrderList: FC<OrderListProps> = ({ isShowStatus, endpoint }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(connect('wss://norma.nomoreparties.space/orders/all'));
+    if (withToken) {
+      const accessToken = localStorage.getItem('accessToken');
+      if (accessToken) dispatch(connect(`wss://norma.nomoreparties.space/orders?token=${accessToken.substring(7)}`));
+    } else {
+      dispatch(connect('wss://norma.nomoreparties.space/orders/all'));
+    }
     return () => {
       dispatch(disconnect());
     };
-  }, [dispatch]);
+  }, [dispatch, withToken]);
+
+  const checkOrders = withToken ? [...orders].reverse() : orders;
 
   return (
     <ul className={styles.list}>
       <GridLoader color='#fff' loading={isLoading} cssOverride={{ position: 'absolute', top: '50%', left: '50%', transform: "translate('-50%', '-50%')" }} />
       {isError && <>Ошибка при загрузке ингредиентов</>}
       {data &&
-        orders.map((order) => {
+        checkOrders.map((order) => {
           const ingredients = order.ingredients.map((ingredientId) => data?.find((ingredient) => ingredient._id === ingredientId));
           return (
             <Link className={styles.link} key={order._id} to={`${endpoint}/${order.number}`} state={{ backgroundLocation: location }}>
