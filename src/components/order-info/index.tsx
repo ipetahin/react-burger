@@ -40,10 +40,14 @@ const OrderInfo = () => {
   }, []);
 
   useEffect(() => {
+    const foundedOrder = orders.find((order) => order.number.toString() === number);
     if (!order) {
-      const foundedOrder = orders.find((order) => order.number.toString() === number);
       if (foundedOrder) {
         dispatch(updateOrder(foundedOrder));
+      }
+    } else {
+      if (foundedOrder && foundedOrder.status !== order.status) {
+        dispatch(updateOrder(foundedOrder))
       }
     }
   }, [dispatch, number, order, orders]);
