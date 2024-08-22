@@ -52,6 +52,7 @@ export const wsActions = {
 };
 
 type webSocketActionCreators = typeof webSocketSlice.actions;
-export type webSocketActions = ReturnType<webSocketActionCreators[keyof webSocketActionCreators]>;
+export type webSocketActions = ReturnType<webSocketActionCreators[keyof webSocketActionCreators]> | ReturnType<typeof wsOpen> | ReturnType<typeof wsClose> | ReturnType<typeof wsMessage> | ReturnType<typeof wsError>;
+
 
 export default webSocketSlice;

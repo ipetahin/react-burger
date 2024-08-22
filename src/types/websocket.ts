@@ -1,4 +1,3 @@
-import { wsClose, wsError, wsMessage, wsOpen } from '../services/slices/websocket-slice';
 import { Orders } from './common';
 
 export interface WSOrderResponse {
@@ -15,4 +14,3 @@ export enum WebsocketStatus {
   OFFLINE = 'offline',
 }
 
-export type wsOrdersActions = ReturnType<typeof wsOpen> | ReturnType<typeof wsClose> | ReturnType<typeof wsMessage> | ReturnType<typeof wsError>;

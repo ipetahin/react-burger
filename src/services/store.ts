@@ -8,7 +8,7 @@ import userSlice from './slices/user-slice';
 import ordersSlice, { webSocketActions } from './slices/websocket-slice';
 import { socketMiddleware } from './middleware/socketMiddleware';
 import { wsActions } from './slices/websocket-slice';
-import { WebsocketStatus, wsOrdersActions } from '../types/websocket';
+import { WebsocketStatus } from '../types/websocket';
 
 export const rootReducer = combineSlices(burgerIngredientsSlice, burgerConstructorSlice, ingredientDetailsSlice, orderDetailsSlice, userSlice, ordersSlice);
 
@@ -29,5 +29,5 @@ export const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
-export type AppActions = burgerConstructorActions | ingredientDetailsActions | orderDetailsActions | wsOrdersActions | webSocketActions;
+export type AppActions = burgerConstructorActions | ingredientDetailsActions | orderDetailsActions | webSocketActions;
 export type AppDispatch = ThunkDispatch<RootState, unknown, AppActions>;
