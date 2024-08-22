@@ -25,7 +25,7 @@
 }
 
 .list::-webkit-scrollbar {
-  width: 8px;
+  height: 8px;
 }
 .list::-webkit-scrollbar-track {
   background: var(--background-element);
