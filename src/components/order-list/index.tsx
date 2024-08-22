@@ -6,6 +6,7 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import styles from './order-list.module.css';
 import { useSelector } from '../../services/hooks';
 import { Statuses } from '../../types/common';
+import { getUniqIngredientsWithAmount } from '../../utils/func';
 
 interface OrderListProps {
   isShowStatus: boolean;
@@ -27,7 +28,7 @@ const OrderList: FC<OrderListProps> = ({ isShowStatus, linkEndpoint, isOrdersRev
       {isError && <>Ошибка при загрузке ингредиентов</>}
       {data &&
         checkedOrders.map((order) => {
-          const ingredients = order.ingredients.map((ingredientId) => data?.find((ingredient) => ingredient._id === ingredientId));
+          const ingredients = getUniqIngredientsWithAmount(order.ingredients, data);
           return (
             <Link className={styles.link} key={order._id} to={`${linkEndpoint}/${order.number}`} state={{ backgroundLocation: location }}>
               <li className={styles.card}>
@@ -42,16 +43,20 @@ const OrderList: FC<OrderListProps> = ({ isShowStatus, linkEndpoint, isOrdersRev
                 <div className={styles.components}>
                   <ul className={styles.ingredients}>
                     {ingredients.map((ingredient, i) => {
-                      return i < 5 ? (
-                        <li key={i} className={styles.ingredient} style={{ transform: `translate(${-16 * i}px`, zIndex: `${6 - i}` }}>
+                      return ingredient.type === 'bun' ? (
+                        <li key={i} className={styles.ingredient} style={{ transform: `translate(${-16 * i}px`, zIndex: `${100}` }}>
                           <img src={ingredient?.image_mobile} alt={ingredient?.name} className={styles.preview} />
                         </li>
-                      ) : i === 5 ? (
-                        <li key={i} className={styles.ingredient} style={{ transform: `translate(${-16 * i}px`, zIndex: 1 }}>
+                      ) : ingredient.amount > 1 ? (
+                        <li key={i} className={styles.ingredient} style={{ transform: `translate(${-16 * i}px`, zIndex: `${100 - i}` }}>
                           <img src={ingredient?.image_mobile} alt={ingredient?.name} className={`${styles.preview} ${styles['preview-overlay']}`} />
-                          <span className={`${styles['preview-amount']} text`}>{`+${ingredients.length - 5}`}</span>
+                          <span className={`${styles['preview-amount']} text`}>{`+${ingredient.amount}`}</span>
                         </li>
-                      ) : null;
+                      ) : (
+                        <li key={i} className={styles.ingredient} style={{ transform: `translate(${-16 * i}px`, zIndex: `${100 - i}` }}>
+                          <img src={ingredient?.image_mobile} alt={ingredient?.name} className={styles.preview} />
+                        </li>
+                      );
                     })}
                   </ul>
                   <div className={styles.price}>

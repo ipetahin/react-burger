@@ -60,16 +60,28 @@
 .ingredients {
   list-style: none;
   display: flex;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-inactive-color) var(--background-element);
+}
+
+.ingredients::-webkit-scrollbar {
+  height: 8px;
+}
+.ingredients::-webkit-scrollbar-track {
+  background: var(--background-element);
+}
+.ingredients::-webkit-scrollbar-thumb {
+  background-color: var(--text-inactive-color);
 }
 
 .ingredient {
+  flex-shrink: 0;
   position: relative;
   width: 64px;
   height: 64px;
   border-radius: 100px;
   background-image: linear-gradient(to right, #801ab2 0%, #4c4cff 100%);
-  z-index: 1;
-  overflow: hidden;
 }
 
 .preview {
