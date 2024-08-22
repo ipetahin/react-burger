@@ -19,7 +19,7 @@ export default function FeedPage() {
   }, []);
 
   useEffect(() => {
-    dispatch(connect('wss://norma.nomoreparties.space/orders/all'));
+    dispatch(connect('orders/all'));
 
     return () => {
       dispatch(disconnect());

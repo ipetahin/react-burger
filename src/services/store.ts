@@ -21,9 +21,11 @@ const preloadedState = {
   webSocket: { status: WebsocketStatus.OFFLINE, orders: [], total: 0, totalToday: 0, error: '' },
 };
 
+const wsUrl: string = 'wss://norma.nomoreparties.space/';
+
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(socketMiddleware(wsActions)),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(socketMiddleware(wsUrl, wsActions)),
   devTools: process.env.NODE_ENV !== 'production',
   preloadedState,
 });

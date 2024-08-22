@@ -19,7 +19,7 @@ export default function OrdersPage() {
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) dispatch(connect(`wss://norma.nomoreparties.space/orders?token=${accessToken.substring(7)}`));
+    if (accessToken) dispatch(connect(`orders?token=${accessToken.substring(7)}`));
     return () => {
       dispatch(disconnect());
     };

@@ -1,7 +1,7 @@
-import { Middleware, MiddlewareAPI } from 'redux';
+import { Middleware } from 'redux';
 import { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from '@reduxjs/toolkit';
-import { RootState } from '../store';
 import { refreshToken } from '../../utils/api';
+import { AppActions, AppDispatch, RootState } from '../store';
 
 export type wsActionTypes = {
   wsConnect: ActionCreatorWithPayload<string>;
@@ -13,18 +13,18 @@ export type wsActionTypes = {
   onMessage: ActionCreatorWithPayload<any>;
 };
 
-export const socketMiddleware = (wsActions: wsActionTypes): Middleware<{}, RootState> => {
-  return (store: MiddlewareAPI) => {
+export const socketMiddleware = (wsUrl: string, wsActions: wsActionTypes): Middleware<{}, RootState, AppDispatch> => {
+  return ((store) => {
     let socket: WebSocket | null = null;
     let url: string | null = null;
     let closing: boolean = false;
 
-    return (next) => (action) => {
-      const { wsConnect, wsDisconnect, onOpen, onClose, onError, onMessage } = wsActions;
+    return (next) => (action: AppActions) => {
+      const { wsConnect, wsDisconnect, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
       const { dispatch } = store;
 
       if (wsConnect.match(action)) {
-        url = action.payload;
+        url = `${wsUrl}${action.payload}`;
         socket = new WebSocket(url);
       }
 
@@ -64,8 +64,12 @@ export const socketMiddleware = (wsActions: wsActionTypes): Middleware<{}, RootS
           closing = true;
           socket.close();
         }
+
+        if (wsSendMessage?.match(action)) {
+          socket.send(JSON.stringify(action.payload));
+        }
       }
       next(action);
     };
-  };
+  }) as Middleware;
 };
