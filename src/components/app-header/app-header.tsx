@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './app-header.module.css';
 import { useSelector } from '../../services/hooks';
@@ -8,9 +8,9 @@ const AppHeader = () => {
 
   return (
     <header className={styles.header}>
-      <span className={styles.logo}>
+      <Link to='/' className={styles.logo}>
         <Logo />
-      </span>
+      </Link>
       <nav className={`${styles.nav} pt-4 pb-4`}>
         <ul className={styles.list}>
           <li className={`${styles.item}`}>
