@@ -3,11 +3,14 @@ import { useEffect } from 'react';
 import OrderList from '../../components/order-list';
 import { getIngredients } from '../../services/slices/burger-ingredients-slice';
 import styles from './orders.module.css';
-import { useDispatch } from '../../services/hooks';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { connect, disconnect } from '../../services/slices/websocket-slice';
+import { GridLoader } from 'react-spinners';
+import { WebsocketStatus } from '../../types/websocket';
 
 export default function OrdersPage() {
   const dispatch = useDispatch();
+  const { status, orders } = useSelector((store) => store.webSocket);
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -24,7 +27,8 @@ export default function OrdersPage() {
 
   return (
     <div className={styles.orders}>
-      <OrderList isShowStatus={true} linkEndpoint='/profile/orders' isOrdersReverse={true} />
+      <GridLoader color='#fff' loading={status !== WebsocketStatus.ONLINE} cssOverride={{ position: 'absolute', top: '50%', left: '50%', transform: "translate('-50%', '-50%')" }}/>
+      {status === WebsocketStatus.ONLINE && orders.length > 0 && <OrderList isShowStatus={true} linkEndpoint='/profile/orders' isOrdersReverse={true} />}
     </div>
   );
 }

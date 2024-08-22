@@ -4,11 +4,14 @@ import OrderList from '../../components/order-list';
 import OrderCounter from '../../components/order-counter';
 import styles from './feed.module.css';
 import { getIngredients } from '../../services/slices/burger-ingredients-slice';
-import { useDispatch } from '../../services/hooks';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { connect, disconnect } from '../../services/slices/websocket-slice';
+import { GridLoader } from 'react-spinners';
+import { WebsocketStatus } from '../../types/websocket';
 
 export default function FeedPage() {
   const dispatch = useDispatch();
+  const { status, orders } = useSelector((store) => store.webSocket);
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -25,11 +28,14 @@ export default function FeedPage() {
 
   return (
     <main className={`${styles.main} pr-5 pl-5`}>
+      <GridLoader color='#fff' loading={status !== WebsocketStatus.ONLINE} cssOverride={{ position: 'absolute', top: '50%', left: '50%', transform: "translate('-50%', '-50%')" }}/>
       <h1 className='text text_type_main-large mt-10'>Лента заказов</h1>
-      <div className={`${styles.container} mt-5`}>
-        <OrderList isShowStatus={false} linkEndpoint='/feed' />
-        <OrderCounter />
-      </div>
+      {status === WebsocketStatus.ONLINE && orders.length > 0 && (
+          <div className={`${styles.container} mt-5`}>
+            <OrderList isShowStatus={false} linkEndpoint='/feed' />
+            <OrderCounter />
+          </div>
+      )}
     </main>
   );
 }
