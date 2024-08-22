@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 
 import OrderList from '../../components/order-list';
-import { getIngredients } from '../../services/slices/burger-ingredients-slice';
 import styles from './orders.module.css';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { connect, disconnect } from '../../services/slices/websocket-slice';
@@ -11,11 +10,6 @@ import { WebsocketStatus } from '../../types/websocket';
 export default function OrdersPage() {
   const dispatch = useDispatch();
   const { status, orders } = useSelector((store) => store.webSocket);
-
-  useEffect(() => {
-    dispatch(getIngredients());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');

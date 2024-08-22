@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { RouteOnlyAuth, RouteOnlyUnAuth } from '../protected-route-element/protected-route-element';
 import OrderInfo from '../order-info';
 import { useDispatch } from '../../services/hooks';
+import { getIngredients } from '../../services/slices/burger-ingredients-slice';
 
 function App() {
   const location = useLocation();
@@ -17,6 +18,7 @@ function App() {
 
   useEffect(() => {
     dispatch(checkUserAuth());
+    dispatch(getIngredients());
   }, [dispatch]);
 
   return (

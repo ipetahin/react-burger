@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import OrderList from '../../components/order-list';
 import OrderCounter from '../../components/order-counter';
 import styles from './feed.module.css';
-import { getIngredients } from '../../services/slices/burger-ingredients-slice';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { connect, disconnect } from '../../services/slices/websocket-slice';
 import { GridLoader } from 'react-spinners';
@@ -12,11 +11,6 @@ import { WebsocketStatus } from '../../types/websocket';
 export default function FeedPage() {
   const dispatch = useDispatch();
   const { status, orders } = useSelector((store) => store.webSocket);
-
-  useEffect(() => {
-    dispatch(getIngredients());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     dispatch(connect('orders/all'));
