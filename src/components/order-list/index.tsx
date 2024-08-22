@@ -44,7 +44,7 @@ const OrderList: FC<OrderListProps> = ({ isShowStatus, linkEndpoint, isOrdersRev
                   <ul className={styles.ingredients}>
                     {ingredients.map((ingredient, i) => {
                       return ingredient.type === 'bun' ? (
-                        <li key={i} className={styles.ingredient} style={{ transform: `translate(${-16 * i}px`, zIndex: `${100}` }}>
+                        <li key={i} className={styles.ingredient} style={{ transform: `translate(${-16 * i}px`, zIndex: `${100 - i}` }}>
                           <img src={ingredient?.image_mobile} alt={ingredient?.name} className={styles.preview} />
                         </li>
                       ) : ingredient.amount > 1 ? (
@@ -60,7 +60,7 @@ const OrderList: FC<OrderListProps> = ({ isShowStatus, linkEndpoint, isOrdersRev
                     })}
                   </ul>
                   <div className={styles.price}>
-                    <span className='text text_type_digits-default'>{ingredients.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0)}</span>
+                    <span className='text text_type_digits-default'>{ingredients.reduce((acc, ingredient) => acc + (ingredient.price * ingredient.amount), 0)}</span>
                     <CurrencyIcon type='primary' />
                   </div>
                 </div>
