@@ -24,10 +24,11 @@ const burgerConstructorSlice = createSlice({
       ingredients.splice(toIndex, 0, ingredients.splice(fromIndex, 1)[0]);
       return { ...state, ingredients };
     },
+    clearConstructor: () => ({...initialState}),
   },
 });
 
-export const { addIngredient, removeIngredient, sortIngredients } = burgerConstructorSlice.actions;
+export const { addIngredient, removeIngredient, sortIngredients, clearConstructor } = burgerConstructorSlice.actions;
 
 type burgerConstructorActionCreators = typeof burgerConstructorSlice.actions;
 export type burgerConstructorActions = ReturnType<burgerConstructorActionCreators[keyof burgerConstructorActionCreators]>;
