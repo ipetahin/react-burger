@@ -1,7 +1,7 @@
 .order {
   display: flex;
   flex-direction: column;
-  min-width: 640px;
+  max-width: 664px;
   margin: 60px;
 }
 

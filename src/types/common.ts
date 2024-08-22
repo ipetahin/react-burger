@@ -21,6 +21,10 @@ export interface ConstructorIngredient extends Ingredient {
 
 export type ConstructorIngredients = Array<ConstructorIngredient>;
 
+export interface IngredientWithAmount extends Ingredient {
+  amount: number;
+}
+
 export type ConstructorItemType = 'top' | 'bottom';
 
 export type IngredientType = 'bun' | 'sauce' | 'main';
