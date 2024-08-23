@@ -1,11 +1,11 @@
 import { memo, FC } from 'react';
-import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { removeIngredient, sortIngredients } from '../../../services/slices/burger-сonstructor-slice';
 import styles from './constructor-item.module.css';
 import { ConstructorIngredient } from '../../../types';
+import { useDispatch } from '../../../services/hooks';
 
 interface ConstructorItemProps {
   ingredient: ConstructorIngredient;

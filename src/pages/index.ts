@@ -7,5 +7,7 @@ import NotFound404 from './not-found-404';
 import ProfilePage from './profile';
 import OrdersPage from './orders';
 import IngredientPage from './ingredient';
+import FeedPage from './feed';
+import OrderPage from './order';
 
-export { MainPage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, NotFound404, ProfilePage, OrdersPage, IngredientPage };
+export { MainPage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, NotFound404, ProfilePage, OrdersPage, IngredientPage, FeedPage, OrderPage };

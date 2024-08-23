@@ -1,17 +1,16 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { GridLoader } from 'react-spinners';
 
 import { resetData, setData } from '../../services/slices/ingredient-details-slice';
 import styles from './ingredient-details.module.css';
-import { Store } from '../../types';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 const IngredientDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { data: ingredient } = useSelector((store: Store) => store.ingredientDetails);
-  const { isLoading, data: ingredients } = useSelector((store: Store) => store.burgerIngredients);
+  const { data: ingredient } = useSelector((store) => store.ingredientDetails);
+  const { isLoading, data: ingredients } = useSelector((store) => store.burgerIngredients);
 
   useEffect(() => {
     return () => {
@@ -21,7 +20,8 @@ const IngredientDetails = () => {
 
   useEffect(() => {
     if (!ingredient && ingredients) {
-      dispatch(setData(ingredients.find((ingredient) => ingredient._id === id)));
+      const currentIngredient = ingredients.find((ingredient) => ingredient._id === id);
+      if (currentIngredient) dispatch(setData(currentIngredient));
     }
   }, [ingredients, id, dispatch, ingredient]);
 

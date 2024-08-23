@@ -1,20 +1,20 @@
 import { ChangeEvent, FormEvent, MouseEvent, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { logoutUser, updateUser } from '../../services/slices/user-slice';
 import useFormData from '../../hooks/use-form-data';
 import styles from './profile.module.css';
-import { User, Store } from '../../types';
+import { User } from '../../types';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 export default function ProfilePage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user } = useSelector((store: Store) => store.user);
+  const { user } = useSelector((store) => store.user);
   const [disabled, setDisabled] = useState(true);
   const { formData, onChangeFormData, setFormData } = useFormData({ ...user, password: '' });
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
   const [isShowButtons, setShowButtons] = useState(false);
 

@@ -1,4 +1,4 @@
-import { ArrayData, FormData, User, Order, Ingredients } from './common';
+import { ArrayData, FormData, User, Order, Ingredients, Orders } from './common';
 
 export type ServerResponse = {
   success: boolean;
@@ -26,6 +26,11 @@ export type ServerIngredientsResponse = ServerResponseGeneric<{
 export type ServerOrderResponse = ServerResponseGeneric<{
   name: string;
   order: Order;
+}>;
+
+export type ServerOrdersResponse = ServerResponseGeneric<{
+  name: string;
+  orders: Orders;
 }>;
 
 export type HTTPMethods = 'GET' | 'POST' | 'PATCH';

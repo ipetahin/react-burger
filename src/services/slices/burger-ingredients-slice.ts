@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchIngredients } from '../../utils/api';
+import { BurgerIngredientStore } from '../../types/store';
 
 export const getIngredients = createAsyncThunk('burgerIngredients/getIngredients', fetchIngredients);
 
-const initialState = { data: null, isLoading: false, isError: false };
+const initialState = { data: null, isLoading: false, isError: false } satisfies BurgerIngredientStore as BurgerIngredientStore;
 
 const burgerIngredientsSlice = createSlice({
   name: 'burgerIngredients',

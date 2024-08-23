@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import { clearOrder } from '../../services/slices/order-details-slice';
 import done from '../../images/done.gif';
 import styles from './order-details.module.css';
-import { Store } from '../../types';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 const OrderDetails = () => {
-  const { isError, data } = useSelector((store: Store) => store.orderDetails);
+  const { isError, data: order } = useSelector((store) => store.orderDetails);
 
   const dispatch = useDispatch();
 
@@ -22,9 +21,9 @@ const OrderDetails = () => {
   return (
     <div className={styles.order}>
       {isError && <>Ошибка при отпраке заказа</>}
-      {data ? (
+      {order ? (
         <>
-          <span className={`${styles.order_number} text text_type_digits-large`}>{data.order.number}</span>
+          <span className={`${styles.order_number} text text_type_digits-large`}>{order.number}</span>
           <span className='text text_type_main-medium mt-8'>идентификатор заказа</span>
           <img src={done} alt='done' className='mt-15' />
           <span className='text text_type_main-default mt-15'>Ваш заказ начали готовить</span>

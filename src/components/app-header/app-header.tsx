@@ -1,17 +1,16 @@
-import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './app-header.module.css';
-import { Store } from '../../types';
+import { useSelector } from '../../services/hooks';
 
 const AppHeader = () => {
-  const { user } = useSelector((store: Store) => store.user);
+  const { user } = useSelector((store) => store.user);
 
   return (
     <header className={styles.header}>
-      <span className={styles.logo}>
+      <Link to='/' className={styles.logo}>
         <Logo />
-      </span>
+      </Link>
       <nav className={`${styles.nav} pt-4 pb-4`}>
         <ul className={styles.list}>
           <li className={`${styles.item}`}>
@@ -25,7 +24,7 @@ const AppHeader = () => {
             </NavLink>
           </li>
           <li className={`${styles.item}`}>
-            <NavLink to='/list' className={({ isActive }) => (isActive ? `${styles.link}` : `${styles.link} ${styles.inactive}`)}>
+            <NavLink to='/feed' className={({ isActive }) => (isActive ? `${styles.link}` : `${styles.link} ${styles.inactive}`)}>
               {({ isActive }) => (
                 <>
                   <ListIcon type={isActive ? 'primary' : 'secondary'} />

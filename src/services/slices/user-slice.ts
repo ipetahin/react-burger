@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { login, logout, register, requestUpdateUser, requestUser } from '../../utils/api';
+import { UserStore } from '../../types/store';
 
 export const loginUser = createAsyncThunk('user/login', login);
 export const registerUser = createAsyncThunk('user/register', register);
@@ -19,7 +20,7 @@ export const checkUserAuth = createAsyncThunk('user/checkUserAuth', async (_, th
   }
 });
 
-const initialState = { user: null, isAuthChecked: false };
+const initialState = { user: null, isAuthChecked: false } satisfies UserStore as UserStore;
 
 const userSlice = createSlice({
   name: 'user',
@@ -39,7 +40,7 @@ const userSlice = createSlice({
         state.user = null;
       })
       .addCase(getUser.fulfilled, (state, action) => {
-        state.user = action.payload.user;
+        state.user = action.payload;
       })
       .addCase(checkUserAuth.fulfilled, (state) => {
         state.isAuthChecked = true;
@@ -48,7 +49,7 @@ const userSlice = createSlice({
         state.isAuthChecked = true;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.user = action.payload.user;
+        state.user = action.payload;
       });
   },
 });
