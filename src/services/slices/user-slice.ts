@@ -20,7 +20,7 @@ export const checkUserAuth = createAsyncThunk('user/checkUserAuth', async (_, th
   }
 });
 
-const initialState = { user: null, isAuthChecked: false } satisfies UserStore as UserStore;
+export const initialState = { user: null, isAuthChecked: false } satisfies UserStore as UserStore;
 
 const userSlice = createSlice({
   name: 'user',
