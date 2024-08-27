@@ -3,7 +3,7 @@ import { requestGetOrder, requestSendOrder } from '../../utils/api';
 import { OrderDetailsStore } from '../../types/store';
 import { Order } from '../../types/common';
 
-const initialState = { data: null, isLoading: false, isError: false } satisfies OrderDetailsStore as OrderDetailsStore;
+export const initialState = { data: null, isLoading: false, isError: false } satisfies OrderDetailsStore as OrderDetailsStore;
 
 export const sendOrder = createAsyncThunk('orderDetails/sendOrder', requestSendOrder);
 export const getOrder = createAsyncThunk('orderDetails/getOrder', requestGetOrder);
@@ -12,7 +12,7 @@ const orderDetailsSlice = createSlice({
   name: 'orderDetails',
   initialState,
   reducers: {
-    clearOrder: (state) => ({ ...state, isLoading: false, isError: false, data: null }),
+    clearOrder: () => (initialState),
     updateOrder: (state, action: PayloadAction<Order>) => ({ ...state, data: action.payload }),
   },
   extraReducers: (builder) => {
