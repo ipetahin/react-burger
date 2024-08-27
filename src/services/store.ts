@@ -12,7 +12,7 @@ import { WebsocketStatus } from '../types/websocket';
 
 export const rootReducer = combineSlices(burgerIngredientsSlice, burgerConstructorSlice, ingredientDetailsSlice, orderDetailsSlice, userSlice, ordersSlice);
 
-const preloadedState = {
+export const preloadedState = {
   burgerIngredients: { data: null, isLoading: false, isError: false },
   burgerConstructor: { bun: null, ingredients: [] },
   ingredientDetails: { data: null },
