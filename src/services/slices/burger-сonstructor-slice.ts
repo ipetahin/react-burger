@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { BurgerConstructorStore } from '../../types/store';
 import { ConstructorIngredient, Ingredient } from '../../types';
 
-const initialState = { bun: null, ingredients: [] } satisfies BurgerConstructorStore as BurgerConstructorStore;
+export const initialState = { bun: null, ingredients: [] } satisfies BurgerConstructorStore as BurgerConstructorStore;
 
 const burgerConstructorSlice = createSlice({
   name: 'burgerConstructor',
@@ -24,7 +24,7 @@ const burgerConstructorSlice = createSlice({
       ingredients.splice(toIndex, 0, ingredients.splice(fromIndex, 1)[0]);
       return { ...state, ingredients };
     },
-    clearConstructor: () => ({...initialState}),
+    clearConstructor: () => ({ ...initialState }),
   },
 });
 
