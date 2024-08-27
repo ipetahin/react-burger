@@ -44,7 +44,7 @@ const IngredientItem: FC<IngredientItemProps> = ({ ingredient }) => {
           {price}
           <CurrencyIcon type='primary' />
         </span>
-        <span>{name}</span>
+        <span className={styles.name}>{name}</span>
       </li>
     </>
   );
