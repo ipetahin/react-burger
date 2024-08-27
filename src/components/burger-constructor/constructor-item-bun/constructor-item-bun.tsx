@@ -12,7 +12,7 @@ interface ConstructorItemBunProps {
 
 const ConstructorItemBun: FC<ConstructorItemBunProps> = ({ ingredient, type, extraClass = '' }) => {
   return (
-    <div className={`${styles.item} ${extraClass}`}>
+    <div className={`${styles.item} ${extraClass}`} data-testid='constructor-item-bun' >
       <ConstructorElement
         text={`${ingredient.name}${type === 'top' ? ' (верх)' : ' (низ)'}`}
         price={ingredient.price}
