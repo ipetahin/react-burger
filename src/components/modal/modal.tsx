@@ -49,7 +49,7 @@ const Modal = ({ children, onClose }: PropsWithChildren<ModalProps>): ReactPorta
         ) : (
           <>
             <ModalOverlay onClick={handleCloseModal} />
-            <div className={styles.modal}>
+            <div className={styles.modal} data-testid='modal'>
               <span className={styles.close} onClick={handleCloseModal}>
                 <CloseIcon type='primary' />
               </span>
