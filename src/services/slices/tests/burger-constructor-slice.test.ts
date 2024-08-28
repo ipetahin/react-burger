@@ -61,13 +61,13 @@ describe('burgerConstructorSlice', () => {
       const state = burgerConstructorSlice.reducer(initialState, action);
       expect(state).toEqual({ ...initialState, bun: constructorIngredientBun });
     });
-  
+
     it('ingredient', () => {
       const action = { type: addIngredient.type, payload: constructorIngredientOne };
       const state = burgerConstructorSlice.reducer(initialState, action);
       expect(state).toEqual({ ...initialState, ingredients: [constructorIngredientOne] });
     });
-  })
+  });
 
   it('removeIngredient', () => {
     const action = { type: removeIngredient.type, payload: constructorIngredientOne };
