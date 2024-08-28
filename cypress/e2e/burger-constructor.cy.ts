@@ -4,21 +4,24 @@ beforeEach(() => {
   cy.intercept('GET', 'api/auth/user', { fixture: 'user.json' }).as('checkUserAuth');
   cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients.json' }).as('getIngredients');
   cy.intercept('POST', 'api/orders', { fixture: 'order.json' }).as('sendOrder');
-  
+
   window.localStorage.setItem('refreshToken', JSON.stringify('test-refreshToken'));
   window.localStorage.setItem('accessToken', JSON.stringify('test-accessToken'));
   cy.visit('http://localhost:3000');
-
 });
 
-describe('ingredient details open in a modal window', () => {
-  it('the URL and content of the modal are correctly', () => {
+describe('ingredient details in a modal window', () => {
+  it('the modal should be opened and closed correctly', () => {
+    cy.get('[data-testid="ingredient-group"]').contains('Краторная булка N-200i').should('exist').click();
+    cy.get('[data-testid="modal"]').should('exist');
+    cy.get('[data-testid="modal-close"]').should('exist').click();
+    cy.get('[data-testid="modal"]').should('not.exist');
+  });
+
+  it('the URL and content of the modal should be correct', () => {
     cy.get('[data-testid="ingredient-group"]').contains('Краторная булка N-200i').click();
     cy.url().should('contain', 'ingredients/643d69a5c3f7b9001cfa093c');
-    cy.get('[data-testid="modal"]')
-      .should('exist')
-      .and('contain.text', 'Детали ингредиента')
-      .and('contain.text', 'Краторная булка N-200iКалории, ккал420Белки, г80Жиры, г24Углеводы, г53');
+    cy.get('[data-testid="modal"]').should('contain.text', 'Детали ингредиента').and('contain.text', 'Краторная булка N-200iКалории, ккал420Белки, г80Жиры, г24Углеводы, г53');
   });
 });
 
