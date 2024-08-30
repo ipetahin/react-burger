@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { login, logout, register, requestUpdateUser, requestUser } from '../../utils/api';
+import { login, logout, register, requestUpdateUser, requestUser, requestUserAuth } from '../../utils/api';
 import { UserStore } from '../../types/store';
 
 export const loginUser = createAsyncThunk('user/login', login);
@@ -7,18 +7,7 @@ export const registerUser = createAsyncThunk('user/register', register);
 export const logoutUser = createAsyncThunk('user/logout', logout);
 export const getUser = createAsyncThunk('user/getUser', requestUser);
 export const updateUser = createAsyncThunk('user/updateUser', requestUpdateUser);
-
-export const checkUserAuth = createAsyncThunk('user/checkUserAuth', async (_, thunkAPI) => {
-  if (localStorage.getItem('accessToken')) {
-    await thunkAPI
-      .dispatch(getUser())
-      .unwrap()
-      .catch(() => {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-      });
-  }
-});
+export const checkUserAuth = createAsyncThunk('user/checkUserAuth', requestUserAuth);
 
 export const initialState = { user: null, isAuthChecked: false } satisfies UserStore as UserStore;
 
@@ -42,7 +31,8 @@ const userSlice = createSlice({
       .addCase(getUser.fulfilled, (state, action) => {
         state.user = action.payload;
       })
-      .addCase(checkUserAuth.fulfilled, (state) => {
+      .addCase(checkUserAuth.fulfilled, (state, action) => {
+        state.user = action.payload;
         state.isAuthChecked = true;
       })
       .addCase(checkUserAuth.rejected, (state) => {
