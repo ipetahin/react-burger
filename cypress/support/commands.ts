@@ -12,6 +12,11 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
+
+Cypress.Commands.add('addIngredient', (name: string) => {
+  cy.get('[data-testid="ingredient-group"]').contains(name).trigger('dragstart');
+  cy.get('[data-testid="constructor-drop-target"]').trigger('drop');
+});
 //
 //
 // -- This is a child command --
