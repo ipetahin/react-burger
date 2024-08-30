@@ -1,5 +1,5 @@
-import { Ingredients } from '../../../types';
-import burgerIngredientsSlice, { initialState, getIngredients } from '../burger-ingredients-slice';
+import { Ingredients } from '../../types';
+import burgerIngredientsSlice, { initialState, getIngredients } from './burger-ingredients-slice';
 
 const ingredients: Ingredients = [
   {
@@ -19,7 +19,7 @@ const ingredients: Ingredients = [
 ];
 
 describe('burgerIngredientsSlice', () => {
-  it('initializes correctly', () => {
+  it('should initialize correctly', () => {
     const state = burgerIngredientsSlice.reducer(undefined, { type: '' });
     expect(state).toEqual(initialState);
   });

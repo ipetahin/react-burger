@@ -1,5 +1,5 @@
-import { User } from '../../../types';
-import userSlice, { initialState, loginUser, registerUser, logoutUser, getUser, updateUser, checkUserAuth } from '../user-slice';
+import { User } from '../../types';
+import userSlice, { initialState, loginUser, registerUser, logoutUser, getUser, updateUser, checkUserAuth } from './user-slice';
 
 const user: User = {
   email: 'test@test.ru',
@@ -7,7 +7,7 @@ const user: User = {
 };
 
 describe('userSlice', () => {
-  it('initializes correctly', () => {
+  it('should initialize correctly', () => {
     const state = userSlice.reducer(undefined, { type: '' });
     expect(state).toEqual(initialState);
   });
@@ -46,9 +46,9 @@ describe('userSlice', () => {
 
   describe('checkUserAuth', () => {
     it('fulfilled', () => {
-      const action = { type: checkUserAuth.fulfilled.type };
+      const action = { type: checkUserAuth.fulfilled.type, payload: user };
       const state = userSlice.reducer(initialState, action);
-      expect(state).toEqual({ ...initialState, isAuthChecked: true });
+      expect(state).toEqual({ ...initialState, user, isAuthChecked: true });
     });
 
     it('rejected', () => {

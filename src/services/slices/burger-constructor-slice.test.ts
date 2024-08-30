@@ -1,5 +1,5 @@
-import { ConstructorIngredient } from '../../../types';
-import burgerConstructorSlice, { initialState, addIngredient, removeIngredient, sortIngredients, clearConstructor } from '../burger-сonstructor-slice';
+import { ConstructorIngredient, Ingredient } from '../../types';
+import burgerConstructorSlice, { initialState, addIngredient, removeIngredient, sortIngredients, clearConstructor, prepareIngredient } from './burger-сonstructor-slice';
 
 const constructorIngredientBun: ConstructorIngredient = {
   _id: '643d69a5c3f7b9001cfa093c',
@@ -49,23 +49,43 @@ const constructorIngredientTwo: ConstructorIngredient = {
   id: 'nanoid',
 };
 
+const ingredient: Ingredient = {
+  _id: '643d69a5c3f7b9001cfa093c',
+  name: 'Краторная булка N-200i',
+  type: 'bun',
+  proteins: 80,
+  fat: 24,
+  carbohydrates: 53,
+  calories: 420,
+  price: 1255,
+  image: 'https://code.s3.yandex.net/react/code/bun-02.png',
+  image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
+  image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
+  __v: 0,
+};
+
 describe('burgerConstructorSlice', () => {
-  it('initializes correctly', () => {
+  it('should initialize correctly', () => {
     const state = burgerConstructorSlice.reducer(undefined, { type: '' });
     expect(state).toEqual(initialState);
   });
 
   describe('addIngredient', () => {
-    it('bun', () => {
+    it('should added a bun', () => {
       const action = { type: addIngredient.type, payload: constructorIngredientBun };
       const state = burgerConstructorSlice.reducer(initialState, action);
       expect(state).toEqual({ ...initialState, bun: constructorIngredientBun });
     });
 
-    it('ingredient', () => {
+    it('should added a ingredient', () => {
       const action = { type: addIngredient.type, payload: constructorIngredientOne };
       const state = burgerConstructorSlice.reducer(initialState, action);
       expect(state).toEqual({ ...initialState, ingredients: [constructorIngredientOne] });
+    });
+
+    it('should prepare a ingredient with id from the ingredient', () => {
+      const prep = prepareIngredient(ingredient);
+      expect(prep.payload.id).toBeDefined();
     });
   });
 

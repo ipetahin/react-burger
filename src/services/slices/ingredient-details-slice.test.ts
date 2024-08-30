@@ -1,5 +1,5 @@
-import { Ingredient } from '../../../types';
-import ingredientDetailsSlice, { initialState, setData, resetData } from '../ingredient-details-slice';
+import { Ingredient } from '../../types';
+import ingredientDetailsSlice, { initialState, setData, resetData } from './ingredient-details-slice';
 
 const ingredient: Ingredient = {
   _id: '643d69a5c3f7b9001cfa093c',
@@ -17,7 +17,7 @@ const ingredient: Ingredient = {
 };
 
 describe('ingredientDetailsSlice', () => {
-  it('initializes correctly', () => {
+  it('should initialize correctly', () => {
     const state = ingredientDetailsSlice.reducer(undefined, { type: '' });
     expect(state).toEqual(initialState);
   });

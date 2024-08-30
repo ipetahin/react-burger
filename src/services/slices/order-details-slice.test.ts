@@ -1,5 +1,5 @@
-import { Order } from '../../../types/common';
-import orderDetailsSlice, { initialState, clearOrder, updateOrder, sendOrder, getOrder } from '../order-details-slice';
+import { Order } from '../../types/common';
+import orderDetailsSlice, { initialState, clearOrder, updateOrder, sendOrder, getOrder } from './order-details-slice';
 
 const order: Order = {
   _id: '66cd46ad119d45001b50245c',
@@ -12,7 +12,7 @@ const order: Order = {
 };
 
 describe('ingredientDetailsSlice', () => {
-  it('initializes correctly', () => {
+  it('should initialize correctly', () => {
     const state = orderDetailsSlice.reducer(undefined, { type: '' });
     expect(state).toEqual(initialState);
   });

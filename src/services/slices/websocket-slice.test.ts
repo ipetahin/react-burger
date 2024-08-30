@@ -1,6 +1,6 @@
-import { Order } from '../../../types/common';
-import { WebsocketStatus, WSOrderResponse } from '../../../types/websocket';
-import webSocketSlice, { initialState, connect, disconnect, wsOpen, wsClose, wsError, wsMessage } from '../websocket-slice';
+import { Order } from '../../types/common';
+import { WebsocketStatus, WSOrderResponse } from '../../types/websocket';
+import webSocketSlice, { initialState, connect, disconnect, wsOpen, wsClose, wsError, wsMessage } from './websocket-slice';
 
 const order: Order = {
   _id: '66cd46ad119d45001b50245c',
@@ -20,7 +20,7 @@ const message: WSOrderResponse = {
 };
 
 describe('webSocketSlice', () => {
-  it('initializes correctly', () => {
+  it('should initialize correctly', () => {
     const state = webSocketSlice.reducer(undefined, { type: '' });
     expect(state).toEqual(initialState);
   });
