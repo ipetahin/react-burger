@@ -4,7 +4,7 @@ import { BurgerIngredientStore } from '../../types/store';
 
 export const getIngredients = createAsyncThunk('burgerIngredients/getIngredients', fetchIngredients);
 
-const initialState = { data: null, isLoading: false, isError: false } satisfies BurgerIngredientStore as BurgerIngredientStore;
+export const initialState = { data: null, isLoading: false, isError: false } satisfies BurgerIngredientStore as BurgerIngredientStore;
 
 const burgerIngredientsSlice = createSlice({
   name: 'burgerIngredients',

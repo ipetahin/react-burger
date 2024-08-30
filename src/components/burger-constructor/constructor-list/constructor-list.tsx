@@ -58,13 +58,13 @@ const ConstructorList: FC<ConstructorListProps> = memo(function ConstructorList(
 
   const addBun = (type: ConstructorItemType) =>
     bun ? (
-      <ConstructorItemBun ingredient={bun} type={type} extraClass={styles.fix_item} />
+      <ConstructorItemBun ingredient={bun} type={type} extraClass={styles.fix_item}/>
     ) : (
       <ConstructorItemSkeleton text='Выберите булки' type={type} extraClass={styles.fix_item} />
     );
 
   return (
-    <section className='mb-10' ref={dropTarget}>
+    <section className='mb-10' ref={dropTarget} data-testid='constructor-drop-target'>
       {addBun('top')}
 
       <ul className={`${styles.list}`}>
