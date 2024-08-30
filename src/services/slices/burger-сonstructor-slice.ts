@@ -5,6 +5,8 @@ import { ConstructorIngredient, Ingredient } from '../../types';
 
 export const initialState = { bun: null, ingredients: [] } satisfies BurgerConstructorStore as BurgerConstructorStore;
 
+export const prepareIngredient = (ingredient: Ingredient) => ({ payload: { ...ingredient, id: nanoid() } as ConstructorIngredient});
+
 const burgerConstructorSlice = createSlice({
   name: 'burgerConstructor',
   initialState,
@@ -12,7 +14,7 @@ const burgerConstructorSlice = createSlice({
     addIngredient: {
       reducer: (state, action: PayloadAction<ConstructorIngredient>) =>
         action.payload.type === 'bun' ? { ...state, bun: action.payload } : { ...state, ingredients: [...state.ingredients, action.payload] },
-      prepare: (ingredient: Ingredient) => ({ payload: { ...ingredient, id: nanoid() } }),
+      prepare: prepareIngredient,
     },
     removeIngredient: (state, action: PayloadAction<ConstructorIngredient>) => ({
       ...state,
